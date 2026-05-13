@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOMMA Multi-Family Office</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --somma-slate: #486878;
+  --somma-slate-700: #365060;
+  --somma-slate-800: #2c424d;
+  --somma-slate-900: #1c2931;
+  --champagne: #c2a878;
+  --champagne-light: #d4c4a0;
+  --paper: #fbfbf9;
+  --paper-warm: #f5f3ee;
+  --fg-1: #1a1a18;
+  --fg-2: #4a4a45;
+  --fg-3: #7a7a72;
+  --rule: #e6e4dd;
+  --on-dark: #f0eeea;
+  --on-dark-muted: #a8b8c0;
+  --r-diag-sm: 0 6px 0 6px;
+  --r-diag-md: 0 10px 0 10px;
+  --r-diag-lg: 0 16px 0 16px;
+  --r-diag-xl: 0 24px 0 24px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--paper);
+  color: var(--fg-1);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── HERO ── */
+.hero {
+  background: linear-gradient(135deg, var(--somma-slate-900) 0%, var(--somma-slate-800) 40%, var(--somma-slate) 100%);
+  color: var(--on-dark);
+  padding: 80px 24px 96px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%; right: -20%;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(194,168,120,.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.hero-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--champagne);
+  margin-bottom: 32px;
+}
+.hero-logo {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--on-dark);
+  margin-bottom: 12px;
+}
+.hero-logo span { color: var(--champagne-light); font-weight: 300; }
+.hero h1 {
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 300;
+  line-height: 1.12;
+  max-width: 700px;
+  margin-bottom: 24px;
+  color: #fff;
+}
+.hero p {
+  font-size: 17px;
+  line-height: 1.7;
+  max-width: 560px;
+  color: var(--on-dark-muted);
+}
+.hero-rule {
+  width: 48px; height: 2px;
+  background: var(--champagne);
+  margin: 32px 0;
+  border-radius: var(--r-diag-sm);
+}
+.hero-stats {
+  display: flex;
+  gap: 48px;
+  margin-top: 48px;
+  flex-wrap: wrap;
+}
+.hero-stat strong {
+  display: block;
+  font-size: 28px;
+  font-weight: 300;
+  color: #fff;
+  line-height: 1.2;
+}
+.hero-stat small {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--on-dark-muted);
+}
+
+/* ── SECTIONS ── */
+section { padding: 96px 24px; }
+.container { max-width: 1120px; margin: 0 auto; }
+.section-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--somma-slate);
+  margin-bottom: 16px;
+}
+.section-title {
+  font-size: clamp(26px, 3.5vw, 38px);
+  font-weight: 300;
+  line-height: 1.18;
+  max-width: 600px;
+  margin-bottom: 16px;
+  color: var(--fg-1);
+}
+.section-desc {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--fg-2);
+  max-width: 560px;
+  margin-bottom: 56px;
+}
+
+/* ── PILLARS ── */
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+.pillar-card {
+  background: #fff;
+  border: 1px solid var(--rule);
+  border-radius: var(--r-diag-md);
+  padding: 32px 28px;
+  transition: box-shadow .2s ease, transform .2s ease;
+}
+.pillar-card:hover {
+  box-shadow: 0 8px 32px rgba(28,41,49,.08);
+  transform: translateY(-2px);
+}
+.pillar-icon {
+  width: 48px; height: 48px;
+  background: var(--somma-slate-800);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  color: #fff;
+}
+.pillar-card h3 {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  color: var(--fg-1);
+}
+.pillar-card p {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--fg-3);
+}
+
+/* ── DIFFERENTIALS ── */
+.diff-section { background: var(--paper-warm); }
+.diff-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+.diff-card {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.diff-marker {
+  flex-shrink: 0;
+  width: 4px;
+  height: 48px;
+  background: var(--champagne);
+  border-radius: var(--r-diag-sm);
+  margin-top: 2px;
+}
+.diff-card h4 {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: var(--fg-1);
+}
+.diff-card p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--fg-2);
+}
+
+/* ── TIMELINE ── */
+.timeline {
+  position: relative;
+  padding-left: 32px;
+  max-width: 680px;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 7px; top: 8px; bottom: 8px;
+  width: 1px;
+  background: var(--rule);
+}
+.tl-item {
+  position: relative;
+  padding-bottom: 32px;
+}
+.tl-item:last-child { padding-bottom: 0; }
+.tl-dot {
+  position: absolute;
+  left: -28px; top: 6px;
+  width: 11px; height: 11px;
+  border-radius: 50%;
+  border: 2px solid var(--somma-slate);
+  background: var(--paper);
+}
+.tl-item:first-child .tl-dot,
+.tl-item:last-child .tl-dot {
+  background: var(--somma-slate);
+}
+.tl-year {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--somma-slate);
+  margin-bottom: 4px;
+}
+.tl-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--fg-2);
+}
+
+/* ── OFFICES ── */
+.offices-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+.office-card {
+  background: var(--somma-slate-800);
+  color: var(--on-dark);
+  padding: 28px 24px;
+  border-radius: var(--r-diag-md);
+}
+.office-card h4 {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.office-card p {
+  font-size: 13px;
+  color: var(--on-dark-muted);
+  line-height: 1.55;
+}
+.office-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  background: rgba(194,168,120,.2);
+  color: var(--champagne-light);
+  padding: 3px 10px;
+  border-radius: var(--r-diag-sm);
+  margin-bottom: 14px;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--somma-slate-900);
+  color: var(--on-dark-muted);
+  padding: 64px 24px 40px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.7;
+}
+footer a {
+  color: var(--champagne-light);
+  text-decoration: none;
+}
+footer .foot-logo {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--on-dark);
+  margin-bottom: 16px;
+}
+footer .foot-rule {
+  width: 32px; height: 1px;
+  background: var(--champagne);
+  margin: 20px auto;
+  opacity: .5;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-inner > * {
+  animation: fadeUp .6s ease-out both;
+}
+.hero-inner > :nth-child(2) { animation-delay: .08s; }
+.hero-inner > :nth-child(3) { animation-delay: .16s; }
+.hero-inner > :nth-child(4) { animation-delay: .24s; }
+.hero-inner > :nth-child(5) { animation-delay: .32s; }
+.hero-inner > :nth-child(6) { animation-delay: .40s; }
+
+@media (max-width: 600px) {
+  .hero-stats { gap: 32px; }
+  section { padding: 64px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Multi-Family Office</div>
+    <div class="hero-logo">SOMMA <span>Investimentos</span></div>
+    <h1>Proteção, perpetuação e multiplicação do patrimônio.</h1>
+    <div class="hero-rule"></div>
+    <p>Somos o CFO profissional de famílias de alto patrimônio. Cobertura multidisciplinar 360º para todas as áreas que competem ao seu legado.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <strong>+R$ 18 bi</strong>
+        <small>sob gestão</small>
+      </div>
+      <div class="hero-stat">
+        <strong>22+ anos</strong>
+        <small>de história</small>
+      </div>
+      <div class="hero-stat">
+        <strong>80+</strong>
+        <small>profissionais</small>
+      </div>
+      <div class="hero-stat">
+        <strong>4 escritórios</strong>
+        <small>Sul &amp; Sudeste</small>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PILARES -->
+<section>
+  <div class="container">
+    <div class="section-eyebrow">Soluções</div>
+    <h2 class="section-title">Cinco verticais integradas para o seu patrimônio.</h2>
+    <p class="section-desc">Atuamos como um escritório financeiro completo — investimentos, gestão de contas, imobiliário, planejamento patrimonial e estruturações — de forma independente e no banco de sua preferência.</p>
+    <div class="pillars-grid">
+      <div class="pillar-card">
+        <div class="pillar-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+        <h3>Gestão de Investimentos</h3>
+        <p>Carteira administrada, fundos exclusivos, consolidação global onshore e offshore. Modelo bank-agnostic com horizonte de longo prazo.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg></div>
+        <h3>Gestão de Contas</h3>
+        <p>Concierge financeiro da família: contas a pagar, liquidez, fluxo de caixa, tesouraria, seguros e controle documental.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg></div>
+        <h3>Gestão Imobiliária</h3>
+        <p>Via Lidderar: imóveis tratados como carteira de investimentos. +R$ 1 bi sob gestão, aumento médio de 40% na receita de locação.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></div>
+        <h3>Planejamento Patrimonial</h3>
+        <p>Mapeamento legal, planejamento sucessório e tributário, governança familiar. Da concepção à execução do plano.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m2 12 8.58 3.91a2 2 0 0 0 1.66 0L21 12"/><path d="m2 17 8.58 3.91a2 2 0 0 0 1.66 0L21 17"/></svg></div>
+        <h3>Estruturações</h3>
+        <p>FIC, FIDC, FIP, FII. Valuation, DCM e ECM — a porta de entrada para operações empresariais e negócios operacionais.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIFERENCIAIS -->
+<section class="diff-section">
+  <div class="container">
+    <div class="section-eyebrow">Diferenciais</div>
+    <h2 class="section-title">Por que a SOMMA.</h2>
+    <p class="section-desc">Independência, profundidade e mais de duas décadas de experiência construindo legados.</p>
+    <div class="diff-grid">
+      <div class="diff-card">
+        <div class="diff-marker"></div>
+        <div>
+          <h4>Independência total</h4>
+          <p>Não somos ligados a nenhum banco. Atuamos no banco de preferência do cliente, sem conflito de interesse na alocação.</p>
+        </div>
+      </div>
+      <div class="diff-card">
+        <div class="diff-marker"></div>
+        <div>
+          <h4>Gestão imobiliária profissionalizada</h4>
+          <p>Poucos MFOs no Brasil tratam imóveis com a profundidade da Lidderar. Mapeamento, precificação, estratégia e controladoria contínua.</p>
+        </div>
+      </div>
+      <div class="diff-card">
+        <div class="diff-marker"></div>
+        <div>
+          <h4>Cobertura 360º</h4>
+          <p>De investimentos offshore à gestão de contas pessoais — uma equipe multidisciplinar integrada, não fornecedores isolados.</p>
+        </div>
+      </div>
+      <div class="diff-card">
+        <div class="diff-marker"></div>
+        <div>
+          <h4>Tecnologia própria</h4>
+          <p>Software proprietário para visão consolidada do patrimônio. Segurança e transparência em tempo real para a família.</p>
+        </div>
+      </div>
+      <div class="diff-card">
+        <div class="diff-marker"></div>
+        <div>
+          <h4>Longevidade comprovada</h4>
+          <p>Entre os 17% dos Family Offices brasileiros com mais de 20 anos. Fundada em 2003, MFO desde 2005.</p>
+        </div>
+      </div>
+      <div class="diff-card">
+        <div class="diff-marker"></div>
+        <div>
+          <h4>Forte no agronegócio</h4>
+          <p>Penetração profunda em famílias do agronegócio, indústria e esporte no Sul do Brasil. Presença em 4 escritórios estratégicos.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section>
+  <div class="container">
+    <div class="section-eyebrow">Trajetória</div>
+    <h2 class="section-title">Marcos que construíram nossa história.</h2>
+    <p class="section-desc"></p>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2003</div><div class="tl-text">Fundação da SOMMA Investimentos S.A. em Florianópolis</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2005</div><div class="tl-text">Criação do Multi-Family Office — início administrando patrimônio de renomado esportista brasileiro</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2008</div><div class="tl-text">Início dos fundos abertos</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2011</div><div class="tl-text">Transformação em S.A. e implantação da área de Produtos Estruturados</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2019</div><div class="tl-text">Nascimento da Lidderar — gestão imobiliária profissionalizada</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2024</div><div class="tl-text">Inauguração do escritório de Chapecó — expansão regional</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">Hoje</div><div class="tl-text">+R$ 18 bilhões sob gestão, 80+ profissionais, maior Asset Independente do Sul do Brasil</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ESCRITÓRIOS -->
+<section class="diff-section">
+  <div class="container">
+    <div class="section-eyebrow">Presença</div>
+    <h2 class="section-title">Onde estamos.</h2>
+    <p class="section-desc"></p>
+    <div class="offices-grid">
+      <div class="office-card">
+        <div class="office-badge">Matriz</div>
+        <h4>Florianópolis / SC</h4>
+        <p>Rua Nirberto Haase, 100 — Santa Mônica</p>
+      </div>
+      <div class="office-card">
+        <h4>Jaraguá do Sul / SC</h4>
+        <p>Região Norte de Santa Catarina</p>
+      </div>
+      <div class="office-card">
+        <h4>Chapecó / SC</h4>
+        <p>Oeste Catarinense, forte atuação no agronegócio</p>
+      </div>
+      <div class="office-card">
+        <h4>São Paulo / SP</h4>
+        <p>Capital</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-logo">SOMMA Multi-Family Office</div>
+  <div class="foot-rule"></div>
+  <p>
+    <a href="https://www.sommainvestimentos.com.br" target="_blank">sommainvestimentos.com.br</a><br>
+    PRI Signatory &middot; ANBIMA Gestão de Patrimônio &middot; ANBIMA Gestão de Recursos
+  </p>
+  <p style="margin-top:16px;font-size:12px;opacity:.5">&copy; SOMMA Investimentos S.A. — Todos os direitos reservados.</p>
+</footer>
+
+
+</body>
+</html>
