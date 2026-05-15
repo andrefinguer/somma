@@ -1,11 +1,875 @@
-Crie uma apresentação comercial executiva em português brasileiro com 9 slides, visual limpo e profissional, para uma reunião presencial com potenciais sócios estratégicos. O tom deve ser de parceria entre iguais, nunca de recrutamento ou subordinação.
-Contexto: A SOMMA Investimentos é um dos maiores Multi-Family Offices independentes do Sul do Brasil, com +R$ 18 bilhões sob gestão, 80+ profissionais e 22 anos de história. Estamos apresentando a oportunidade de parceria para um grupo de profissionais experientes do mercado financeiro (ex-sócios de uma grande plataforma de investimentos) que estão avaliando montar uma consultoria de investimentos independente com ~R$ 2 bilhões sob consultoria e ~20 profissionais. Queremos mostrar por que se unir à SOMMA é mais vantajoso do que começar do zero.
-Slide 1 — Capa: "Construir juntos é mais inteligente do que construir sozinho" — SOMMA Investimentos + [Nome do Parceiro]. Reunião estratégica, maio/2026.
-Slide 2 — O cenário: O mercado de wealth management no Brasil está consolidando. Consultorias independentes enfrentam custos crescentes de compliance, tecnologia, estrutura jurídica e back-office. Os players que vão vencer são os que combinam excelência comercial com infraestrutura profunda. A pergunta não é "se" você precisa de infraestrutura, é "quanto tempo e dinheiro vai gastar para construir a sua."
-Slide 3 — Quem é a SOMMA: +R$ 18 bilhões sob gestão. 22 anos de história (entre os 17% de Family Offices brasileiros com mais de 20 anos). 80+ profissionais. Presença em Florianópolis, Jaraguá do Sul, Chapecó e São Paulo. Modelo bank-agnostic: operamos em BTG, XP, Bradesco, Santander, Safra, Unicred e outras casas. Gestora de fundos com track record comprovado.
-Slide 4 — O Ecossistema que vocês acessam no Dia 1: Mostrar visualmente as 5 verticais como engrenagens conectadas: (1) Gestão de Investimentos 360° com consolidação proprietária multi-custodiante; (2) Gestão de Contas / Concierge Financeiro (contas a pagar/receber de holdings, tesouraria familiar); (3) Gestão Imobiliária profissionalizada via Lidderar (+R$ 1 bi sob gestão, aumento médio de 40% em receita de locação); (4) Planejamento Patrimonial e Sucessório (mapeamento, regularização, implementação, governança familiar); (5) Estruturações / Investment Banking (FIDCs, CRIs, FIIs, valuation, DCM/ECM).
-Slide 5 — Tecnologia proprietária: Plataforma própria com +10 sistemas de mercado integrados. Visão consolidada do patrimônio do cliente (financeiro, imobiliário, participações, veículos, ativos alternativos). Dashboard de investimentos com cotização própria a partir dos arquivos-fonte das custodiantes (mais preciso que apps de corretora). App mobile em lançamento. Hospedagem de documentos e dossiê patrimonial completo. Se o cliente quiser, infraestrutura de dados pode ser alocada em jurisdições internacionais.
-Slide 6 — Motor de crescimento que já existe: A SOMMA já tem um time estruturado de growth e marketing com geração consistente de oportunidades qualificadas (inteligência de dados com cruzamento de 4 bancos de dados, geração de cards com perfil patrimonial de prospects, SDRs e funil ativo). O problema hoje: muitas oportunidades de ticket de consultoria (abaixo do piso do MFO) caem num limbo porque não existe time comercial dedicado para dar continuidade. Ou seja, os leads já existem — falta quem os atenda com excelência. Vocês seriam esse time.
-Slide 7 — O que vocês levam anos para construir, nós já temos: Comparação visual lado a lado. Coluna "Montar sozinho": contratar time jurídico, construir tecnologia, estabelecer processos de gestão imobiliária, criar área de estruturados, desenvolver compliance, conquistar track record — estimativa de 3 a 5 anos e milhões em investimento. Coluna "Junto com a SOMMA": tudo disponível no Dia 1, foco total na atividade comercial que é o DNA do grupo.
-Slide 8 — Modelo de parceria proposto: Não é CLT. Não é subordinação. É parceria entre operações complementares. Formato "contrato de namoro": regras claras desde o dia 1, proteção contratual de base de clientes e equipe de ambos os lados, autonomia operacional preservada, possibilidade de evolução societária no médio prazo (revenue share com opção de participação futura). Governança conjunta para leads e oportunidades cruzadas. Régua sugerida de segmentação: clientes com patrimônio acima de R$ 50 milhões são direcionados ao MFO; abaixo, ficam na consultoria — mas esse ponto está aberto para construirmos juntos o modelo ideal.
-Slide 9 — Casos reais de sinergia imediata: Exemplo 1: Cliente com R$ 30M em liquidez + R$ 20M em imóveis → consultoria cuida do líquido, Lidderar profissionaliza o imobiliário, planejamento patrimonial organiza a estrutura — o fee do cliente sobe, a satisfação sobe, o vínculo vira inquebrável. Exemplo 2: SOMMA origina um FIDC ou CRI regional → time da consultoria distribui para a base de investidores qualificados. Exemplo 3: Lead de R$ 10M gerado pelo marketing da SOMMA que hoje cai no limbo → vai direto para a consultoria com contexto e inteligência prévia. Lead de R$ 200M que chega na consultoria → sobe para o MFO. Ninguém perde oportunidade.
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOMMA Investimentos — Apresentação de Parceria Estratégica</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Brand palette */
+    --somma-slate: #486878;
+    --somma-slate-700: #365060;
+    --somma-slate-800: #2c424d;
+    --somma-slate-900: #1c2931;
+    --champagne: #c2a878;
+    --champagne-light: #d4c4a4;
+    --paper: #fbfbf9;
+    --paper-dark: #f4f3ef;
+    --fg-1: #1c2931;
+    --fg-2: #4a5c66;
+    --fg-3: #7a8e98;
+    --rule: #e6e4dd;
+    --on-dark: #f0ede8;
+    --on-dark-muted: #a8b8c0;
+
+    /* Diagonal radii — brand signature */
+    --r-diag-sm: 0 6px 0 6px;
+    --r-diag-md: 0 10px 0 10px;
+    --r-diag-lg: 0 16px 0 16px;
+    --r-diag-xl: 0 24px 0 24px;
+
+    /* Shadows */
+    --shadow-1: 0 1px 3px rgba(28,41,49,0.06);
+    --shadow-2: 0 4px 12px rgba(28,41,49,0.08);
+    --shadow-3: 0 8px 24px rgba(28,41,49,0.10);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--somma-slate-900);
+    color: var(--fg-1);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Slide container ── */
+  .deck {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .slide {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 72px 96px;
+    background: var(--paper);
+  }
+
+  .slide--dark {
+    background: var(--somma-slate-800);
+    color: var(--on-dark);
+  }
+
+  .slide--slate {
+    background: var(--somma-slate);
+    color: var(--on-dark);
+  }
+
+  /* ── Typography ── */
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--champagne);
+    margin-bottom: 16px;
+  }
+
+  .slide--dark .eyebrow,
+  .slide--slate .eyebrow {
+    color: var(--champagne);
+  }
+
+  h1 {
+    font-weight: 300;
+    font-size: 44px;
+    line-height: 1.12;
+    color: var(--fg-1);
+    max-width: 900px;
+  }
+
+  .slide--dark h1,
+  .slide--slate h1 {
+    color: var(--on-dark);
+  }
+
+  h2 {
+    font-weight: 300;
+    font-size: 36px;
+    line-height: 1.15;
+    color: var(--fg-1);
+    margin-bottom: 32px;
+    max-width: 800px;
+  }
+
+  .slide--dark h2,
+  .slide--slate h2 {
+    color: var(--on-dark);
+  }
+
+  h3 {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+
+  p, li {
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--fg-2);
+  }
+
+  .slide--dark p,
+  .slide--dark li,
+  .slide--slate p,
+  .slide--slate li {
+    color: var(--on-dark-muted);
+  }
+
+  .subtitle {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.55;
+    color: var(--fg-2);
+    max-width: 720px;
+    margin-top: 16px;
+  }
+
+  .slide--dark .subtitle { color: var(--on-dark-muted); }
+
+  /* ── Slide number ── */
+  .slide-num {
+    position: absolute;
+    bottom: 28px;
+    right: 40px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--fg-3);
+    opacity: 0.5;
+  }
+
+  .slide--dark .slide-num,
+  .slide--slate .slide-num {
+    color: var(--on-dark-muted);
+    opacity: 0.4;
+  }
+
+  /* ── Logo watermark ── */
+  .logo-text {
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  .logo-text span {
+    font-weight: 300;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    display: block;
+    margin-top: 1px;
+  }
+
+  /* ── Cards / Boxes ── */
+  .card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--r-diag-md);
+    padding: 24px 28px;
+  }
+
+  .card--light {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+  }
+
+  .card--accent {
+    border-left: 3px solid var(--champagne);
+  }
+
+  /* ── Grid helpers ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+  .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+
+  /* ── Stat ── */
+  .stat-value {
+    font-weight: 300;
+    font-size: 38px;
+    line-height: 1;
+    color: var(--champagne);
+    margin-bottom: 6px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: var(--on-dark-muted);
+  }
+
+  /* ── Divider ── */
+  .divider {
+    width: 48px;
+    height: 2px;
+    background: var(--champagne);
+    margin: 20px 0;
+    border-radius: 1px;
+  }
+
+  .divider--v {
+    width: 2px;
+    height: 32px;
+    background: var(--champagne);
+    opacity: 0.4;
+    margin: 0 auto;
+  }
+
+  /* ── Comparison columns ── */
+  .compare-col {
+    border-radius: var(--r-diag-md);
+    padding: 32px;
+    flex: 1;
+  }
+
+  .compare-col--negative {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .compare-col--positive {
+    background: rgba(194,168,120,0.08);
+    border: 1px solid rgba(194,168,120,0.18);
+  }
+
+  .compare-col h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    letter-spacing: 0.04em;
+  }
+
+  .compare-col ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .compare-col li {
+    font-size: 13px;
+    line-height: 1.5;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .compare-col li:last-child { border-bottom: none; }
+
+  .compare-col li::before {
+    display: inline-block;
+    margin-right: 8px;
+    font-weight: 600;
+  }
+
+  .compare-col--negative li::before {
+    content: '✕';
+    color: #a87878;
+    font-size: 11px;
+  }
+
+  .compare-col--positive li::before {
+    content: '→';
+    color: var(--champagne);
+  }
+
+  /* ── Pill / Badge ── */
+  .pill {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: var(--r-diag-sm);
+    background: rgba(194,168,120,0.12);
+    color: var(--champagne);
+  }
+
+  /* ── Gear / Ecosystem visual ── */
+  .eco-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: var(--r-diag-md);
+    padding: 20px 18px;
+    position: relative;
+  }
+
+  .eco-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--champagne);
+    opacity: 0.35;
+    border-radius: 0 10px 0 0;
+  }
+
+  .eco-num {
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--champagne);
+    opacity: 0.6;
+    margin-bottom: 8px;
+    line-height: 1;
+  }
+
+  .eco-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--on-dark);
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+
+  .eco-desc {
+    font-size: 11px;
+    line-height: 1.5;
+    color: var(--on-dark-muted);
+  }
+
+  /* ── Synergy examples ── */
+  .synergy-block {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: var(--r-diag-md);
+    padding: 24px 28px;
+    margin-bottom: 16px;
+  }
+
+  .synergy-block h4 {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--champagne);
+    margin-bottom: 8px;
+    letter-spacing: 0.03em;
+  }
+
+  .synergy-block p {
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  /* ── Cover specifics ── */
+  .cover-line {
+    width: 64px;
+    height: 2px;
+    background: var(--champagne);
+    margin: 32px 0;
+  }
+
+  .cover-meta {
+    font-size: 13px;
+    color: var(--on-dark-muted);
+    margin-top: 6px;
+    line-height: 1.6;
+  }
+
+  /* ── Tech grid ── */
+  .tech-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .tech-item:last-child { border-bottom: none; }
+
+  .tech-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--r-diag-sm);
+    background: var(--somma-slate);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--champagne);
+    font-size: 14px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .tech-text h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--fg-1);
+    margin-bottom: 3px;
+  }
+
+  .tech-text p {
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--fg-3);
+  }
+
+  /* ── Partnership terms ── */
+  .term-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .term-row:last-child { border-bottom: none; }
+
+  .term-marker {
+    width: 8px;
+    height: 8px;
+    border-radius: 0 4px 0 4px;
+    background: var(--champagne);
+    flex-shrink: 0;
+  }
+
+  .term-row p {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* ── Footer bar ── */
+  .footer-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--champagne) 0%, var(--somma-slate) 100%);
+    opacity: 0.3;
+  }
+
+  /* ── Stat row ── */
+  .stats-row {
+    display: flex;
+    gap: 48px;
+    margin-top: 32px;
+  }
+
+  .stat-block {}
+
+  /* ── Scenario header ── */
+  .scenario-text {
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--fg-2);
+    max-width: 860px;
+  }
+
+  .scenario-text strong {
+    color: var(--fg-1);
+    font-weight: 600;
+  }
+
+  .highlight-box {
+    margin-top: 28px;
+    padding: 20px 28px;
+    background: var(--somma-slate);
+    color: var(--on-dark);
+    border-radius: var(--r-diag-md);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    max-width: 820px;
+  }
+
+  .highlight-box em {
+    color: var(--champagne);
+    font-style: normal;
+    font-weight: 500;
+  }
+
+  /* ── Growth slide ── */
+  .growth-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 12px;
+  }
+
+  .growth-card {
+    background: var(--paper-dark);
+    border: 1px solid var(--rule);
+    border-radius: var(--r-diag-md);
+    padding: 24px 28px;
+  }
+
+  .growth-card h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--somma-slate);
+    margin-bottom: 10px;
+  }
+
+  .growth-card p {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .growth-card .accent {
+    color: var(--somma-slate-800);
+    font-weight: 500;
+  }
+
+  /* ── Responsive for print / screen ── */
+  @media print {
+    .slide { page-break-after: always; }
+    body { background: white; }
+  }
+</style>
+</head>
+<body>
+<div class="deck">
+
+<!-- ━━━━━━━━━━ SLIDE 1 — CAPA ━━━━━━━━━━ -->
+<section class="slide slide--dark" style="justify-content: flex-end; padding-bottom: 96px;">
+  <!-- Decorative top-right accent -->
+  <div style="position:absolute;top:0;right:0;width:320px;height:320px;background:linear-gradient(135deg,rgba(194,168,120,0.06) 0%,transparent 70%);pointer-events:none;"></div>
+  <div style="position:absolute;top:40px;left:96px;">
+    <div class="logo-text" style="color:var(--on-dark);">
+      SOMMA<span style="color:var(--on-dark-muted);">Multi-Family Office</span>
+    </div>
+  </div>
+
+  <div class="eyebrow">Reunião Estratégica · Maio 2026</div>
+  <h1 style="font-size:42px;max-width:780px;">Construir juntos é mais inteligente do que construir sozinho</h1>
+  <div class="cover-line"></div>
+  <p class="cover-meta">SOMMA Investimentos + [Nome do Parceiro]</p>
+  <p class="cover-meta" style="font-size:12px;opacity:0.6;margin-top:4px;">Documento confidencial — circulação restrita</p>
+
+  <div class="footer-bar"></div>
+  <span class="slide-num">01 / 09</span>
+</section>
+
+<!-- ━━━━━━━━━━ SLIDE 2 — O CENÁRIO ━━━━━━━━━━ -->
+<section class="slide">
+  <div style="position:absolute;top:0;right:0;width:4px;height:100%;background:var(--somma-slate);opacity:0.07;"></div>
+
+  <div class="eyebrow" style="color:var(--somma-slate);">O cenário</div>
+  <h2 style="font-size:32px;">O mercado de wealth management no Brasil está consolidando</h2>
+
+  <p class="scenario-text" style="margin-top: 8px;">
+    Consultorias independentes enfrentam <strong>custos crescentes</strong> de compliance, tecnologia, estrutura jurídica e back-office. Os players que vão vencer são os que combinam <strong>excelência comercial com infraestrutura profunda</strong>.
+  </p>
+
+  <div class="highlight-box">
+    A pergunta não é <em>"se"</em> você precisa de infraestrutura — é <em>quanto tempo e dinheiro vai gastar</em> para construir a sua.
+  </div>
+
+  <div class="footer-bar"></div>
+  <span class="slide-num">02 / 09</span>
+</section>
+
+<!-- ━━━━━━━━━━ SLIDE 3 — QUEM É A SOMMA ━━━━━━━━━━ -->
+<section class="slide slide--dark">
+  <div style="position:absolute;top:0;right:0;width:280px;height:280px;border-radius:0 0 0 280px;background:rgba(194,168,120,0.04);pointer-events:none;"></div>
+
+  <div class="eyebrow">Quem é a SOMMA</div>
+  <h2 style="color:var(--on-dark);font-size:30px;margin-bottom:24px;">Entre os maiores Multi-Family Offices independentes do Sul do Brasil</h2>
+
+  <div style="display:flex;gap:48px;margin-bottom:36px;">
+    <div class="stat-block">
+      <div class="stat-value">+R$ 18 bi</div>
+      <div class="stat-label">sob gestão</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-value">22 anos</div>
+      <div class="stat-label">de história</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-value">80+</div>
+      <div class="stat-label">profissionais</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-value">4</div>
+      <div class="stat-label">escritórios</div>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:20px;flex-wrap:wrap;">
+    <div class="card" style="flex:1;min-width:220px;">
+      <h3 style="color:var(--on-dark);font-size:13px;">Presença</h3>
+      <p style="font-size:12px;margin-top:6px;">Florianópolis · Jaraguá do Sul · Chapecó · São Paulo</p>
+    </div>
+    <div class="card" style="flex:1;min-width:220px;">
+      <h3 style="color:var(--on-dark);font-size:13px;">Modelo bank-agnostic</h3>
+      <p style="font-size:12px;margin-top:6px;">BTG, XP, Bradesco, Santander, Safra, Unicred e outras custodiantes</p>
+    </div>
+    <div class="card" style="flex:1;min-width:220px;">
+      <h3 style="color:var(--on-dark);font-size:13px;">Longevidade</h3>
+      <p style="font-size:12px;margin-top:6px;">Entre os 17% dos Family Offices brasileiros com mais de 20 anos de existência</p>
+    </div>
+  </div>
+
+  <div class="footer-bar"></div>
+  <span class="slide-num">03 / 09</span>
+</section>
+
+<!-- ━━━━━━━━━━ SLIDE 4 — ECOSSISTEMA ━━━━━━━━━━ -->
+<section class="slide slide--slate">
+  <div class="eyebrow">O ecossistema que vocês acessam no dia 1</div>
+  <h2 style="color:var(--on-dark);font-size:28px;margin-bottom:24px;">Cinco verticais integradas — cobertura 360° do patrimônio</h2>
+
+  <div class="grid-5" style="gap:14px;">
+    <div class="eco-card">
+      <div class="eco-num">01</div>
+      <div class="eco-title">Gestão de Investimentos 360°</div>
+      <div class="eco-desc">Consolidação proprietária multi-custodiante. Carteiras administradas, fundos exclusivos, onshore e offshore.</div>
+    </div>
+    <div class="eco-card">
+      <div class="eco-num">02</div>
+      <div class="eco-title">Concierge Financeiro</div>
+      <div class="eco-desc">Contas a pagar e receber de holdings, tesouraria familiar, controle de liquidez, seguros, mútuos e doações.</div>
+    </div>
+    <div class="eco-card">
+      <div class="eco-num">03</div>
+      <div class="eco-title">Gestão Imobiliária</div>
+      <div class="eco-desc">Via Lidderar. +R$ 1 bi sob gestão. Aumento médio de 40% em receita de locação. Imóvel tratado como carteira.</div>
+    </div>
+    <div class="eco-card">
+      <div class="eco-num">04</div>
+      <div class="eco-title">Planejamento Patrimonial</div>
+      <div class="eco-desc">Mapeamento, regularização, planejamento sucessório e tributário, governança familiar. Execução, não apenas papel.</div>
+    </div>
+    <div class="eco-card">
+      <div class="eco-num">05</div>
+      <div class="eco-title">Estruturações</div>
+      <div class="eco-desc">FIDCs, CRIs, FIIs, valuation, DCM e ECM. Investment banking para famílias e negócios operacionais.</div>
+    </div>
+  </div>
+
+  <div class="footer-bar"></div>
+  <span class="slide-num">04 / 09</span>
+</section>
+
+<!-- ━━━━━━━━━━ SLIDE 5 — TECNOLOGIA ━━━━━━━━━━ -->
+<section class="slide">
+  <div class="eyebrow" style="color:var(--somma-slate);">Tecnologia proprietária</div>
+  <h2 style="font-size:30px;">Visão consolidada que nenhuma corretora oferece</h2>
+
+  <div class="growth-grid" style="margin-top:4px;">
+    <div>
+      <div class="tech-item">
+        <div class="tech-icon">VP</div>
+        <div class="tech-text">
+          <h3>Visão do Patrimônio</h3>
+          <p>Consolidação total: financeiro, imobiliário, participações societárias, veículos, ativos alternativos. +10 sistemas integrados.</p>
+        </div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon">DI</div>
+        <div class="tech-text">
+          <h3>Dashboard de investimentos</h3>
+          <p>Cotização própria a partir dos arquivos-fonte das custodiantes — mais preciso que apps de corretora.</p>
+        </div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon">DP</div>
+        <div class="tech-text">
+          <h3>Dossiê patrimonial</h3>
+          <p>Hospedagem de documentos, contratos, escrituras, dossiê completo da família. Opção de jurisdição internacional.</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="tech-item">
+        <div class="tech-icon">AP</div>
+        <div class="tech-text">
+          <h3>App mobile</h3>
+          <p>Em fase de lançamento. Acesso seguro ao patrimônio consolidado na palma da mão.</p>
+        </div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon">SI</div>
+        <div class="tech-text">
+          <h3>Segurança</h3>
+          <p>Infraestrutura com artifícios extras de segurança. Dados podem ser alocados em jurisdições internacionais, se desejado.</p>
+        </div>
+      </div>
+      <div class="tech-item" style="border-bottom:none;">
+        <div class="tech-icon" style="background:var(--champagne);color:var(--somma-slate-900);">+</div>
+        <div class="tech-text">
+          <h3 style="color:var(--somma-slate);">Disponível no Dia 1</h3>
+          <p>Toda a stack tecnológica acessível imediatamente para os clientes da consultoria parceira.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bar"></div>
+  <span class="slide-num">05 / 09</span>
+</section>
+
+<!-- ━━━━━━━━━━ SLIDE 6 — MOTOR DE CRESCIMENTO ━━━━━━━━━━ -->
+<section class="slide">
+  <div class="eyebrow" style="color:var(--somma-slate);">Motor de crescimento</div>
+  <h2 style="font-size:30px;">Os leads já existem — falta quem os atenda</h2>
+
+  <div class="growth-grid">
+    <div class="growth-card">
+      <h3>O que a SOMMA já tem</h3>
+      <p>
+        Time estruturado de growth e marketing com geração consistente de oportunidades qualificadas. Inteligência de dados com <span class="accent">cruzamento de 4 bancos de dados</span>, geração de cards com perfil patrimonial de prospects, SDRs dedicados e funil ativo.
+      </p>
+    </div>
+    <div class="growth-card" style="border-left:3px solid var(--champagne);">
+      <h3>A oportunidade</h3>
+      <p>
+        Muitas oportunidades de ticket de consultoria (abaixo do piso do MFO) <span class="accent">caem num limbo</span> porque não existe time comercial dedicado. Os leads já são gerados — falta quem os atenda com excelência. <span class="accent">Vocês seriam esse time.</span>
+      </p>
+    </div>
+  </div>
+
+  <div style="margin-top:24px;display:flex;gap:16px;align-items:center;">
+    <div style="background:var(--somma-slate);color:var(--champagne);padding:10px 20px;border-radius:var(--r-diag-sm);font-size:12px;font-weight:500;letter-spacing:0.06em;">
+      INTELIGÊNCIA DE DADOS → CARDS DE PROSPECTS → SDRs → LEADS QUALIFICADOS → <span style="color:white;font-weight:600;">TIME COMERCIAL (VOCÊS)</span>
+    </div>
+  </div>
+
+  <div class="footer-bar"></div>
+  <span class="slide-num">06 / 09</span>
+</section>
+
+<!-- ━━━━━━━━━━ SLIDE 7 — COMPARAÇÃO ━━━━━━━━━━ -->
+<section class="slide slide--dark">
+  <div class="eyebrow">Perspectiva</div>
+  <h2 style="color:var(--on-dark);font-size:30px;margin-bottom:20px;">O que vocês levam anos para construir, nós já temos</h2>
+
+  <div style="display:flex;gap:24px;">
+    <div class="compare-col compare-col--negative">
+      <div class="pill" style="background:rgba(168,120,120,0.15);color:#c0a0a0;margin-bottom:16px;">Montar sozinho</div>
+      <h3 style="color:var(--on-dark-muted);">3 a 5 anos · Milhões em investimento</h3>
+      <ul>
+        <li>Contratar time jurídico e compliance</li>
+        <li>Construir tecnologia de consolidação</li>
+        <li>Estabelecer processos de gestão imobiliária</li>
+        <li>Criar área de estruturados do zero</li>
+        <li>Desenvolver compliance e governança</li>
+        <li>Conquistar track record e credibilidade</li>
+        <li>Montar back-office e tesouraria</li>
+        <li>Gerar pipeline de leads qualificados</li>
+      </ul>
+    </div>
+    <div class="compare-col compare-col--positive">
+      <div class="pill" style="margin-bottom:16px;">Junto com a SOMMA</div>
+      <h3 style="color:var(--champagne-light);">Disponível no Dia 1</h3>
+      <ul>
+        <li>Jurídico, compliance e governança maduros</li>
+        <li>Plataforma tecnológica com +10 integrações</li>
+        <li>Lidderar com +R$ 1 bi sob gestão imobiliária</li>
+        <li>Time de estruturados com track record</li>
+        <li>22 anos de credibilidade e reputação</li>
+        <li>Motor de leads e inteligência de dados</li>
+        <li>Back-office e tesouraria operacionais</li>
+        <li style="color:var(--champagne);font-weight:500;">Foco total na atividade comercial — o DNA do grupo</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bar"></div>
+  <span class="slide-num">07 / 09</span>
+</section>
+
+<!-- ━━━━━━━━━━ SLIDE 8 — MODELO DE PARCERIA ━━━━━━━━━━ -->
+<section class="slide slide--slate">
+  <div class="eyebrow">Modelo de parceria proposto</div>
+  <h2 style="color:var(--on-dark);font-size:30px;margin-bottom:8px;">Parceria entre iguais — não subordinação</h2>
+  <p style="font-size:14px;max-width:700px;margin-bottom:24px;">Formato "contrato de namoro" com regras claras, proteção mútua e possibilidade de evolução societária.</p>
+
+  <div style="display:flex;gap:32px;">
+    <div style="flex:1;">
+      <div class="term-row">
+        <div class="term-marker"></div>
+        <p>Proteção contratual de base de clientes e equipe de ambos os lados</p>
+      </div>
+      <div class="term-row">
+        <div class="term-marker"></div>
+        <p>Autonomia operacional preservada para o time da consultoria</p>
+      </div>
+      <div class="term-row">
+        <div class="term-marker"></div>
+        <p>Revenue share com opção de participação societária no médio prazo</p>
+      </div>
+      <div class="term-row">
+        <div class="term-marker"></div>
+        <p>Governança conjunta para leads e oportunidades cruzadas</p>
+      </div>
+    </div>
+    <div style="flex:1;">
+      <div class="card" style="background:rgba(194,168,120,0.08);border-color:rgba(194,168,120,0.18);">
+        <h3 style="color:var(--champagne);font-size:14px;margin-bottom:12px;">Régua sugerida de segmentação</h3>
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:12px;">
+          <div style="flex:1;text-align:center;padding:12px;background:rgba(255,255,255,0.06);border-radius:var(--r-diag-sm);">
+            <div style="font-size:20px;font-weight:300;color:var(--champagne);">R$ 50M+</div>
+            <div style="font-size:10px;font-weight:500;color:var(--on-dark-muted);margin-top:4px;letter-spacing:0.08em;">MFO</div>
+          </div>
+          <div style="color:var(--on-dark-muted);font-size:11px;">↔</div>
+          <div style="flex:1;text-align:center;padding:12px;background:rgba(255,255,255,0.06);border-radius:var(--r-diag-sm);">
+            <div style="font-size:20px;font-weight:300;color:var(--on-dark);">Abaixo</div>
+            <div style="font-size:10px;font-weight:500;color:var(--on-dark-muted);margin-top:4px;letter-spacing:0.08em;">CONSULTORIA</div>
+          </div>
+        </div>
+        <p style="font-size:11px;line-height:1.5;color:var(--on-dark-muted);text-align:center;">Ponto aberto para construirmos juntos o modelo ideal</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bar"></div>
+  <span class="slide-num">08 / 09</span>
+</section>
+
+<!-- ━━━━━━━━━━ SLIDE 9 — CASOS DE SINERGIA ━━━━━━━━━━ -->
+<section class="slide slide--dark">
+  <div class="eyebrow">Sinergia imediata</div>
+  <h2 style="color:var(--on-dark);font-size:30px;margin-bottom:20px;">Ninguém perde oportunidade</h2>
+
+  <div class="synergy-block">
+    <h4>Caso 1 — Cliente completo</h4>
+    <p>Cliente com R$ 30M em liquidez + R$ 20M em imóveis. A consultoria cuida do líquido, a Lidderar profissionaliza o imobiliário, o planejamento patrimonial organiza a estrutura. O fee do cliente sobe, a satisfação sobe, o vínculo se torna inquebrável.</p>
+  </div>
+
+  <div class="synergy-block">
+    <h4>Caso 2 — Distribuição de produtos estruturados</h4>
+    <p>SOMMA origina um FIDC ou CRI regional. O time da consultoria distribui para a base de investidores qualificados — receita incremental sem esforço de originação.</p>
+  </div>
+
+  <div class="synergy-block">
+    <h4>Caso 3 — Fluxo bidirecional de leads</h4>
+    <p>Lead de R$ 10M gerado pelo marketing da SOMMA que hoje cai no limbo → vai direto para a consultoria com contexto e inteligência prévia. Lead de R$ 200M que chega na consultoria → sobe para o MFO. Nenhum lado desperdiça oportunidade.</p>
+  </div>
+
+  <div style="position:absolute;bottom:48px;left:96px;right:96px;display:flex;justify-content:space-between;align-items:center;">
+    <div class="logo-text" style="color:var(--on-dark-muted);opacity:0.5;">
+      SOMMA<span>Multi-Family Office</span>
+    </div>
+    <p style="font-size:12px;color:var(--on-dark-muted);opacity:0.4;">Documento confidencial · Maio 2026</p>
+  </div>
+
+  <div class="footer-bar"></div>
+  <span class="slide-num">09 / 09</span>
+</section>
+
+</div>
+</body>
+</html>
