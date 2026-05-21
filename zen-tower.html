@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposta de Evolução Contratual · Zen Tower · Somma Multi Family Office</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0B2340;
+    --navy-soft: #1F3A5F;
+    --accent: #2E75B6;
+    --paper: #FBFAF7;
+    --paper-warm: #F4F1EA;
+    --ink: #1A1D22;
+    --muted: #5A6578;
+    --rule: #D9D4C7;
+    --gold: #A88B4A;
+    --serif: "Fraunces", "Cormorant Garamond", Georgia, serif;
+    --sans: "Manrope", -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Navegação lateral fixa (desktop) */
+  .side-nav {
+    position: fixed;
+    top: 50%;
+    right: 32px;
+    transform: translateY(-50%);
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .side-nav a {
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: transparent;
+    border: 1.5px solid var(--muted);
+    opacity: 0.45;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  .side-nav a:hover {
+    opacity: 1;
+    border-color: var(--navy);
+    background: var(--navy);
+    transform: scale(1.3);
+  }
+  .side-nav a.active {
+    background: var(--navy);
+    border-color: var(--navy);
+    opacity: 1;
+  }
+  .side-nav a span {
+    position: absolute;
+    right: 22px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--sans);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--navy);
+    background: var(--paper);
+    padding: 4px 10px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+  .side-nav a:hover span { opacity: 1; }
+
+  @media (max-width: 900px) { .side-nav { display: none; } }
+
+  /* Header fixo minimalista */
+  .top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 40;
+    padding: 20px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(251, 250, 247, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+  }
+  .top-bar.scrolled { border-bottom-color: var(--rule); }
+  .top-bar .brand {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.28em;
+    color: var(--navy);
+  }
+  .top-bar .meta {
+    font-family: var(--sans);
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+  }
+
+  @media (max-width: 600px) {
+    .top-bar { padding: 16px 24px; }
+    .top-bar .meta { display: none; }
+  }
+
+  /* Sections genéricas */
+  section {
+    min-height: 100vh;
+    padding: 120px 48px 96px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    scroll-margin-top: 0;
+  }
+  section.compact { min-height: auto; padding: 96px 48px; }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  @media (max-width: 700px) {
+    section { padding: 100px 24px 72px; }
+    section.compact { padding: 72px 24px; }
+  }
+
+  /* Tipografia */
+  .eyebrow {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .eyebrow::before {
+    content: "";
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  h1.display {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(44px, 6.8vw, 88px);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    color: var(--navy);
+    margin-bottom: 32px;
+  }
+  h1.display em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent);
+  }
+
+  h2.section-title {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(36px, 4.8vw, 60px);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--navy);
+    margin-bottom: 28px;
+  }
+  h2.section-title em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent);
+  }
+
+  h3.subheading {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 16px;
+  }
+
+  p.lead {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(19px, 2vw, 24px);
+    line-height: 1.5;
+    color: var(--navy-soft);
+    max-width: 720px;
+    margin-bottom: 32px;
+  }
+  p.body {
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 640px;
+    margin-bottom: 16px;
+  }
+
+  .rule {
+    width: 48px;
+    height: 1px;
+    background: var(--gold);
+    margin: 32px 0;
+  }
+
+  /* ================== 1. CAPA ================== */
+  #capa {
+    background: linear-gradient(180deg, var(--paper) 0%, var(--paper-warm) 100%);
+    overflow: hidden;
+  }
+  #capa::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 45%;
+    height: 100%;
+    background:
+      radial-gradient(ellipse at 70% 30%, rgba(46, 117, 182, 0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 30% 70%, rgba(168, 139, 74, 0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .capa-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  @media (max-width: 900px) { .capa-grid { grid-template-columns: 1fr; gap: 48px; } }
+
+  .capa-left .tag {
+    display: inline-block;
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding: 8px 14px;
+    border: 1px solid var(--accent);
+    margin-bottom: 40px;
+    border-radius: 2px;
+  }
+  .capa-left h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(48px, 7vw, 96px);
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+    color: var(--navy);
+    margin-bottom: 28px;
+  }
+  .capa-left h1 em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent);
+  }
+  .capa-left .subtitle {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(18px, 2vw, 22px);
+    color: var(--navy-soft);
+    margin-bottom: 48px;
+    max-width: 480px;
+    line-height: 1.4;
+  }
+
+  .capa-meta {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px 28px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+    font-family: var(--sans);
+    font-size: 13px;
+  }
+  .capa-meta dt {
+    font-weight: 600;
+    color: var(--navy);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 11px;
+  }
+  .capa-meta dd { color: var(--muted); }
+
+  .capa-right {
+    position: relative;
+    padding: 48px;
+    min-height: 420px;
+  }
+  .capa-right .building {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 380px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  .building-svg {
+    width: 100%;
+    max-width: 360px;
+    height: auto;
+  }
+
+  /* ================== 2. CONTEXTO ================== */
+  #contexto { background: var(--paper); }
+  .context-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 80px;
+    align-items: start;
+  }
+  @media (max-width: 900px) { .context-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+  .context-pillars {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-top: 16px;
+  }
+  .pillar {
+    padding: 24px 0;
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+  .pillar:last-child { border-bottom: none; }
+  .pillar .num {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-style: italic;
+    font-size: 32px;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .pillar .content strong {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--navy);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .pillar .content span {
+    font-family: var(--sans);
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ================== 3. TESE ================== */
+  #tese {
+    background: var(--navy);
+    color: var(--paper);
+    position: relative;
+    overflow: hidden;
+  }
+  #tese::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 20%, rgba(46, 117, 182, 0.25) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 80%, rgba(168, 139, 74, 0.12) 0%, transparent 55%);
+    pointer-events: none;
+  }
+  #tese .container { position: relative; z-index: 2; }
+  #tese .eyebrow { color: rgba(251, 250, 247, 0.6); }
+  #tese .eyebrow::before { background: rgba(251, 250, 247, 0.4); }
+  #tese h2 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(40px, 6vw, 80px);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--paper);
+    margin-bottom: 40px;
+    max-width: 960px;
+  }
+  #tese h2 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  #tese h2 .highlight {
+    font-style: normal;
+    color: var(--paper);
+    position: relative;
+    display: inline-block;
+  }
+  #tese h2 .highlight::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 8px;
+    height: 2px;
+    background: var(--gold);
+  }
+  #tese .signature {
+    margin-top: 48px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 16px;
+    color: rgba(251, 250, 247, 0.65);
+  }
+
+  /* ================== 4. ANTES × DEPOIS ================== */
+  #comparativo { background: var(--paper); }
+
+  .compare-wrapper {
+    margin-top: 56px;
+    border-top: 1px solid var(--navy);
+  }
+  .compare-row {
+    display: grid;
+    grid-template-columns: 1.2fr 1.5fr 1.5fr;
+    gap: 0;
+    border-bottom: 1px solid var(--rule);
+    padding: 28px 0;
+    align-items: start;
+  }
+  .compare-row.header {
+    border-bottom: 1px solid var(--navy);
+    padding: 20px 0;
+  }
+  .compare-row.header .cell {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--navy);
+  }
+  .compare-row .cell { padding: 0 24px; font-family: var(--sans); }
+  .compare-row .cell:first-child { padding-left: 0; }
+
+  .compare-row .label {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--navy);
+    letter-spacing: 0.01em;
+  }
+  .compare-row .before {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.55;
+    position: relative;
+  }
+  .compare-row .after {
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.55;
+    font-weight: 500;
+    position: relative;
+  }
+  .compare-row .after.highlight {
+    color: var(--navy);
+  }
+  .compare-row .after.highlight::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 6px;
+    bottom: 6px;
+    width: 2px;
+    background: var(--gold);
+  }
+  .compare-row .after.highlight {
+    padding-left: 24px;
+  }
+
+  @media (max-width: 800px) {
+    .compare-row { grid-template-columns: 1fr; gap: 8px; padding: 20px 0; }
+    .compare-row.header { display: none; }
+    .compare-row .cell { padding: 0; }
+    .compare-row .label { font-size: 16px; margin-bottom: 6px; }
+    .compare-row .before::before { content: "Atual · "; font-weight: 600; color: var(--muted); text-transform: uppercase; font-size: 10px; letter-spacing: 0.15em; display: block; margin-bottom: 4px; }
+    .compare-row .after::before { content: "Proposto · "; font-weight: 600; color: var(--accent); text-transform: uppercase; font-size: 10px; letter-spacing: 0.15em; display: block; margin-bottom: 4px; }
+    .compare-row .after.highlight { padding-left: 0; }
+    .compare-row .after.highlight::after { display: none; }
+  }
+
+  /* ================== 5. FEE 5% ================== */
+  #fee { background: var(--paper-warm); }
+  .fee-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  @media (max-width: 900px) { .fee-grid { grid-template-columns: 1fr; gap: 48px; } }
+
+  .hero-number {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(140px, 20vw, 280px);
+    line-height: 0.85;
+    color: var(--navy);
+    letter-spacing: -0.05em;
+    position: relative;
+    display: inline-block;
+  }
+  .hero-number .pct {
+    font-size: 0.4em;
+    font-style: italic;
+    color: var(--accent);
+    vertical-align: 0.6em;
+    margin-left: -0.1em;
+  }
+  .hero-number-label {
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 16px;
+  }
+
+  .fee-benefits {
+    list-style: none;
+    margin-top: 32px;
+  }
+  .fee-benefits li {
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--sans);
+    font-size: 15px;
+    color: var(--ink);
+    line-height: 1.55;
+    align-items: start;
+  }
+  .fee-benefits li:last-child { border-bottom: none; }
+  .fee-benefits .icon {
+    width: 20px;
+    height: 20px;
+    border: 1.5px solid var(--accent);
+    border-radius: 50%;
+    position: relative;
+    margin-top: 3px;
+  }
+  .fee-benefits .icon::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 7px;
+    height: 7px;
+    background: var(--accent);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  /* ================== 6. PERFORMANCE ================== */
+  #performance { background: var(--paper); }
+  .perf-example {
+    margin-top: 48px;
+    padding: 48px;
+    background: var(--paper-warm);
+    border-left: 3px solid var(--gold);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+  @media (max-width: 800px) {
+    .perf-example { grid-template-columns: 1fr; padding: 32px; gap: 32px; }
+  }
+
+  .perf-example h4 {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+  .perf-example .scenario {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--navy);
+    line-height: 1.4;
+  }
+
+  .calc-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .calc-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 14px 0;
+    border-bottom: 1px dashed var(--rule);
+    gap: 20px;
+  }
+  .calc-row:last-of-type {
+    border-bottom: none;
+  }
+  .calc-row.total {
+    border-top: 2px solid var(--navy);
+    border-bottom: none;
+    padding-top: 20px;
+    margin-top: 8px;
+  }
+  .calc-row .label {
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.4;
+    flex: 1;
+  }
+  .calc-row .value {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 18px;
+    color: var(--navy);
+    white-space: nowrap;
+    letter-spacing: -0.01em;
+  }
+  .calc-row.total .label {
+    font-weight: 600;
+    color: var(--navy);
+    font-size: 14px;
+  }
+  .calc-row.total .value {
+    font-weight: 500;
+    font-size: 26px;
+    color: var(--navy);
+  }
+
+  .perf-rules {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 48px;
+    margin-top: 32px;
+    max-width: 860px;
+  }
+  @media (max-width: 700px) { .perf-rules { grid-template-columns: 1fr; } }
+  .perf-rule {
+    padding-left: 20px;
+    border-left: 1px solid var(--rule);
+  }
+  .perf-rule .t {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .perf-rule .d {
+    font-family: var(--sans);
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  /* ================== 7. AUTONOMIA ================== */
+  #autonomia {
+    background: var(--navy);
+    color: var(--paper);
+  }
+  #autonomia .eyebrow { color: rgba(251, 250, 247, 0.6); }
+  #autonomia .eyebrow::before { background: rgba(251, 250, 247, 0.4); }
+  #autonomia h2.section-title { color: var(--paper); }
+  #autonomia h2.section-title em { color: var(--gold); }
+  #autonomia p.lead { color: rgba(251, 250, 247, 0.75); }
+
+  .autonomy-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2px;
+    margin-top: 56px;
+    background: rgba(251, 250, 247, 0.08);
+    border: 1px solid rgba(251, 250, 247, 0.08);
+  }
+  @media (max-width: 900px) { .autonomy-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 500px) { .autonomy-grid { grid-template-columns: 1fr; } }
+
+  .autonomy-card {
+    background: var(--navy);
+    padding: 28px 24px;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: background 0.3s ease;
+  }
+  .autonomy-card:hover { background: var(--navy-soft); }
+  .autonomy-card .ico {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-style: italic;
+    font-size: 28px;
+    color: var(--gold);
+    margin-bottom: auto;
+  }
+  .autonomy-card .txt {
+    font-family: var(--sans);
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--paper);
+    font-weight: 400;
+  }
+
+  .governance {
+    margin-top: 56px;
+    padding: 32px 0;
+    border-top: 1px solid rgba(251, 250, 247, 0.15);
+  }
+  .governance .t {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .governance-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+  @media (max-width: 800px) { .governance-grid { grid-template-columns: 1fr; gap: 24px; } }
+  .governance-item .num {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: 40px;
+    color: var(--paper);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .governance-item .desc {
+    font-family: var(--sans);
+    font-size: 14px;
+    color: rgba(251, 250, 247, 0.75);
+    line-height: 1.55;
+  }
+
+  /* ================== 8. VIGÊNCIA ================== */
+  #vigencia { background: var(--paper); }
+  .date-hero {
+    margin-top: 48px;
+    padding: 72px 48px;
+    background: var(--paper-warm);
+    text-align: center;
+    position: relative;
+  }
+  .date-hero::before, .date-hero::after {
+    content: "";
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--gold);
+  }
+  .date-hero::before { top: 20px; left: 20px; border-right: none; border-bottom: none; }
+  .date-hero::after { bottom: 20px; right: 20px; border-left: none; border-top: none; }
+
+  .date-hero .prefix {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+  }
+  .date-hero .big {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(48px, 7vw, 88px);
+    line-height: 1;
+    color: var(--navy);
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+  .date-hero .big em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .date-hero .small {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 17px;
+    color: var(--navy-soft);
+  }
+
+  .formal-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-top: 64px;
+  }
+  @media (max-width: 800px) { .formal-steps { grid-template-columns: 1fr; gap: 24px; } }
+  .formal-step {
+    padding: 28px 0;
+    border-top: 2px solid var(--navy);
+  }
+  .formal-step .n {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--accent);
+    margin-bottom: 12px;
+    letter-spacing: 0.1em;
+  }
+  .formal-step .title {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--navy);
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+  .formal-step .desc {
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  /* ================== 9. PRÓXIMOS PASSOS ================== */
+  #passos {
+    background: linear-gradient(180deg, var(--paper) 0%, var(--paper-warm) 100%);
+  }
+  .steps-list {
+    margin-top: 48px;
+    counter-reset: steps;
+  }
+  .step-item {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    align-items: center;
+    gap: 32px;
+    padding: 32px 0;
+    border-bottom: 1px solid var(--rule);
+    counter-increment: steps;
+  }
+  .step-item:last-child { border-bottom: 1px solid var(--navy); }
+  .step-item::before {
+    content: counter(steps, decimal-leading-zero);
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: 44px;
+    color: var(--accent);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .step-item .content {
+    font-family: var(--sans);
+  }
+  .step-item .content .t {
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+  .step-item .content .d {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .step-item .when {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--navy-soft);
+    text-align: right;
+  }
+  @media (max-width: 700px) {
+    .step-item { grid-template-columns: 48px 1fr; gap: 20px; padding: 24px 0; }
+    .step-item::before { font-size: 28px; }
+    .step-item .when { display: none; }
+  }
+
+  /* ================== 10. FECHAMENTO ================== */
+  #fechamento {
+    background: var(--navy);
+    color: var(--paper);
+    min-height: 90vh;
+    position: relative;
+    overflow: hidden;
+  }
+  #fechamento::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 40%, rgba(46, 117, 182, 0.2) 0%, transparent 50%),
+      radial-gradient(ellipse at 70% 70%, rgba(168, 139, 74, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  #fechamento .container { position: relative; z-index: 2; }
+  #fechamento .big-statement {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(44px, 7vw, 96px);
+    line-height: 1.05;
+    color: var(--paper);
+    letter-spacing: -0.02em;
+    margin-bottom: 48px;
+    max-width: 960px;
+  }
+  #fechamento .big-statement em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  #fechamento .sig-line {
+    width: 64px;
+    height: 1px;
+    background: var(--gold);
+    margin-bottom: 24px;
+  }
+  #fechamento .sig-name {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--paper);
+    margin-bottom: 6px;
+  }
+  #fechamento .sig-label {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 14px;
+    color: rgba(251, 250, 247, 0.6);
+  }
+
+  .footer-meta {
+    margin-top: 96px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(251, 250, 247, 0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(251, 250, 247, 0.5);
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  /* Reveal on scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* Print */
+  @media print {
+    .side-nav, .top-bar { display: none; }
+    section { min-height: auto; page-break-after: always; padding: 40px 24px; }
+    .reveal { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="top-bar" id="topbar">
+  <div class="brand">SOMMA · MULTI FAMILY OFFICE</div>
+  <div class="meta">Proposta · Zen Tower · Abr 2026</div>
+</header>
+
+<!-- SIDE NAV -->
+<nav class="side-nav" aria-label="Navegação de seções">
+  <a href="#capa" data-section="capa"><span>Capa</span></a>
+  <a href="#contexto" data-section="contexto"><span>Jornada</span></a>
+  <a href="#tese" data-section="tese"><span>Tese</span></a>
+  <a href="#comparativo" data-section="comparativo"><span>Antes × Depois</span></a>
+  <a href="#fee" data-section="fee"><span>Fee 5%</span></a>
+  <a href="#performance" data-section="performance"><span>Performance</span></a>
+  <a href="#autonomia" data-section="autonomia"><span>Autonomia</span></a>
+  <a href="#vigencia" data-section="vigencia"><span>Vigência</span></a>
+  <a href="#passos" data-section="passos"><span>Próximos Passos</span></a>
+  <a href="#fechamento" data-section="fechamento"><span>Fechamento</span></a>
+</nav>
+
+<!-- 1. CAPA -->
+<section id="capa">
+  <div class="container">
+    <div class="capa-grid">
+      <div class="capa-left">
+        <span class="tag reveal">Proposta Comercial</span>
+        <h1 class="reveal reveal-delay-1">Evolução<br>do <em>modelo</em><br>contratual.</h1>
+        <p class="subtitle reveal reveal-delay-2">Um novo capítulo na gestão patrimonial do Edifício Zen Tower Business Center, com alinhamento de resultados e mais autonomia operacional.</p>
+
+        <dl class="capa-meta reveal reveal-delay-3">
+          <dt>De</dt><dd>Somma Multi Family Office S.A.</dd>
+          <dt>Para</dt><dd>Zen Administradora de Centros Empresariais S/A</dd>
+          <dt>Referência</dt><dd>Contrato de 08 de agosto de 2025</dd>
+          <dt>Vigência proposta</dt><dd>A partir de 01 de junho de 2026</dd>
+        </dl>
+      </div>
+
+      <div class="capa-right reveal reveal-delay-2">
+        <div class="building">
+          <svg class="building-svg" viewBox="0 0 300 420" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Edifício estilizado minimalista -->
+            <g stroke="#1F3A5F" stroke-width="1" fill="none" opacity="0.9">
+              <!-- Base -->
+              <line x1="20" y1="400" x2="280" y2="400" stroke-width="1.5"/>
+              <!-- Ground shadow -->
+              <line x1="40" y1="405" x2="260" y2="405" stroke="#A88B4A" opacity="0.6"/>
+              <!-- Contorno do edifício -->
+              <rect x="80" y="80" width="140" height="320" fill="#FBFAF7"/>
+              <!-- Topo (coroamento) -->
+              <line x1="80" y1="80" x2="80" y2="400"/>
+              <line x1="220" y1="80" x2="220" y2="400"/>
+              <line x1="80" y1="80" x2="220" y2="80" stroke-width="1.5"/>
+              <!-- Coroamento arquitetônico -->
+              <rect x="100" y="60" width="100" height="20" fill="#FBFAF7"/>
+              <line x1="100" y1="60" x2="200" y2="60" stroke-width="1.5"/>
+              <line x1="100" y1="60" x2="100" y2="80"/>
+              <line x1="200" y1="60" x2="200" y2="80"/>
+              <rect x="130" y="40" width="40" height="20" fill="#FBFAF7"/>
+              <line x1="130" y1="40" x2="170" y2="40" stroke-width="1.5"/>
+              <line x1="130" y1="40" x2="130" y2="60"/>
+              <line x1="170" y1="40" x2="170" y2="60"/>
+            </g>
+            <!-- Grade de janelas -->
+            <g fill="#2E75B6" opacity="0.15">
+              <!-- 10 pavimentos × 5 colunas -->
+              <g>
+                <rect x="92" y="92" width="14" height="18"/>
+                <rect x="114" y="92" width="14" height="18"/>
+                <rect x="136" y="92" width="14" height="18"/>
+                <rect x="158" y="92" width="14" height="18"/>
+                <rect x="180" y="92" width="14" height="18"/>
+                <rect x="202" y="92" width="8" height="18"/>
+              </g>
+              <g transform="translate(0, 28)">
+                <rect x="92" y="92" width="14" height="18"/>
+                <rect x="114" y="92" width="14" height="18"/>
+                <rect x="136" y="92" width="14" height="18"/>
+                <rect x="158" y="92" width="14" height="18"/>
+                <rect x="180" y="92" width="14" height="18"/>
+                <rect x="202" y="92" width="8" height="18"/>
+              </g>
+              <g transform="translate(0, 56)">
+                <rect x="92" y="92" width="14" height="18"/>
+                <rect x="114" y="92" width="14" height="18"/>
+                <rect x="136" y="92" width="14" height="18"/>
+                <rect x="158" y="92" width="14" height="18"/>
+                <rect x="180" y="92" width="14" height="18"/>
+                <rect x="202" y="92" width="8" height="18"/>
+              </g>
+              <g transform="translate(0, 84)">
+                <rect x="92" y="92" width="14" height="18"/>
+                <rect x="114" y="92" width="14" height="18"/>
+                <rect x="136" y="92" width="14" height="18"/>
+                <rect x="158" y="92" width="14" height="18"/>
+                <rect x="180" y="92" width="14" height="18"/>
+                <rect x="202" y="92" width="8" height="18"/>
+              </g>
+              <g transform="translate(0, 112)">
+                <rect x="92" y="92" width="14" height="18"/>
+                <rect x="114" y="92" width="14" height="18"/>
+                <rect x="136" y="92" width="14" height="18"/>
+                <rect x="158" y="92" width="14" height="18"/>
+                <rect x="180" y="92" width="14" height="18"/>
+                <rect x="202" y="92" width="8" height="18"/>
+              </g>
+              <g transform="translate(0, 140)">
+                <rect x="92" y="92" width="14" height="18"/>
+                <rect x="114" y="92" width="14" height="18"/>
+                <rect x="136" y="92" width="14" height="18"/>
+                <rect x="158" y="92" width="14" height="18"/>
+                <rect x="180" y="92" width="14" height="18"/>
+                <rect x="202" y="92" width="8" height="18"/>
+              </g>
+              <g transform="translate(0, 168)">
+                <rect x="92" y="92" width="14" height="18"/>
+                <rect x="114" y="92" width="14" height="18"/>
+                <rect x="136" y="92" width="14" height="18"/>
+                <rect x="158" y="92" width="14" height="18"/>
+                <rect x="180" y="92" width="14" height="18"/>
+                <rect x="202" y="92" width="8" height="18"/>
+              </g>
+              <g transform="translate(0, 196)">
+                <rect x="92" y="92" width="14" height="18"/>
+                <rect x="114" y="92" width="14" height="18"/>
+                <rect x="136" y="92" width="14" height="18"/>
+                <rect x="158" y="92" width="14" height="18"/>
+                <rect x="180" y="92" width="14" height="18"/>
+                <rect x="202" y="92" width="8" height="18"/>
+              </g>
+              <g transform="translate(0, 224)">
+                <rect x="92" y="92" width="14" height="18"/>
+                <rect x="114" y="92" width="14" height="18"/>
+                <rect x="136" y="92" width="14" height="18"/>
+                <rect x="158" y="92" width="14" height="18"/>
+                <rect x="180" y="92" width="14" height="18"/>
+                <rect x="202" y="92" width="8" height="18"/>
+              </g>
+              <g transform="translate(0, 252)">
+                <rect x="92" y="92" width="14" height="18"/>
+                <rect x="114" y="92" width="14" height="18"/>
+                <rect x="136" y="92" width="14" height="18"/>
+                <rect x="158" y="92" width="14" height="18"/>
+                <rect x="180" y="92" width="14" height="18"/>
+                <rect x="202" y="92" width="8" height="18"/>
+              </g>
+            </g>
+            <!-- Detalhe destaque: três janelas acesas (dourado tênue) -->
+            <g fill="#A88B4A" opacity="0.35">
+              <rect x="136" y="120" width="14" height="18"/>
+              <rect x="158" y="232" width="14" height="18"/>
+              <rect x="114" y="316" width="14" height="18"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. CONTEXTO / JORNADA -->
+<section id="contexto">
+  <div class="container">
+    <div class="context-grid">
+      <div>
+        <div class="eyebrow reveal">01 · Onde estamos</div>
+        <h2 class="section-title reveal reveal-delay-1">Uma jornada<br>já em <em>andamento</em>.</h2>
+        <div class="rule"></div>
+        <p class="body reveal reveal-delay-2">Desde a assinatura do contrato em agosto de 2025, estruturamos a governança do Zen Tower Business Center e consolidamos rotinas que hoje dão previsibilidade ao ativo.</p>
+      </div>
+
+      <div class="context-pillars reveal reveal-delay-2">
+        <div class="pillar">
+          <div class="num">i.</div>
+          <div class="content">
+            <strong>Coordenação Geral e Supervisão Condominial</strong>
+            <span>Ponto focal único, acompanhamento mensal de contas, reuniões periódicas de prestação de contas.</span>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="num">ii.</div>
+          <div class="content">
+            <strong>Gestão da Ocupação e Manutenção</strong>
+            <span>Suporte a processos de locação, renovação e manutenção preventiva e corretiva do imóvel.</span>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="num">iii.</div>
+          <div class="content">
+            <strong>Governança Documental e Gestão de Contas</strong>
+            <span>Regularidade, controles, pagamentos, recebimentos e fluxo de caixa organizados.</span>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="num">iv.</div>
+          <div class="content">
+            <strong>Aprendizados consolidados</strong>
+            <span>Mapeamento das particularidades do ativo e identificação de oportunidades concretas de otimização.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. TESE -->
+<section id="tese">
+  <div class="container">
+    <div class="eyebrow reveal">02 · A proposta em uma frase</div>
+    <h2 class="reveal reveal-delay-1">
+      Propomos <em>evoluir</em> o modelo de remuneração e ampliar a <span class="highlight">autonomia operacional</span> — alinhando nossa remuneração ao desempenho real do ativo.
+    </h2>
+    <div class="signature reveal reveal-delay-2">— Somma Multi Family Office, abril de 2026</div>
+  </div>
+</section>
+
+<!-- 4. ANTES × DEPOIS -->
+<section id="comparativo">
+  <div class="container">
+    <div class="eyebrow reveal">03 · Visão geral</div>
+    <h2 class="section-title reveal reveal-delay-1">Antes <em>×</em> Depois.</h2>
+    <p class="body reveal reveal-delay-2">Três mudanças essenciais. Todo o restante do contrato permanece inalterado.</p>
+
+    <div class="compare-wrapper reveal reveal-delay-2">
+      <div class="compare-row header">
+        <div class="cell">Item</div>
+        <div class="cell">Modelo Atual</div>
+        <div class="cell">Modelo Proposto</div>
+      </div>
+
+      <div class="compare-row">
+        <div class="cell label">Remuneração recorrente</div>
+        <div class="cell before">R$ 19.331,00/mês fixo, reajuste anual pelo IPCA</div>
+        <div class="cell after highlight">5% sobre a receita mensal de aluguéis do imóvel</div>
+      </div>
+
+      <div class="compare-row">
+        <div class="cell label">Performance</div>
+        <div class="cell before">Não prevista</div>
+        <div class="cell after highlight">50% do 1º aluguel em novas locações com novos inquilinos</div>
+      </div>
+
+      <div class="compare-row">
+        <div class="cell label">Autonomia operacional</div>
+        <div class="cell before">Toda ação demanda validação prévia</div>
+        <div class="cell after highlight">Alçada pré-aprovada para despesas recorrentes e de baixo valor</div>
+      </div>
+
+      <div class="compare-row">
+        <div class="cell label">Honorários de prospecção</div>
+        <div class="cell before">1 aluguel integral</div>
+        <div class="cell after">Mantido</div>
+      </div>
+
+      <div class="compare-row">
+        <div class="cell label">Exclusividade de venda</div>
+        <div class="cell before">6% (3% em caso de indicação da Contratante)</div>
+        <div class="cell after">Mantido</div>
+      </div>
+
+      <div class="compare-row">
+        <div class="cell label">Demais cláusulas</div>
+        <div class="cell before">—</div>
+        <div class="cell after">Mantidas integralmente</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. FEE DE GESTÃO 5% -->
+<section id="fee">
+  <div class="container">
+    <div class="eyebrow reveal">04 · Fee de gestão</div>
+    <h2 class="section-title reveal reveal-delay-1">Cinco por cento<br>sobre a <em>receita</em>.</h2>
+
+    <div class="fee-grid" style="margin-top: 48px;">
+      <div class="reveal reveal-delay-2">
+        <div class="hero-number">5<span class="pct">%</span></div>
+        <div class="hero-number-label">sobre a receita bruta<br>mensal de aluguéis</div>
+      </div>
+
+      <div class="reveal reveal-delay-3">
+        <h3 class="subheading">Como funciona</h3>
+        <ul class="fee-benefits">
+          <li><span class="icon"></span><span>Base: receita bruta de locação recebida no mês, excluindo repasses de condomínio e IPTU.</span></li>
+          <li><span class="icon"></span><span>Vencimento no 5º dia útil do mês subsequente à apuração.</span></li>
+          <li><span class="icon"></span><span>Modelo integralmente variável — sem piso, sem teto.</span></li>
+          <li><span class="icon"></span><span>Reajuste automático: dispensa correção por índice.</span></li>
+          <li><span class="icon"></span><span>Alinhamento direto de interesses: quando o ativo ganha, a Somma ganha.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. PERFORMANCE -->
+<section id="performance">
+  <div class="container">
+    <div class="eyebrow reveal">05 · Performance</div>
+    <h2 class="section-title reveal reveal-delay-1">50% do <em>primeiro aluguel</em>,<br>em novas locações.</h2>
+    <p class="lead reveal reveal-delay-2">Quando a atuação da Somma resulta na contratação de um novo inquilino para o imóvel, fazemos jus a 50% do primeiro aluguel pactuado. Pagamento único, junto ao recebimento do primeiro aluguel.</p>
+
+    <div class="perf-example reveal reveal-delay-2">
+      <div>
+        <h4>Exemplo ilustrativo</h4>
+        <div class="scenario">Nova locação celebrada com inquilino prospectado e qualificado pela Somma, com aluguel mensal de R$ 12.000,00.</div>
+      </div>
+
+      <div class="calc-rows">
+        <div class="calc-row">
+          <div class="label">Aluguel contratado</div>
+          <div class="value">R$ 12.000,00</div>
+        </div>
+        <div class="calc-row">
+          <div class="label">Honorários de prospecção (1 aluguel)</div>
+          <div class="value">R$ 12.000,00</div>
+        </div>
+        <div class="calc-row">
+          <div class="label">Performance sobre 1º aluguel (50%)</div>
+          <div class="value">R$ 6.000,00</div>
+        </div>
+        <div class="calc-row total">
+          <div class="label">Total devido na 1ª mensalidade</div>
+          <div class="value">R$ 18.000,00</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="perf-rules reveal reveal-delay-3">
+      <div class="perf-rule">
+        <div class="t">Aplicabilidade</div>
+        <div class="d">Exclusiva para novas locações com novos inquilinos. Renovações e reajustes ordinários não são remunerados.</div>
+      </div>
+      <div class="perf-rule">
+        <div class="t">Natureza do pagamento</div>
+        <div class="d">Pagamento único, devido junto ao recebimento do primeiro aluguel pelo Contratante.</div>
+      </div>
+      <div class="perf-rule">
+        <div class="t">Coexistência</div>
+        <div class="d">Coexiste com a comissão de intermediação de 1 aluguel já prevista no contrato vigente.</div>
+      </div>
+      <div class="perf-rule">
+        <div class="t">Continuidade</div>
+        <div class="d">A partir do 2º mês, a Contratante passa a pagar apenas o fee recorrente de 5%.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. AUTONOMIA -->
+<section id="autonomia">
+  <div class="container">
+    <div class="eyebrow reveal">06 · Escopo ampliado</div>
+    <h2 class="section-title reveal reveal-delay-1">Autonomia para os<br><em>pequenos orçamentos</em>.</h2>
+    <p class="lead reveal reveal-delay-2">Estabelecer, por uma única vez, um conjunto fechado de categorias e limites dentro dos quais a Somma age com autonomia — prestando contas a posteriori, nos relatórios mensais.</p>
+
+    <div class="autonomy-grid reveal reveal-delay-3">
+      <div class="autonomy-card">
+        <div class="ico">i.</div>
+        <div class="txt">Manutenção preventiva e corretiva de baixo valor.</div>
+      </div>
+      <div class="autonomy-card">
+        <div class="ico">ii.</div>
+        <div class="txt">Reposição de insumos e materiais recorrentes.</div>
+      </div>
+      <div class="autonomy-card">
+        <div class="ico">iii.</div>
+        <div class="txt">Contratação pontual de prestadores técnicos.</div>
+      </div>
+      <div class="autonomy-card">
+        <div class="ico">iv.</div>
+        <div class="txt">Atendimentos emergenciais fora do horário comercial.</div>
+      </div>
+      <div class="autonomy-card">
+        <div class="ico">v.</div>
+        <div class="txt">Despesas cartorárias, taxas e emolumentos.</div>
+      </div>
+    </div>
+
+    <div class="governance reveal">
+      <div class="t">Governança da alçada</div>
+      <div class="governance-grid">
+        <div class="governance-item">
+          <div class="num">1×</div>
+          <div class="desc">Limites acordados uma única vez na assinatura do aditivo — por evento e mensais agregados.</div>
+        </div>
+        <div class="governance-item">
+          <div class="num">12m</div>
+          <div class="desc">Revisão conjunta dos limites a cada 12 meses, ou sempre que solicitado por qualquer das Partes.</div>
+        </div>
+        <div class="governance-item">
+          <div class="num">∑</div>
+          <div class="desc">Prestação de contas mensal consolidada — NFs, descritivo e justificativa por despesa.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. VIGÊNCIA -->
+<section id="vigencia" class="compact">
+  <div class="container">
+    <div class="eyebrow reveal">07 · Formalização</div>
+    <h2 class="section-title reveal reveal-delay-1">Vigência e <em>aditivo</em>.</h2>
+    <p class="body reveal reveal-delay-2">Aditivo simples ao contrato vigente, sem período de transição.</p>
+
+    <div class="date-hero reveal reveal-delay-2">
+      <div class="prefix">Início da vigência</div>
+      <div class="big">01 de <em>junho</em>, 2026</div>
+      <div class="small">sem período de transição</div>
+    </div>
+
+    <div class="formal-steps reveal reveal-delay-3">
+      <div class="formal-step">
+        <div class="n">01 —</div>
+        <div class="title">Revisão da Cláusula 32</div>
+        <div class="desc">Nova base de cálculo do fee de gestão (5% sobre receita de aluguéis).</div>
+      </div>
+      <div class="formal-step">
+        <div class="n">02 —</div>
+        <div class="title">Nova cláusula de performance</div>
+        <div class="desc">50% do primeiro aluguel em novas locações com novos inquilinos.</div>
+      </div>
+      <div class="formal-step">
+        <div class="n">03 —</div>
+        <div class="title">Cláusula de alçada operacional</div>
+        <div class="desc">Anexo com as categorias e limites acordados em conjunto.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9. PRÓXIMOS PASSOS -->
+<section id="passos" class="compact">
+  <div class="container">
+    <div class="eyebrow reveal">08 · A partir de agora</div>
+    <h2 class="section-title reveal reveal-delay-1">Próximos <em>passos</em>.</h2>
+
+    <div class="steps-list reveal reveal-delay-2">
+      <div class="step-item">
+        <div class="content">
+          <div class="t">Apresentação e discussão da proposta</div>
+          <div class="d">Reunião conjunta para alinhamento e esclarecimento de pontos.</div>
+        </div>
+        <div class="when">Abril 2026</div>
+      </div>
+      <div class="step-item">
+        <div class="content">
+          <div class="t">Alinhamento dos limites de alçada</div>
+          <div class="d">Definição conjunta das categorias, limites por evento e mensais.</div>
+        </div>
+        <div class="when">Abril–Maio 2026</div>
+      </div>
+      <div class="step-item">
+        <div class="content">
+          <div class="t">Redação e assinatura do aditivo</div>
+          <div class="d">Aditivo contratual incorporando as três mudanças.</div>
+        </div>
+        <div class="when">Maio 2026</div>
+      </div>
+      <div class="step-item">
+        <div class="content">
+          <div class="t">Início da vigência do novo modelo</div>
+          <div class="d">Transição imediata, sem paralelismo entre modelos.</div>
+        </div>
+        <div class="when">01 · Jun · 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10. FECHAMENTO -->
+<section id="fechamento">
+  <div class="container">
+    <div class="eyebrow reveal" style="color: rgba(251,250,247,0.5);">Vamos conversar</div>
+    <div class="big-statement reveal reveal-delay-1">
+      Um modelo <em>mais simples</em>,<br>mais alinhado, e com<br>mais <em>autonomia</em> para entregar.
+    </div>
+
+    <div class="reveal reveal-delay-2">
+      <div class="sig-line"></div>
+      <div class="sig-name">Somma Multi Family Office S.A.</div>
+      <div class="sig-label">Gestão patrimonial com alinhamento de interesses</div>
+    </div>
+
+    <div class="footer-meta">
+      <div>Documento confidencial · Uso exclusivo</div>
+      <div>Florianópolis · Itajaí · SC</div>
+      <div>Abril 2026</div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Top bar shadow on scroll
+  const topbar = document.getElementById('topbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) topbar.classList.add('scrolled');
+    else topbar.classList.remove('scrolled');
+  });
+
+  // Reveal on scroll
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  // Active section highlighting in side nav
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.side-nav a');
+
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('data-section') === id);
+        });
+      }
+    });
+  }, { threshold: 0.35 });
+  sections.forEach(s => sectionObserver.observe(s));
+</script>
+
+</body>
+</html>
