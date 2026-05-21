@@ -6,37 +6,69 @@
 <title>Proposta de Evolução Contratual · Zen Tower · Somma Multi Family Office</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <style>
+  /* ===== SOMMA MFO DESIGN TOKENS ===== */
   :root {
-    --navy: #0B2340;
-    --navy-soft: #1F3A5F;
-    --accent: #2E75B6;
-    --paper: #FBFAF7;
-    --paper-warm: #F4F1EA;
-    --ink: #1A1D22;
-    --muted: #5A6578;
-    --rule: #D9D4C7;
-    --gold: #A88B4A;
-    --serif: "Fraunces", "Cormorant Garamond", Georgia, serif;
-    --sans: "Manrope", -apple-system, BlinkMacSystemFont, sans-serif;
+    /* Brand palette */
+    --somma-slate: #486878;
+    --somma-slate-700: #365060;
+    --somma-slate-800: #2c424d;
+    --somma-slate-900: #1c2931;
+    --champagne: #c2a878;
+    --champagne-muted: rgba(194, 168, 120, 0.55);
+
+    /* Surfaces */
+    --paper: #fbfbf9;
+    --paper-warm: #f5f3ee;
+    --paper-darker: #edeae3;
+
+    /* Foreground / ink */
+    --fg-1: #1c2931;
+    --fg-2: #486878;
+    --fg-3: #728c98;
+    --fg-muted: #8a9da7;
+
+    /* On-dark foreground */
+    --on-dark-1: #fbfbf9;
+    --on-dark-2: rgba(251, 251, 249, 0.75);
+    --on-dark-3: rgba(251, 251, 249, 0.50);
+
+    /* Rules & borders */
+    --rule: #e6e4dd;
+    --rule-dark: rgba(251, 251, 249, 0.12);
+
+    /* Shadows (brand-tinted) */
+    --shadow-1: 0 1px 3px rgba(28, 41, 49, 0.06);
+    --shadow-2: 0 4px 12px rgba(28, 41, 49, 0.08);
+    --shadow-3: 0 8px 24px rgba(28, 41, 49, 0.10);
+
+    /* Diagonal corner radii — SOMMA signature */
+    --r-diag-xs: 0 4px 0 4px;
+    --r-diag-sm: 0 6px 0 6px;
+    --r-diag-md: 0 10px 0 10px;
+    --r-diag-lg: 0 16px 0 16px;
+    --r-diag-xl: 0 24px 0 24px;
+
+    /* Type */
+    --font: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: var(--sans);
+    font-family: var(--font);
     background: var(--paper);
-    color: var(--ink);
+    color: var(--fg-1);
     line-height: 1.6;
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Navegação lateral fixa (desktop) */
+  /* ===== SIDE NAV ===== */
   .side-nav {
     position: fixed;
     top: 50%;
@@ -53,20 +85,20 @@
     height: 10px;
     border-radius: 50%;
     background: transparent;
-    border: 1.5px solid var(--muted);
-    opacity: 0.45;
-    transition: all 0.3s ease;
+    border: 1.5px solid var(--fg-3);
+    opacity: 0.4;
+    transition: all 0.25s ease;
     position: relative;
+    text-decoration: none;
   }
   .side-nav a:hover {
     opacity: 1;
-    border-color: var(--navy);
-    background: var(--navy);
-    transform: scale(1.3);
+    border-color: var(--somma-slate);
+    background: var(--somma-slate);
   }
   .side-nav a.active {
-    background: var(--navy);
-    border-color: var(--navy);
+    background: var(--somma-slate);
+    border-color: var(--somma-slate);
     opacity: 1;
   }
   .side-nav a span {
@@ -74,61 +106,61 @@
     right: 22px;
     top: 50%;
     transform: translateY(-50%);
-    font-family: var(--sans);
+    font-family: var(--font);
     font-size: 11px;
+    font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--navy);
+    letter-spacing: 0.14em;
+    color: var(--somma-slate);
     background: var(--paper);
     padding: 4px 10px;
+    border-radius: var(--r-diag-xs);
     white-space: nowrap;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.25s ease;
+    transition: opacity 0.2s ease;
   }
   .side-nav a:hover span { opacity: 1; }
-
   @media (max-width: 900px) { .side-nav { display: none; } }
 
-  /* Header fixo minimalista */
+  /* ===== TOP BAR ===== */
   .top-bar {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 0; left: 0; right: 0;
     z-index: 40;
     padding: 20px 48px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(251, 250, 247, 0.88);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(251, 251, 249, 0.88);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border-bottom: 1px solid transparent;
     transition: border-color 0.3s ease;
   }
   .top-bar.scrolled { border-bottom-color: var(--rule); }
   .top-bar .brand {
-    font-family: var(--sans);
-    font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 0.28em;
-    color: var(--navy);
+    font-family: var(--font);
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--somma-slate);
   }
   .top-bar .meta {
-    font-family: var(--sans);
+    font-family: var(--font);
     font-size: 11px;
-    color: var(--muted);
+    font-weight: 500;
+    color: var(--fg-muted);
     text-transform: uppercase;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.18em;
   }
-
   @media (max-width: 600px) {
     .top-bar { padding: 16px 24px; }
     .top-bar .meta { display: none; }
   }
 
-  /* Sections genéricas */
+  /* ===== SECTIONS ===== */
   section {
     min-height: 100vh;
     padding: 120px 48px 96px;
@@ -139,26 +171,20 @@
     scroll-margin-top: 0;
   }
   section.compact { min-height: auto; padding: 96px 48px; }
-
-  .container {
-    max-width: 1100px;
-    margin: 0 auto;
-    width: 100%;
-  }
-
+  .container { max-width: 1120px; margin: 0 auto; width: 100%; }
   @media (max-width: 700px) {
     section { padding: 100px 24px 72px; }
     section.compact { padding: 72px 24px; }
   }
 
-  /* Tipografia */
+  /* ===== TYPOGRAPHY — SOMMA SYSTEM ===== */
   .eyebrow {
-    font-family: var(--sans);
+    font-family: var(--font);
     font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.28em;
+    font-weight: 500;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--fg-3);
     margin-bottom: 24px;
     display: flex;
     align-items: center;
@@ -169,75 +195,83 @@
     display: block;
     width: 32px;
     height: 1px;
-    background: var(--accent);
+    background: var(--champagne);
   }
 
   h1.display {
-    font-family: var(--serif);
-    font-weight: 400;
-    font-size: clamp(44px, 6.8vw, 88px);
-    line-height: 1.02;
+    font-family: var(--font);
+    font-weight: 300;
+    font-size: clamp(42px, 6.2vw, 80px);
+    line-height: 1.08;
     letter-spacing: -0.02em;
-    color: var(--navy);
+    color: var(--somma-slate-800);
     margin-bottom: 32px;
   }
   h1.display em {
-    font-style: italic;
-    font-weight: 300;
-    color: var(--accent);
+    font-style: normal;
+    color: var(--somma-slate);
+    position: relative;
+  }
+  h1.display em::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 2px;
+    height: 2px;
+    background: var(--champagne);
+    opacity: 0.6;
   }
 
   h2.section-title {
-    font-family: var(--serif);
-    font-weight: 400;
-    font-size: clamp(36px, 4.8vw, 60px);
-    line-height: 1.08;
+    font-family: var(--font);
+    font-weight: 300;
+    font-size: clamp(34px, 4.5vw, 56px);
+    line-height: 1.12;
     letter-spacing: -0.02em;
-    color: var(--navy);
+    color: var(--somma-slate-800);
     margin-bottom: 28px;
   }
   h2.section-title em {
-    font-style: italic;
-    font-weight: 300;
-    color: var(--accent);
+    font-style: normal;
+    color: var(--somma-slate);
   }
 
   h3.subheading {
-    font-family: var(--sans);
-    font-weight: 600;
-    font-size: 14px;
-    letter-spacing: 0.22em;
+    font-family: var(--font);
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--navy);
+    color: var(--somma-slate);
     margin-bottom: 16px;
   }
 
   p.lead {
-    font-family: var(--serif);
+    font-family: var(--font);
     font-weight: 300;
-    font-size: clamp(19px, 2vw, 24px);
+    font-size: clamp(18px, 1.8vw, 22px);
     line-height: 1.5;
-    color: var(--navy-soft);
+    color: var(--fg-2);
     max-width: 720px;
     margin-bottom: 32px;
   }
   p.body {
-    font-family: var(--sans);
+    font-family: var(--font);
     font-size: 16px;
+    font-weight: 400;
     line-height: 1.7;
-    color: var(--muted);
+    color: var(--fg-3);
     max-width: 640px;
     margin-bottom: 16px;
   }
 
-  .rule {
+  .rule-line {
     width: 48px;
     height: 1px;
-    background: var(--gold);
+    background: var(--champagne);
     margin: 32px 0;
   }
 
-  /* ================== 1. CAPA ================== */
+  /* ===== 1. CAPA ===== */
   #capa {
     background: linear-gradient(180deg, var(--paper) 0%, var(--paper-warm) 100%);
     overflow: hidden;
@@ -245,13 +279,12 @@
   #capa::before {
     content: "";
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 0; right: 0;
     width: 45%;
     height: 100%;
     background:
-      radial-gradient(ellipse at 70% 30%, rgba(46, 117, 182, 0.08) 0%, transparent 60%),
-      radial-gradient(ellipse at 30% 70%, rgba(168, 139, 74, 0.06) 0%, transparent 60%);
+      radial-gradient(ellipse at 70% 30%, rgba(72, 104, 120, 0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 30% 70%, rgba(194, 168, 120, 0.05) 0%, transparent 60%);
     pointer-events: none;
   }
   .capa-grid {
@@ -264,59 +297,57 @@
 
   .capa-left .tag {
     display: inline-block;
-    font-family: var(--sans);
+    font-family: var(--font);
     font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.28em;
+    font-weight: 500;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--accent);
-    padding: 8px 14px;
-    border: 1px solid var(--accent);
+    color: var(--somma-slate);
+    padding: 8px 16px;
+    border: 1px solid var(--somma-slate);
+    border-radius: var(--r-diag-sm);
     margin-bottom: 40px;
-    border-radius: 2px;
   }
   .capa-left h1 {
-    font-family: var(--serif);
-    font-weight: 400;
-    font-size: clamp(48px, 7vw, 96px);
-    line-height: 0.98;
-    letter-spacing: -0.025em;
-    color: var(--navy);
+    font-family: var(--font);
+    font-weight: 300;
+    font-size: clamp(44px, 6.5vw, 84px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--somma-slate-800);
     margin-bottom: 28px;
   }
   .capa-left h1 em {
-    font-style: italic;
-    font-weight: 300;
-    color: var(--accent);
+    font-style: normal;
+    color: var(--somma-slate);
   }
   .capa-left .subtitle {
-    font-family: var(--serif);
+    font-family: var(--font);
     font-weight: 300;
-    font-style: italic;
-    font-size: clamp(18px, 2vw, 22px);
-    color: var(--navy-soft);
+    font-size: clamp(17px, 1.8vw, 20px);
+    color: var(--fg-2);
     margin-bottom: 48px;
     max-width: 480px;
-    line-height: 1.4;
+    line-height: 1.55;
   }
 
   .capa-meta {
     display: grid;
     grid-template-columns: auto 1fr;
-    gap: 16px 28px;
+    gap: 14px 28px;
     padding-top: 32px;
     border-top: 1px solid var(--rule);
-    font-family: var(--sans);
+    font-family: var(--font);
     font-size: 13px;
   }
   .capa-meta dt {
-    font-weight: 600;
-    color: var(--navy);
-    letter-spacing: 0.1em;
+    font-weight: 500;
+    color: var(--somma-slate);
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     font-size: 11px;
   }
-  .capa-meta dd { color: var(--muted); }
+  .capa-meta dd { color: var(--fg-3); }
 
   .capa-right {
     position: relative;
@@ -332,13 +363,9 @@
     align-items: flex-end;
     justify-content: center;
   }
-  .building-svg {
-    width: 100%;
-    max-width: 360px;
-    height: auto;
-  }
+  .building-svg { width: 100%; max-width: 360px; height: auto; }
 
-  /* ================== 2. CONTEXTO ================== */
+  /* ===== 2. CONTEXTO ===== */
   #contexto { background: var(--paper); }
   .context-grid {
     display: grid;
@@ -348,12 +375,7 @@
   }
   @media (max-width: 900px) { .context-grid { grid-template-columns: 1fr; gap: 40px; } }
 
-  .context-pillars {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0;
-    margin-top: 16px;
-  }
+  .context-pillars { display: grid; grid-template-columns: 1fr; gap: 0; margin-top: 16px; }
   .pillar {
     padding: 24px 0;
     border-bottom: 1px solid var(--rule);
@@ -364,32 +386,31 @@
   }
   .pillar:last-child { border-bottom: none; }
   .pillar .num {
-    font-family: var(--serif);
+    font-family: var(--font);
     font-weight: 300;
-    font-style: italic;
-    font-size: 32px;
-    color: var(--accent);
+    font-size: 28px;
+    color: var(--champagne);
     line-height: 1;
   }
   .pillar .content strong {
-    font-family: var(--sans);
-    font-weight: 600;
+    font-family: var(--font);
+    font-weight: 500;
     font-size: 15px;
-    color: var(--navy);
+    color: var(--somma-slate-800);
     display: block;
     margin-bottom: 4px;
   }
   .pillar .content span {
-    font-family: var(--sans);
+    font-family: var(--font);
     font-size: 14px;
-    color: var(--muted);
+    color: var(--fg-3);
     line-height: 1.6;
   }
 
-  /* ================== 3. TESE ================== */
+  /* ===== 3. TESE ===== */
   #tese {
-    background: var(--navy);
-    color: var(--paper);
+    background: var(--somma-slate-800);
+    color: var(--on-dark-1);
     position: relative;
     overflow: hidden;
   }
@@ -398,57 +419,51 @@
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse at 20% 20%, rgba(46, 117, 182, 0.25) 0%, transparent 55%),
-      radial-gradient(ellipse at 80% 80%, rgba(168, 139, 74, 0.12) 0%, transparent 55%);
+      radial-gradient(ellipse at 20% 20%, rgba(72, 104, 120, 0.30) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 80%, rgba(194, 168, 120, 0.10) 0%, transparent 55%);
     pointer-events: none;
   }
   #tese .container { position: relative; z-index: 2; }
-  #tese .eyebrow { color: rgba(251, 250, 247, 0.6); }
-  #tese .eyebrow::before { background: rgba(251, 250, 247, 0.4); }
+  #tese .eyebrow { color: var(--on-dark-3); }
+  #tese .eyebrow::before { background: var(--on-dark-3); }
   #tese h2 {
-    font-family: var(--serif);
+    font-family: var(--font);
     font-weight: 300;
-    font-size: clamp(40px, 6vw, 80px);
-    line-height: 1.08;
+    font-size: clamp(36px, 5.5vw, 72px);
+    line-height: 1.12;
     letter-spacing: -0.02em;
-    color: var(--paper);
+    color: var(--on-dark-1);
     margin-bottom: 40px;
     max-width: 960px;
   }
   #tese h2 em {
-    font-style: italic;
-    color: var(--accent);
+    font-style: normal;
+    color: var(--champagne);
   }
   #tese h2 .highlight {
     font-style: normal;
-    color: var(--paper);
+    color: var(--on-dark-1);
     position: relative;
     display: inline-block;
   }
   #tese h2 .highlight::after {
     content: "";
     position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 8px;
+    left: 0; right: 0; bottom: 4px;
     height: 2px;
-    background: var(--gold);
+    background: var(--champagne);
   }
   #tese .signature {
     margin-top: 48px;
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 16px;
-    color: rgba(251, 250, 247, 0.65);
+    font-family: var(--font);
+    font-weight: 300;
+    font-size: 15px;
+    color: var(--on-dark-3);
   }
 
-  /* ================== 4. ANTES × DEPOIS ================== */
+  /* ===== 4. COMPARATIVO ===== */
   #comparativo { background: var(--paper); }
-
-  .compare-wrapper {
-    margin-top: 56px;
-    border-top: 1px solid var(--navy);
-  }
+  .compare-wrapper { margin-top: 56px; border-top: 1px solid var(--somma-slate-800); }
   .compare-row {
     display: grid;
     grid-template-columns: 1.2fr 1.5fr 1.5fr;
@@ -458,54 +473,46 @@
     align-items: start;
   }
   .compare-row.header {
-    border-bottom: 1px solid var(--navy);
+    border-bottom: 1px solid var(--somma-slate-800);
     padding: 20px 0;
   }
   .compare-row.header .cell {
-    font-family: var(--sans);
-    font-weight: 600;
+    font-family: var(--font);
+    font-weight: 500;
     font-size: 11px;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--navy);
+    color: var(--somma-slate-800);
   }
-  .compare-row .cell { padding: 0 24px; font-family: var(--sans); }
+  .compare-row .cell { padding: 0 24px; font-family: var(--font); }
   .compare-row .cell:first-child { padding-left: 0; }
-
   .compare-row .label {
-    font-family: var(--sans);
-    font-weight: 600;
+    font-weight: 500;
     font-size: 14px;
-    color: var(--navy);
-    letter-spacing: 0.01em;
+    color: var(--somma-slate-800);
   }
   .compare-row .before {
     font-size: 14px;
-    color: var(--muted);
+    color: var(--fg-3);
     line-height: 1.55;
-    position: relative;
   }
   .compare-row .after {
     font-size: 14px;
-    color: var(--ink);
+    color: var(--fg-1);
     line-height: 1.55;
     font-weight: 500;
-    position: relative;
   }
   .compare-row .after.highlight {
-    color: var(--navy);
+    color: var(--somma-slate-800);
+    padding-left: 24px;
+    position: relative;
   }
   .compare-row .after.highlight::before {
     content: "";
     position: absolute;
-    left: 8px;
-    top: 6px;
-    bottom: 6px;
+    left: 8px; top: 4px; bottom: 4px;
     width: 2px;
-    background: var(--gold);
-  }
-  .compare-row .after.highlight {
-    padding-left: 24px;
+    background: var(--champagne);
   }
 
   @media (max-width: 800px) {
@@ -513,13 +520,13 @@
     .compare-row.header { display: none; }
     .compare-row .cell { padding: 0; }
     .compare-row .label { font-size: 16px; margin-bottom: 6px; }
-    .compare-row .before::before { content: "Atual · "; font-weight: 600; color: var(--muted); text-transform: uppercase; font-size: 10px; letter-spacing: 0.15em; display: block; margin-bottom: 4px; }
-    .compare-row .after::before { content: "Proposto · "; font-weight: 600; color: var(--accent); text-transform: uppercase; font-size: 10px; letter-spacing: 0.15em; display: block; margin-bottom: 4px; }
+    .compare-row .before::before { content: "Atual · "; font-weight: 500; color: var(--fg-3); text-transform: uppercase; font-size: 10px; letter-spacing: 0.15em; display: block; margin-bottom: 4px; }
+    .compare-row .after::before { content: "Proposto · "; font-weight: 500; color: var(--somma-slate); text-transform: uppercase; font-size: 10px; letter-spacing: 0.15em; display: block; margin-bottom: 4px; }
     .compare-row .after.highlight { padding-left: 0; }
-    .compare-row .after.highlight::after { display: none; }
+    .compare-row .after.highlight::before { display: none; }
   }
 
-  /* ================== 5. FEE 5% ================== */
+  /* ===== 5. FEE 5% ===== */
   #fee { background: var(--paper-warm); }
   .fee-grid {
     display: grid;
@@ -530,30 +537,30 @@
   @media (max-width: 900px) { .fee-grid { grid-template-columns: 1fr; gap: 48px; } }
 
   .hero-number {
-    font-family: var(--serif);
+    font-family: var(--font);
     font-weight: 300;
-    font-size: clamp(140px, 20vw, 280px);
+    font-size: clamp(120px, 18vw, 240px);
     line-height: 0.85;
-    color: var(--navy);
+    color: var(--somma-slate-800);
     letter-spacing: -0.05em;
     position: relative;
     display: inline-block;
   }
   .hero-number .pct {
-    font-size: 0.4em;
-    font-style: italic;
-    color: var(--accent);
+    font-size: 0.35em;
+    color: var(--champagne);
     vertical-align: 0.6em;
     margin-left: -0.1em;
   }
   .hero-number-label {
-    font-family: var(--sans);
+    font-family: var(--font);
     font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.22em;
+    font-weight: 500;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--muted);
+    color: var(--fg-3);
     margin-top: 16px;
+    line-height: 1.5;
   }
 
   .fee-benefits {
@@ -566,17 +573,16 @@
     gap: 16px;
     padding: 16px 0;
     border-bottom: 1px solid var(--rule);
-    font-family: var(--sans);
+    font-family: var(--font);
     font-size: 15px;
-    color: var(--ink);
+    color: var(--fg-1);
     line-height: 1.55;
     align-items: start;
   }
   .fee-benefits li:last-child { border-bottom: none; }
   .fee-benefits .icon {
-    width: 20px;
-    height: 20px;
-    border: 1.5px solid var(--accent);
+    width: 20px; height: 20px;
+    border: 1.5px solid var(--somma-slate);
     border-radius: 50%;
     position: relative;
     margin-top: 3px;
@@ -584,22 +590,21 @@
   .fee-benefits .icon::after {
     content: "";
     position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 7px;
-    height: 7px;
-    background: var(--accent);
+    left: 50%; top: 50%;
+    width: 7px; height: 7px;
+    background: var(--somma-slate);
     border-radius: 50%;
     transform: translate(-50%, -50%);
   }
 
-  /* ================== 6. PERFORMANCE ================== */
+  /* ===== 6. PERFORMANCE ===== */
   #performance { background: var(--paper); }
   .perf-example {
     margin-top: 48px;
     padding: 48px;
     background: var(--paper-warm);
-    border-left: 3px solid var(--gold);
+    border-left: 3px solid var(--champagne);
+    border-radius: var(--r-diag-md);
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 48px;
@@ -608,30 +613,24 @@
   @media (max-width: 800px) {
     .perf-example { grid-template-columns: 1fr; padding: 32px; gap: 32px; }
   }
-
   .perf-example h4 {
-    font-family: var(--sans);
-    font-weight: 600;
+    font-family: var(--font);
+    font-weight: 500;
     font-size: 11px;
-    letter-spacing: 0.24em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--gold);
+    color: var(--champagne);
     margin-bottom: 16px;
   }
   .perf-example .scenario {
-    font-family: var(--serif);
-    font-weight: 400;
-    font-size: 20px;
-    font-style: italic;
-    color: var(--navy);
-    line-height: 1.4;
+    font-family: var(--font);
+    font-weight: 300;
+    font-size: 19px;
+    color: var(--somma-slate-800);
+    line-height: 1.45;
   }
 
-  .calc-rows {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
+  .calc-rows { display: flex; flex-direction: column; }
   .calc-row {
     display: flex;
     justify-content: space-between;
@@ -640,39 +639,36 @@
     border-bottom: 1px dashed var(--rule);
     gap: 20px;
   }
-  .calc-row:last-of-type {
-    border-bottom: none;
-  }
+  .calc-row:last-of-type { border-bottom: none; }
   .calc-row.total {
-    border-top: 2px solid var(--navy);
+    border-top: 2px solid var(--somma-slate-800);
     border-bottom: none;
     padding-top: 20px;
     margin-top: 8px;
   }
   .calc-row .label {
-    font-family: var(--sans);
+    font-family: var(--font);
     font-size: 13px;
-    color: var(--muted);
+    color: var(--fg-3);
     line-height: 1.4;
     flex: 1;
   }
   .calc-row .value {
-    font-family: var(--serif);
-    font-weight: 400;
+    font-family: var(--font);
+    font-weight: 300;
     font-size: 18px;
-    color: var(--navy);
+    color: var(--somma-slate-800);
     white-space: nowrap;
-    letter-spacing: -0.01em;
   }
   .calc-row.total .label {
-    font-weight: 600;
-    color: var(--navy);
+    font-weight: 500;
+    color: var(--somma-slate-800);
     font-size: 14px;
   }
   .calc-row.total .value {
-    font-weight: 500;
+    font-weight: 400;
     font-size: 26px;
-    color: var(--navy);
+    color: var(--somma-slate-800);
   }
 
   .perf-rules {
@@ -688,81 +684,82 @@
     border-left: 1px solid var(--rule);
   }
   .perf-rule .t {
-    font-family: var(--sans);
-    font-weight: 600;
+    font-family: var(--font);
+    font-weight: 500;
     font-size: 12px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--navy);
+    color: var(--somma-slate);
     margin-bottom: 6px;
   }
   .perf-rule .d {
-    font-family: var(--sans);
+    font-family: var(--font);
     font-size: 14px;
-    color: var(--muted);
+    color: var(--fg-3);
     line-height: 1.55;
   }
 
-  /* ================== 7. AUTONOMIA ================== */
+  /* ===== 7. AUTONOMIA ===== */
   #autonomia {
-    background: var(--navy);
-    color: var(--paper);
+    background: var(--somma-slate-800);
+    color: var(--on-dark-1);
   }
-  #autonomia .eyebrow { color: rgba(251, 250, 247, 0.6); }
-  #autonomia .eyebrow::before { background: rgba(251, 250, 247, 0.4); }
-  #autonomia h2.section-title { color: var(--paper); }
-  #autonomia h2.section-title em { color: var(--gold); }
-  #autonomia p.lead { color: rgba(251, 250, 247, 0.75); }
+  #autonomia .eyebrow { color: var(--on-dark-3); }
+  #autonomia .eyebrow::before { background: var(--on-dark-3); }
+  #autonomia h2.section-title { color: var(--on-dark-1); }
+  #autonomia h2.section-title em { color: var(--champagne); }
+  #autonomia p.lead { color: var(--on-dark-2); }
 
   .autonomy-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 2px;
     margin-top: 56px;
-    background: rgba(251, 250, 247, 0.08);
-    border: 1px solid rgba(251, 250, 247, 0.08);
+    background: rgba(251, 251, 249, 0.06);
+    border: 1px solid rgba(251, 251, 249, 0.06);
+    border-radius: var(--r-diag-md);
+    overflow: hidden;
   }
   @media (max-width: 900px) { .autonomy-grid { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 500px) { .autonomy-grid { grid-template-columns: 1fr; } }
 
   .autonomy-card {
-    background: var(--navy);
+    background: var(--somma-slate-800);
     padding: 28px 24px;
     min-height: 180px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: background 0.3s ease;
+    transition: background 0.2s ease;
   }
-  .autonomy-card:hover { background: var(--navy-soft); }
+  .autonomy-card:hover { background: var(--somma-slate-700); }
   .autonomy-card .ico {
-    font-family: var(--serif);
+    font-family: var(--font);
     font-weight: 300;
-    font-style: italic;
-    font-size: 28px;
-    color: var(--gold);
+    font-size: 24px;
+    color: var(--champagne);
     margin-bottom: auto;
   }
   .autonomy-card .txt {
-    font-family: var(--sans);
+    font-family: var(--font);
     font-size: 13px;
     line-height: 1.5;
-    color: var(--paper);
+    color: var(--on-dark-1);
     font-weight: 400;
   }
 
   .governance {
     margin-top: 56px;
     padding: 32px 0;
-    border-top: 1px solid rgba(251, 250, 247, 0.15);
+    border-top: 1px solid var(--rule-dark);
   }
   .governance .t {
-    font-family: var(--sans);
-    font-weight: 600;
+    font-family: var(--font);
+    font-weight: 500;
     font-size: 11px;
-    letter-spacing: 0.24em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--gold);
+    color: var(--champagne);
     margin-bottom: 20px;
   }
   .governance-grid {
@@ -772,21 +769,21 @@
   }
   @media (max-width: 800px) { .governance-grid { grid-template-columns: 1fr; gap: 24px; } }
   .governance-item .num {
-    font-family: var(--serif);
+    font-family: var(--font);
     font-weight: 300;
-    font-size: 40px;
-    color: var(--paper);
+    font-size: 36px;
+    color: var(--on-dark-1);
     line-height: 1;
     margin-bottom: 12px;
   }
   .governance-item .desc {
-    font-family: var(--sans);
+    font-family: var(--font);
     font-size: 14px;
-    color: rgba(251, 250, 247, 0.75);
+    color: var(--on-dark-2);
     line-height: 1.55;
   }
 
-  /* ================== 8. VIGÊNCIA ================== */
+  /* ===== 8. VIGÊNCIA ===== */
   #vigencia { background: var(--paper); }
   .date-hero {
     margin-top: 48px;
@@ -794,44 +791,43 @@
     background: var(--paper-warm);
     text-align: center;
     position: relative;
+    border-radius: var(--r-diag-lg);
   }
   .date-hero::before, .date-hero::after {
     content: "";
     position: absolute;
-    width: 40px;
-    height: 40px;
-    border: 1px solid var(--gold);
+    width: 40px; height: 40px;
+    border: 1px solid var(--champagne);
   }
   .date-hero::before { top: 20px; left: 20px; border-right: none; border-bottom: none; }
   .date-hero::after { bottom: 20px; right: 20px; border-left: none; border-top: none; }
-
   .date-hero .prefix {
-    font-family: var(--sans);
+    font-family: var(--font);
     font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.28em;
+    font-weight: 500;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--somma-slate);
     margin-bottom: 24px;
   }
   .date-hero .big {
-    font-family: var(--serif);
+    font-family: var(--font);
     font-weight: 300;
-    font-size: clamp(48px, 7vw, 88px);
+    font-size: clamp(44px, 6.5vw, 80px);
     line-height: 1;
-    color: var(--navy);
+    color: var(--somma-slate-800);
     letter-spacing: -0.02em;
     margin-bottom: 16px;
   }
   .date-hero .big em {
-    font-style: italic;
-    color: var(--accent);
+    font-style: normal;
+    color: var(--somma-slate);
   }
   .date-hero .small {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 17px;
-    color: var(--navy-soft);
+    font-family: var(--font);
+    font-weight: 300;
+    font-size: 16px;
+    color: var(--fg-3);
   }
 
   .formal-steps {
@@ -843,40 +839,36 @@
   @media (max-width: 800px) { .formal-steps { grid-template-columns: 1fr; gap: 24px; } }
   .formal-step {
     padding: 28px 0;
-    border-top: 2px solid var(--navy);
+    border-top: 2px solid var(--somma-slate-800);
   }
   .formal-step .n {
-    font-family: var(--serif);
+    font-family: var(--font);
     font-weight: 300;
-    font-style: italic;
     font-size: 14px;
-    color: var(--accent);
+    color: var(--champagne);
     margin-bottom: 12px;
     letter-spacing: 0.1em;
   }
   .formal-step .title {
-    font-family: var(--sans);
-    font-weight: 600;
+    font-family: var(--font);
+    font-weight: 500;
     font-size: 15px;
-    color: var(--navy);
+    color: var(--somma-slate-800);
     margin-bottom: 10px;
     line-height: 1.4;
   }
   .formal-step .desc {
-    font-family: var(--sans);
+    font-family: var(--font);
     font-size: 13px;
-    color: var(--muted);
+    color: var(--fg-3);
     line-height: 1.55;
   }
 
-  /* ================== 9. PRÓXIMOS PASSOS ================== */
+  /* ===== 9. PRÓXIMOS PASSOS ===== */
   #passos {
     background: linear-gradient(180deg, var(--paper) 0%, var(--paper-warm) 100%);
   }
-  .steps-list {
-    margin-top: 48px;
-    counter-reset: steps;
-  }
+  .steps-list { margin-top: 48px; counter-reset: steps; }
   .step-item {
     display: grid;
     grid-template-columns: 80px 1fr auto;
@@ -886,35 +878,33 @@
     border-bottom: 1px solid var(--rule);
     counter-increment: steps;
   }
-  .step-item:last-child { border-bottom: 1px solid var(--navy); }
+  .step-item:last-child { border-bottom: 1px solid var(--somma-slate-800); }
   .step-item::before {
     content: counter(steps, decimal-leading-zero);
-    font-family: var(--serif);
+    font-family: var(--font);
     font-weight: 300;
-    font-size: 44px;
-    color: var(--accent);
+    font-size: 40px;
+    color: var(--somma-slate);
     line-height: 1;
     letter-spacing: -0.02em;
   }
-  .step-item .content {
-    font-family: var(--sans);
-  }
+  .step-item .content { font-family: var(--font); }
   .step-item .content .t {
-    font-weight: 600;
+    font-weight: 500;
     font-size: 18px;
-    color: var(--navy);
+    color: var(--somma-slate-800);
     margin-bottom: 4px;
   }
   .step-item .content .d {
     font-size: 14px;
-    color: var(--muted);
+    color: var(--fg-3);
     line-height: 1.5;
   }
   .step-item .when {
-    font-family: var(--serif);
-    font-style: italic;
+    font-family: var(--font);
+    font-weight: 300;
     font-size: 14px;
-    color: var(--navy-soft);
+    color: var(--fg-2);
     text-align: right;
   }
   @media (max-width: 700px) {
@@ -923,10 +913,10 @@
     .step-item .when { display: none; }
   }
 
-  /* ================== 10. FECHAMENTO ================== */
+  /* ===== 10. FECHAMENTO ===== */
   #fechamento {
-    background: var(--navy);
-    color: var(--paper);
+    background: var(--somma-slate-800);
+    color: var(--on-dark-1);
     min-height: 90vh;
     position: relative;
     overflow: hidden;
@@ -936,68 +926,69 @@
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse at 30% 40%, rgba(46, 117, 182, 0.2) 0%, transparent 50%),
-      radial-gradient(ellipse at 70% 70%, rgba(168, 139, 74, 0.1) 0%, transparent 50%);
+      radial-gradient(ellipse at 30% 40%, rgba(72, 104, 120, 0.25) 0%, transparent 50%),
+      radial-gradient(ellipse at 70% 70%, rgba(194, 168, 120, 0.08) 0%, transparent 50%);
     pointer-events: none;
   }
   #fechamento .container { position: relative; z-index: 2; }
   #fechamento .big-statement {
-    font-family: var(--serif);
+    font-family: var(--font);
     font-weight: 300;
-    font-size: clamp(44px, 7vw, 96px);
-    line-height: 1.05;
-    color: var(--paper);
+    font-size: clamp(40px, 6.5vw, 84px);
+    line-height: 1.08;
+    color: var(--on-dark-1);
     letter-spacing: -0.02em;
     margin-bottom: 48px;
     max-width: 960px;
   }
   #fechamento .big-statement em {
-    font-style: italic;
-    color: var(--gold);
+    font-style: normal;
+    color: var(--champagne);
   }
   #fechamento .sig-line {
     width: 64px;
     height: 1px;
-    background: var(--gold);
+    background: var(--champagne);
     margin-bottom: 24px;
   }
   #fechamento .sig-name {
-    font-family: var(--sans);
-    font-weight: 600;
-    font-size: 14px;
-    letter-spacing: 0.2em;
+    font-family: var(--font);
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--paper);
+    color: var(--on-dark-1);
     margin-bottom: 6px;
   }
   #fechamento .sig-label {
-    font-family: var(--serif);
-    font-style: italic;
+    font-family: var(--font);
+    font-weight: 300;
     font-size: 14px;
-    color: rgba(251, 250, 247, 0.6);
+    color: var(--on-dark-3);
   }
 
   .footer-meta {
     margin-top: 96px;
     padding-top: 32px;
-    border-top: 1px solid rgba(251, 250, 247, 0.15);
+    border-top: 1px solid var(--rule-dark);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-family: var(--sans);
+    font-family: var(--font);
     font-size: 11px;
-    letter-spacing: 0.16em;
+    font-weight: 500;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: rgba(251, 250, 247, 0.5);
+    color: var(--on-dark-3);
     gap: 24px;
     flex-wrap: wrap;
   }
 
-  /* Reveal on scroll */
+  /* ===== REVEAL ON SCROLL ===== */
   .reveal {
     opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.9s ease, transform 0.9s ease;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
   }
   .reveal.visible {
     opacity: 1;
@@ -1007,7 +998,7 @@
   .reveal-delay-2 { transition-delay: 0.2s; }
   .reveal-delay-3 { transition-delay: 0.3s; }
 
-  /* Print */
+  /* ===== PRINT ===== */
   @media print {
     .side-nav, .top-bar { display: none; }
     section { min-height: auto; page-break-after: always; padding: 40px 24px; }
@@ -1019,8 +1010,8 @@
 
 <!-- TOP BAR -->
 <header class="top-bar" id="topbar">
-  <div class="brand">SOMMA · MULTI FAMILY OFFICE</div>
-  <div class="meta">Proposta · Zen Tower · Abr 2026</div>
+  <div class="brand">Somma · Multi Family Office</div>
+  <div class="meta">Proposta · Zen Tower · Mai 2026</div>
 </header>
 
 <!-- SIDE NAV -->
@@ -1050,121 +1041,45 @@
           <dt>De</dt><dd>Somma Multi Family Office S.A.</dd>
           <dt>Para</dt><dd>Zen Administradora de Centros Empresariais S/A</dd>
           <dt>Referência</dt><dd>Contrato de 08 de agosto de 2025</dd>
-          <dt>Vigência proposta</dt><dd>A partir de 01 de junho de 2026</dd>
+          <dt>Vigência proposta</dt><dd>A partir de 01 de julho de 2026</dd>
         </dl>
       </div>
 
       <div class="capa-right reveal reveal-delay-2">
         <div class="building">
           <svg class="building-svg" viewBox="0 0 300 420" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <!-- Edifício estilizado minimalista -->
-            <g stroke="#1F3A5F" stroke-width="1" fill="none" opacity="0.9">
-              <!-- Base -->
+            <!-- Edifício estilizado minimalista — SOMMA slate palette -->
+            <g stroke="var(--somma-slate-700)" stroke-width="1" fill="none" opacity="0.9">
               <line x1="20" y1="400" x2="280" y2="400" stroke-width="1.5"/>
-              <!-- Ground shadow -->
-              <line x1="40" y1="405" x2="260" y2="405" stroke="#A88B4A" opacity="0.6"/>
-              <!-- Contorno do edifício -->
-              <rect x="80" y="80" width="140" height="320" fill="#FBFAF7"/>
-              <!-- Topo (coroamento) -->
+              <line x1="40" y1="405" x2="260" y2="405" stroke="var(--champagne)" opacity="0.5"/>
+              <rect x="80" y="80" width="140" height="320" fill="var(--paper)"/>
               <line x1="80" y1="80" x2="80" y2="400"/>
               <line x1="220" y1="80" x2="220" y2="400"/>
               <line x1="80" y1="80" x2="220" y2="80" stroke-width="1.5"/>
-              <!-- Coroamento arquitetônico -->
-              <rect x="100" y="60" width="100" height="20" fill="#FBFAF7"/>
+              <rect x="100" y="60" width="100" height="20" fill="var(--paper)"/>
               <line x1="100" y1="60" x2="200" y2="60" stroke-width="1.5"/>
               <line x1="100" y1="60" x2="100" y2="80"/>
               <line x1="200" y1="60" x2="200" y2="80"/>
-              <rect x="130" y="40" width="40" height="20" fill="#FBFAF7"/>
+              <rect x="130" y="40" width="40" height="20" fill="var(--paper)"/>
               <line x1="130" y1="40" x2="170" y2="40" stroke-width="1.5"/>
               <line x1="130" y1="40" x2="130" y2="60"/>
               <line x1="170" y1="40" x2="170" y2="60"/>
             </g>
-            <!-- Grade de janelas -->
-            <g fill="#2E75B6" opacity="0.15">
-              <!-- 10 pavimentos × 5 colunas -->
-              <g>
-                <rect x="92" y="92" width="14" height="18"/>
-                <rect x="114" y="92" width="14" height="18"/>
-                <rect x="136" y="92" width="14" height="18"/>
-                <rect x="158" y="92" width="14" height="18"/>
-                <rect x="180" y="92" width="14" height="18"/>
-                <rect x="202" y="92" width="8" height="18"/>
-              </g>
-              <g transform="translate(0, 28)">
-                <rect x="92" y="92" width="14" height="18"/>
-                <rect x="114" y="92" width="14" height="18"/>
-                <rect x="136" y="92" width="14" height="18"/>
-                <rect x="158" y="92" width="14" height="18"/>
-                <rect x="180" y="92" width="14" height="18"/>
-                <rect x="202" y="92" width="8" height="18"/>
-              </g>
-              <g transform="translate(0, 56)">
-                <rect x="92" y="92" width="14" height="18"/>
-                <rect x="114" y="92" width="14" height="18"/>
-                <rect x="136" y="92" width="14" height="18"/>
-                <rect x="158" y="92" width="14" height="18"/>
-                <rect x="180" y="92" width="14" height="18"/>
-                <rect x="202" y="92" width="8" height="18"/>
-              </g>
-              <g transform="translate(0, 84)">
-                <rect x="92" y="92" width="14" height="18"/>
-                <rect x="114" y="92" width="14" height="18"/>
-                <rect x="136" y="92" width="14" height="18"/>
-                <rect x="158" y="92" width="14" height="18"/>
-                <rect x="180" y="92" width="14" height="18"/>
-                <rect x="202" y="92" width="8" height="18"/>
-              </g>
-              <g transform="translate(0, 112)">
-                <rect x="92" y="92" width="14" height="18"/>
-                <rect x="114" y="92" width="14" height="18"/>
-                <rect x="136" y="92" width="14" height="18"/>
-                <rect x="158" y="92" width="14" height="18"/>
-                <rect x="180" y="92" width="14" height="18"/>
-                <rect x="202" y="92" width="8" height="18"/>
-              </g>
-              <g transform="translate(0, 140)">
-                <rect x="92" y="92" width="14" height="18"/>
-                <rect x="114" y="92" width="14" height="18"/>
-                <rect x="136" y="92" width="14" height="18"/>
-                <rect x="158" y="92" width="14" height="18"/>
-                <rect x="180" y="92" width="14" height="18"/>
-                <rect x="202" y="92" width="8" height="18"/>
-              </g>
-              <g transform="translate(0, 168)">
-                <rect x="92" y="92" width="14" height="18"/>
-                <rect x="114" y="92" width="14" height="18"/>
-                <rect x="136" y="92" width="14" height="18"/>
-                <rect x="158" y="92" width="14" height="18"/>
-                <rect x="180" y="92" width="14" height="18"/>
-                <rect x="202" y="92" width="8" height="18"/>
-              </g>
-              <g transform="translate(0, 196)">
-                <rect x="92" y="92" width="14" height="18"/>
-                <rect x="114" y="92" width="14" height="18"/>
-                <rect x="136" y="92" width="14" height="18"/>
-                <rect x="158" y="92" width="14" height="18"/>
-                <rect x="180" y="92" width="14" height="18"/>
-                <rect x="202" y="92" width="8" height="18"/>
-              </g>
-              <g transform="translate(0, 224)">
-                <rect x="92" y="92" width="14" height="18"/>
-                <rect x="114" y="92" width="14" height="18"/>
-                <rect x="136" y="92" width="14" height="18"/>
-                <rect x="158" y="92" width="14" height="18"/>
-                <rect x="180" y="92" width="14" height="18"/>
-                <rect x="202" y="92" width="8" height="18"/>
-              </g>
-              <g transform="translate(0, 252)">
-                <rect x="92" y="92" width="14" height="18"/>
-                <rect x="114" y="92" width="14" height="18"/>
-                <rect x="136" y="92" width="14" height="18"/>
-                <rect x="158" y="92" width="14" height="18"/>
-                <rect x="180" y="92" width="14" height="18"/>
-                <rect x="202" y="92" width="8" height="18"/>
-              </g>
+            <!-- Window grid — brand slate -->
+            <g fill="var(--somma-slate)" opacity="0.12">
+              <g><rect x="92" y="92" width="14" height="18"/><rect x="114" y="92" width="14" height="18"/><rect x="136" y="92" width="14" height="18"/><rect x="158" y="92" width="14" height="18"/><rect x="180" y="92" width="14" height="18"/><rect x="202" y="92" width="8" height="18"/></g>
+              <g transform="translate(0,28)"><rect x="92" y="92" width="14" height="18"/><rect x="114" y="92" width="14" height="18"/><rect x="136" y="92" width="14" height="18"/><rect x="158" y="92" width="14" height="18"/><rect x="180" y="92" width="14" height="18"/><rect x="202" y="92" width="8" height="18"/></g>
+              <g transform="translate(0,56)"><rect x="92" y="92" width="14" height="18"/><rect x="114" y="92" width="14" height="18"/><rect x="136" y="92" width="14" height="18"/><rect x="158" y="92" width="14" height="18"/><rect x="180" y="92" width="14" height="18"/><rect x="202" y="92" width="8" height="18"/></g>
+              <g transform="translate(0,84)"><rect x="92" y="92" width="14" height="18"/><rect x="114" y="92" width="14" height="18"/><rect x="136" y="92" width="14" height="18"/><rect x="158" y="92" width="14" height="18"/><rect x="180" y="92" width="14" height="18"/><rect x="202" y="92" width="8" height="18"/></g>
+              <g transform="translate(0,112)"><rect x="92" y="92" width="14" height="18"/><rect x="114" y="92" width="14" height="18"/><rect x="136" y="92" width="14" height="18"/><rect x="158" y="92" width="14" height="18"/><rect x="180" y="92" width="14" height="18"/><rect x="202" y="92" width="8" height="18"/></g>
+              <g transform="translate(0,140)"><rect x="92" y="92" width="14" height="18"/><rect x="114" y="92" width="14" height="18"/><rect x="136" y="92" width="14" height="18"/><rect x="158" y="92" width="14" height="18"/><rect x="180" y="92" width="14" height="18"/><rect x="202" y="92" width="8" height="18"/></g>
+              <g transform="translate(0,168)"><rect x="92" y="92" width="14" height="18"/><rect x="114" y="92" width="14" height="18"/><rect x="136" y="92" width="14" height="18"/><rect x="158" y="92" width="14" height="18"/><rect x="180" y="92" width="14" height="18"/><rect x="202" y="92" width="8" height="18"/></g>
+              <g transform="translate(0,196)"><rect x="92" y="92" width="14" height="18"/><rect x="114" y="92" width="14" height="18"/><rect x="136" y="92" width="14" height="18"/><rect x="158" y="92" width="14" height="18"/><rect x="180" y="92" width="14" height="18"/><rect x="202" y="92" width="8" height="18"/></g>
+              <g transform="translate(0,224)"><rect x="92" y="92" width="14" height="18"/><rect x="114" y="92" width="14" height="18"/><rect x="136" y="92" width="14" height="18"/><rect x="158" y="92" width="14" height="18"/><rect x="180" y="92" width="14" height="18"/><rect x="202" y="92" width="8" height="18"/></g>
+              <g transform="translate(0,252)"><rect x="92" y="92" width="14" height="18"/><rect x="114" y="92" width="14" height="18"/><rect x="136" y="92" width="14" height="18"/><rect x="158" y="92" width="14" height="18"/><rect x="180" y="92" width="14" height="18"/><rect x="202" y="92" width="8" height="18"/></g>
             </g>
-            <!-- Detalhe destaque: três janelas acesas (dourado tênue) -->
-            <g fill="#A88B4A" opacity="0.35">
+            <!-- Accent windows — champagne -->
+            <g fill="var(--champagne)" opacity="0.35">
               <rect x="136" y="120" width="14" height="18"/>
               <rect x="158" y="232" width="14" height="18"/>
               <rect x="114" y="316" width="14" height="18"/>
@@ -1183,7 +1098,7 @@
       <div>
         <div class="eyebrow reveal">01 · Onde estamos</div>
         <h2 class="section-title reveal reveal-delay-1">Uma jornada<br>já em <em>andamento</em>.</h2>
-        <div class="rule"></div>
+        <div class="rule-line"></div>
         <p class="body reveal reveal-delay-2">Desde a assinatura do contrato em agosto de 2025, estruturamos a governança do Zen Tower Business Center e consolidamos rotinas que hoje dão previsibilidade ao ativo.</p>
       </div>
 
@@ -1228,7 +1143,7 @@
     <h2 class="reveal reveal-delay-1">
       Propomos <em>evoluir</em> o modelo de remuneração e ampliar a <span class="highlight">autonomia operacional</span> — alinhando nossa remuneração ao desempenho real do ativo.
     </h2>
-    <div class="signature reveal reveal-delay-2">— Somma Multi Family Office, abril de 2026</div>
+    <div class="signature reveal reveal-delay-2">— Somma Multi Family Office, maio de 2026</div>
   </div>
 </section>
 
@@ -1424,7 +1339,7 @@
 
     <div class="date-hero reveal reveal-delay-2">
       <div class="prefix">Início da vigência</div>
-      <div class="big">01 de <em>junho</em>, 2026</div>
+      <div class="big">01 de <em>julho</em>, 2026</div>
       <div class="small">sem período de transição</div>
     </div>
 
@@ -1460,28 +1375,28 @@
           <div class="t">Apresentação e discussão da proposta</div>
           <div class="d">Reunião conjunta para alinhamento e esclarecimento de pontos.</div>
         </div>
-        <div class="when">Abril 2026</div>
+        <div class="when">Maio 2026</div>
       </div>
       <div class="step-item">
         <div class="content">
           <div class="t">Alinhamento dos limites de alçada</div>
           <div class="d">Definição conjunta das categorias, limites por evento e mensais.</div>
         </div>
-        <div class="when">Abril–Maio 2026</div>
+        <div class="when">Maio–Junho 2026</div>
       </div>
       <div class="step-item">
         <div class="content">
           <div class="t">Redação e assinatura do aditivo</div>
           <div class="d">Aditivo contratual incorporando as três mudanças.</div>
         </div>
-        <div class="when">Maio 2026</div>
+        <div class="when">Junho 2026</div>
       </div>
       <div class="step-item">
         <div class="content">
           <div class="t">Início da vigência do novo modelo</div>
           <div class="d">Transição imediata, sem paralelismo entre modelos.</div>
         </div>
-        <div class="when">01 · Jun · 2026</div>
+        <div class="when">01 · Jul · 2026</div>
       </div>
     </div>
   </div>
@@ -1490,7 +1405,7 @@
 <!-- 10. FECHAMENTO -->
 <section id="fechamento">
   <div class="container">
-    <div class="eyebrow reveal" style="color: rgba(251,250,247,0.5);">Vamos conversar</div>
+    <div class="eyebrow reveal" style="color: var(--on-dark-3);">Vamos conversar</div>
     <div class="big-statement reveal reveal-delay-1">
       Um modelo <em>mais simples</em>,<br>mais alinhado, e com<br>mais <em>autonomia</em> para entregar.
     </div>
@@ -1504,13 +1419,13 @@
     <div class="footer-meta">
       <div>Documento confidencial · Uso exclusivo</div>
       <div>Florianópolis · Itajaí · SC</div>
-      <div>Abril 2026</div>
+      <div>Maio 2026</div>
     </div>
   </div>
 </section>
 
 <script>
-  // Top bar shadow on scroll
+  // Top bar border on scroll
   const topbar = document.getElementById('topbar');
   window.addEventListener('scroll', () => {
     if (window.scrollY > 20) topbar.classList.add('scrolled');
@@ -1528,10 +1443,9 @@
   }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
   document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-  // Active section highlighting in side nav
+  // Active section highlighting
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.side-nav a');
-
   const sectionObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -1543,6 +1457,9 @@
     });
   }, { threshold: 0.35 });
   sections.forEach(s => sectionObserver.observe(s));
+
+  // Initialize Lucide icons (available for future use)
+  if (typeof lucide !== 'undefined') lucide.createIcons();
 </script>
 
 </body>
