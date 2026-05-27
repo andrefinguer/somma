@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monvanti — Projeto Ecossistema</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary: #0a0e17;
+    --bg-slide: #0f1520;
+    --bg-card: rgba(255,255,255,0.03);
+    --border-subtle: rgba(255,255,255,0.06);
+    --gold: #c9a84c;
+    --gold-light: #e4cc7a;
+    --gold-dim: rgba(201,168,76,0.15);
+    --gold-glow: rgba(201,168,76,0.08);
+    --text-primary: #e8e4dd;
+    --text-secondary: rgba(232,228,221,0.55);
+    --text-muted: rgba(232,228,221,0.3);
+    --accent-blue: #4a7dbd;
+    --accent-green: #5a9e6f;
+    --accent-red: #bd6b5a;
+    --accent-purple: #8b6bbf;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .presentation {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+  }
+
+  .slide {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 80px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    pointer-events: none;
+    overflow-y: auto;
+  }
+
+  .slide.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+  }
+
+  .slide-number {
+    position: fixed;
+    bottom: 30px;
+    left: 80px;
+    font-size: 13px;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    font-weight: 500;
+    z-index: 100;
+  }
+
+  /* Navigation */
+  .nav {
+    position: fixed;
+    bottom: 25px;
+    right: 80px;
+    display: flex;
+    gap: 12px;
+    z-index: 100;
+  }
+
+  .nav button {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    border: 1px solid var(--border-subtle);
+    background: rgba(15,21,32,0.8);
+    backdrop-filter: blur(10px);
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-size: 18px;
+  }
+
+  .nav button:hover {
+    border-color: var(--gold);
+    background: var(--gold-dim);
+    color: var(--gold);
+  }
+
+  .nav button:disabled {
+    opacity: 0.2;
+    cursor: default;
+    border-color: var(--border-subtle);
+    background: transparent;
+    color: var(--text-muted);
+  }
+
+  /* Progress bar */
+  .progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    transition: width 0.4s ease;
+    z-index: 100;
+  }
+
+  /* Typography */
+  .label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4.5vw, 56px);
+    font-weight: 600;
+    line-height: 1.15;
+    margin-bottom: 24px;
+    letter-spacing: -0.5px;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 3vw, 38px);
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+
+  h2 em { font-style: italic; color: var(--gold); }
+
+  h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+  }
+
+  p, .body-text {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    max-width: 680px;
+    font-weight: 300;
+  }
+
+  .subtitle {
+    font-size: 20px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 600px;
+    font-weight: 300;
+  }
+
+  /* Cards & Grids */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 32px;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    margin-top: 32px;
+  }
+
+  .grid-4 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 16px;
+    margin-top: 24px;
+  }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 28px;
+    transition: border-color 0.3s ease;
+  }
+
+  .card:hover { border-color: rgba(201,168,76,0.2); }
+
+  .card .icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+
+  .card .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+
+  .card .card-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+
+  .card p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  /* Stat highlight */
+  .stat-row {
+    display: flex;
+    gap: 48px;
+    margin: 32px 0;
+  }
+
+  .stat .value {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--gold);
+  }
+
+  .stat .desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+  }
+
+  /* Table */
+  .table-wrap {
+    margin-top: 24px;
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+
+  thead th {
+    background: rgba(201,168,76,0.06);
+    text-align: left;
+    padding: 14px 20px;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--gold);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  tbody td {
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+
+  tbody tr:last-child td { border-bottom: none; }
+
+  tbody tr:hover { background: rgba(255,255,255,0.015); }
+
+  .highlight-row td {
+    color: var(--gold) !important;
+    font-weight: 600;
+    background: rgba(201,168,76,0.04);
+  }
+
+  /* Tags / Pills */
+  .pill {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+
+  .pill-gold { background: var(--gold-dim); color: var(--gold); }
+  .pill-blue { background: rgba(74,125,189,0.15); color: var(--accent-blue); }
+  .pill-green { background: rgba(90,158,111,0.15); color: var(--accent-green); }
+  .pill-purple { background: rgba(139,107,191,0.15); color: var(--accent-purple); }
+  .pill-red { background: rgba(189,107,90,0.15); color: var(--accent-red); }
+
+  /* Diagram */
+  .diagram {
+    margin: 28px 0;
+    padding: 36px;
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    background: rgba(255,255,255,0.01);
+    position: relative;
+  }
+
+  .diagram-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin: 12px 0;
+  }
+
+  .diagram-box {
+    padding: 14px 24px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+    min-width: 160px;
+    line-height: 1.4;
+  }
+
+  .diagram-box.gold-box {
+    background: var(--gold-dim);
+    border: 1px solid rgba(201,168,76,0.3);
+    color: var(--gold-light);
+  }
+
+  .diagram-box.blue-box {
+    background: rgba(74,125,189,0.1);
+    border: 1px solid rgba(74,125,189,0.25);
+    color: #7ba8d9;
+  }
+
+  .diagram-box.green-box {
+    background: rgba(90,158,111,0.1);
+    border: 1px solid rgba(90,158,111,0.25);
+    color: #7dc495;
+  }
+
+  .diagram-box.purple-box {
+    background: rgba(139,107,191,0.1);
+    border: 1px solid rgba(139,107,191,0.25);
+    color: #b09ad6;
+  }
+
+  .diagram-box.dark-box {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+  }
+
+  .diagram-arrow {
+    color: var(--text-muted);
+    font-size: 20px;
+  }
+
+  .diagram-arrow-down {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 20px;
+    margin: 6px 0;
+  }
+
+  .diagram-connector {
+    width: 1px;
+    height: 24px;
+    background: var(--text-muted);
+    margin: 0 auto;
+  }
+
+  .diagram-h-line {
+    height: 1px;
+    background: var(--text-muted);
+    margin: 0 80px;
+  }
+
+  /* Cover slide */
+  .cover {
+    justify-content: flex-end;
+    padding-bottom: 100px;
+    position: relative;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cover .meta {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-top: 32px;
+    font-weight: 400;
+  }
+
+  /* Options layout */
+  .option-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 14px;
+    padding: 28px;
+    position: relative;
+  }
+
+  .option-card.recommended {
+    border-color: rgba(201,168,76,0.3);
+    background: rgba(201,168,76,0.03);
+  }
+
+  .option-card.recommended::after {
+    content: 'RECOMENDADO';
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    padding: 4px 12px;
+    background: var(--gold);
+    color: var(--bg-primary);
+    border-radius: 4px;
+    font-weight: 700;
+  }
+
+  .option-card h3 { color: var(--gold); margin-bottom: 12px; }
+
+  .pro-con {
+    margin-top: 12px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+
+  .pro-con span.pro { color: var(--accent-green); }
+  .pro-con span.con { color: var(--accent-red); }
+
+  /* Roadmap */
+  .roadmap {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 28px;
+    position: relative;
+  }
+
+  .roadmap::before {
+    content: '';
+    position: absolute;
+    top: 22px;
+    left: 5%;
+    right: 5%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-dim));
+  }
+
+  .phase {
+    text-align: center;
+    position: relative;
+  }
+
+  .phase .dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--gold);
+    margin: 16px auto;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 0 12px rgba(201,168,76,0.3);
+  }
+
+  .phase .phase-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  .phase .phase-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 8px 0;
+    color: var(--text-primary);
+  }
+
+  .phase .phase-items {
+    font-size: 12px;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    text-align: left;
+    padding: 0 12px;
+  }
+
+  /* Layer indicator */
+  .layer-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .layer-tag .layer-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+  }
+
+  /* Scrollable slide inner */
+  .slide-inner {
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    padding-right: 20px;
+  }
+
+  .slide-inner::-webkit-scrollbar { width: 3px; }
+  .slide-inner::-webkit-scrollbar-track { background: transparent; }
+  .slide-inner::-webkit-scrollbar-thumb { background: var(--border-subtle); border-radius: 3px; }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--border-subtle);
+    margin: 24px 0;
+  }
+
+  .small-note {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-top: 16px;
+  }
+
+  .inline-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .inline-list li {
+    padding: 8px 0;
+    font-size: 15px;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .inline-list li:last-child { border-bottom: none; }
+
+  .inline-list li::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  /* Ecosystem flow */
+  .eco-flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin: 32px 0;
+    flex-wrap: wrap;
+  }
+
+  .eco-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px 16px;
+    min-width: 140px;
+  }
+
+  .eco-step .eco-icon {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+
+  .eco-step .eco-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+
+  .eco-step .eco-rev {
+    font-size: 11px;
+    color: var(--gold);
+    font-weight: 500;
+  }
+
+  .eco-arrow {
+    font-size: 22px;
+    color: var(--text-muted);
+    margin: 0 4px;
+  }
+
+  @media (max-width: 900px) {
+    .slide { padding: 40px 32px; }
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    .two-col { grid-template-columns: 1fr; gap: 24px; }
+    .stat-row { flex-direction: column; gap: 20px; }
+    .roadmap { grid-template-columns: 1fr 1fr; gap: 16px; }
+    .nav { right: 32px; }
+    .slide-number { left: 32px; }
+    h1 { font-size: 28px; }
+    .eco-flow { flex-direction: column; }
+    .eco-arrow { transform: rotate(90deg); }
+  }
+
+  /* Animations */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .slide.active .anim {
+    animation: fadeInUp 0.5s ease forwards;
+  }
+
+  .slide.active .anim-d1 { animation-delay: 0.1s; opacity: 0; }
+  .slide.active .anim-d2 { animation-delay: 0.2s; opacity: 0; }
+  .slide.active .anim-d3 { animation-delay: 0.3s; opacity: 0; }
+  .slide.active .anim-d4 { animation-delay: 0.4s; opacity: 0; }
+  .slide.active .anim-d5 { animation-delay: 0.5s; opacity: 0; }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<div class="presentation" id="presentation">
+
+  <!-- SLIDE 1: COVER -->
+  <div class="slide cover active" data-slide="0">
+    <div class="label anim">Projeto estratégico</div>
+    <h1 class="anim anim-d1">Monvanti:<br><em>Da assessoria ao ecossistema</em></h1>
+    <p class="subtitle anim anim-d2">Uma proposta para capturar todo o potencial da base de clientes — integrando Multi-Family Office, serviços patrimoniais e originação de ativos alternativos.</p>
+    <div class="meta anim anim-d3">Maio 2026 &nbsp;·&nbsp; Documento confidencial</div>
+  </div>
+
+  <!-- SLIDE 2: CONTEXTO -->
+  <div class="slide" data-slide="1">
+    <div class="slide-inner">
+      <div class="label anim">Contexto</div>
+      <h2 class="anim anim-d1">Um escritório com <em>massa crítica</em><br>e uma decisão estratégica pela frente</h2>
+      <div class="stat-row anim anim-d2">
+        <div class="stat">
+          <div class="value">700+</div>
+          <div class="desc">Clientes ativos</div>
+        </div>
+        <div class="stat">
+          <div class="value">R$ 2,5 bi</div>
+          <div class="desc">Sob gestão</div>
+        </div>
+        <div class="stat">
+          <div class="value">20</div>
+          <div class="desc">Profissionais no time</div>
+        </div>
+      </div>
+      <p class="anim anim-d3">A Monvanti nasce de uma equipe experiente, com base consolidada e relacionamento de longo prazo com seus clientes. Esse é o ativo mais valioso — e o ponto de partida para construir algo muito maior do que uma assessoria de investimentos.</p>
+      <p class="anim anim-d4" style="margin-top: 16px;">A pergunta central: <strong style="color: var(--gold);">vamos competir apenas em distribuição de produtos, ou vamos capturar receita em toda a cadeia de valor do patrimônio?</strong></p>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: O PROBLEMA -->
+  <div class="slide" data-slide="2">
+    <div class="slide-inner">
+      <div class="label anim">O desafio</div>
+      <h2 class="anim anim-d1">Assessoria pura é <em>commodity</em></h2>
+      <div class="two-col anim anim-d2">
+        <div>
+          <p style="margin-bottom: 20px;">O modelo tradicional de assessoria compete por distribuição de produtos de plataformas. A margem comprime a cada ciclo. A diferenciação sustentável vem de três alavancas:</p>
+          <ul class="inline-list">
+            <li><strong>Serviços de alto valor</strong> — planejamento patrimonial, gestão imobiliária, concierge financeiro</li>
+            <li><strong>Manufatura de produto</strong> — originar e estruturar ativos próprios em vez de apenas distribuir os de terceiros</li>
+            <li><strong>Captura de receitas adjacentes</strong> — crédito, seguros, sucessório — tudo que orbita o patrimônio do cliente</li>
+          </ul>
+        </div>
+        <div>
+          <div class="card" style="border-left: 2px solid var(--gold);">
+            <h3 style="color: var(--gold); font-size: 14px;">A TESE</h3>
+            <p style="margin-top: 8px;">Quem controla o <strong>relacionamento</strong> com o cliente e adiciona <strong>serviço + produto proprietário</strong> retém mais margem, reduz churn e constrói valuation real de longo prazo.</p>
+            <div class="divider"></div>
+            <p>Referência de mercado: consultorias high yield que já originam e distribuem alternativos na própria base, controlando a cadeia completa — com plataformas regulamentadas pela CVM.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: A BASE -->
+  <div class="slide" data-slide="3">
+    <div class="slide-inner">
+      <div class="label anim">Diagnóstico</div>
+      <h2 class="anim anim-d1">O que a base de 700 clientes <em>realmente comporta</em></h2>
+      <p class="anim anim-d2" style="margin-bottom: 8px;">Ticket médio estimado: <strong style="color:var(--gold);">~R$ 3,6 mi</strong>. A oportunidade não está apenas no topo — está em monetizar cada camada com o serviço certo.</p>
+      <div class="table-wrap anim anim-d3">
+        <table>
+          <thead>
+            <tr>
+              <th>Faixa patrimonial</th>
+              <th>% da base</th>
+              <th>Clientes est.</th>
+              <th>Serviço adequado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Acima de R$ 50 mi</strong></td>
+              <td>~2%</td>
+              <td>10-15</td>
+              <td><span class="pill pill-gold">MFO completo</span></td>
+            </tr>
+            <tr>
+              <td><strong>R$ 10 mi a R$ 50 mi</strong></td>
+              <td>~10%</td>
+              <td>55-85</td>
+              <td><span class="pill pill-blue">Patrimonial + Imobiliário</span></td>
+            </tr>
+            <tr>
+              <td><strong>R$ 3 mi a R$ 10 mi</strong></td>
+              <td>~33%</td>
+              <td>210-245</td>
+              <td><span class="pill pill-purple">Sucessório + Alternativos</span></td>
+            </tr>
+            <tr>
+              <td><strong>Abaixo de R$ 3 mi</strong></td>
+              <td>~55%</td>
+              <td>350-385</td>
+              <td><span class="pill pill-green">Plataforma + Produtos</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card anim anim-d4" style="margin-top: 20px; border-left: 2px solid var(--accent-blue); max-width: 700px;">
+        <p><strong style="color: var(--text-primary);">Insight:</strong> O MFO completo serve 10-15 famílias. O volume real de receita nova está nos <strong>serviços padronizáveis para as ~300 famílias do meio da pirâmide</strong> — e nos produtos de originação para toda a base.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: 3 CAMADAS -->
+  <div class="slide" data-slide="4">
+    <div class="slide-inner">
+      <div class="label anim">Arquitetura</div>
+      <h2 class="anim anim-d1">Três camadas de <em>oportunidade</em></h2>
+      <div class="grid-3 anim anim-d2">
+        <div class="card" style="border-top: 3px solid var(--gold);">
+          <div class="icon" style="background: var(--gold-dim); color: var(--gold);">◆</div>
+          <h3>Camada 1</h3>
+          <p style="color: var(--gold); font-weight: 500; margin-bottom: 8px;">Multi-Family Office</p>
+          <p>Atendimento 360º para famílias de alto patrimônio. Gestão de investimentos, contas, imobiliário, sucessório.</p>
+          <div class="divider"></div>
+          <p style="font-size: 12px;">10-15 famílias &nbsp;·&nbsp; Alto fee &nbsp;·&nbsp; Alto toque</p>
+        </div>
+        <div class="card" style="border-top: 3px solid var(--accent-blue);">
+          <div class="icon" style="background: rgba(74,125,189,0.15); color: var(--accent-blue);">▣</div>
+          <h3>Camada 2</h3>
+          <p style="color: var(--accent-blue); font-weight: 500; margin-bottom: 8px;">Serviços Escaláveis</p>
+          <p>Gestão imobiliária light, planejamento sucessório, holdings, seguros — serviços que atendem dezenas a centenas de famílias.</p>
+          <div class="divider"></div>
+          <p style="font-size: 12px;">100-200 clientes &nbsp;·&nbsp; Fee recorrente &nbsp;·&nbsp; Escala</p>
+        </div>
+        <div class="card" style="border-top: 3px solid var(--accent-green);">
+          <div class="icon" style="background: rgba(90,158,111,0.15); color: var(--accent-green);">◎</div>
+          <h3>Camada 3</h3>
+          <p style="color: var(--accent-green); font-weight: 500; margin-bottom: 8px;">Originação + Distribuição</p>
+          <p>Originar crédito na base, estruturar operações e distribuir via plataforma CVM 88. Manufatura de produto próprio.</p>
+          <div class="divider"></div>
+          <p style="font-size: 12px;">Toda a base &nbsp;·&nbsp; Fee + spread &nbsp;·&nbsp; Diferencial competitivo</p>
+        </div>
+      </div>
+      <p class="small-note anim anim-d3">Cada camada pode ser ativada de forma incremental. Não é necessário fazer tudo ao mesmo tempo.</p>
+    </div>
+  </div>
+
+  <!-- SLIDE 6: CAMADA 1 — MFO / SOMMA -->
+  <div class="slide" data-slide="5">
+    <div class="slide-inner">
+      <div class="layer-tag anim" style="background: var(--gold-dim); color: var(--gold);">
+        <span class="layer-dot" style="background: var(--gold);"></span> Camada 1
+      </div>
+      <h2 class="anim anim-d1">Multi-Family Office:<br><em>o modelo SOMMA</em></h2>
+      <div class="two-col anim anim-d2">
+        <div>
+          <p style="margin-bottom: 16px;">A SOMMA Investimentos é um dos maiores Multi-Family Offices independentes do Sul do Brasil, com mais de 22 anos de história e R$ 18 bi sob gestão.</p>
+          <p style="margin-bottom: 16px;">Atua como <strong style="color: var(--text-primary);">CFO profissional de famílias</strong>, cobrindo de forma integrada todas as dimensões do patrimônio — o que a torna um parceiro natural para a Monvanti ativar essa camada sem precisar construir do zero.</p>
+          <div class="stat-row" style="margin: 24px 0;">
+            <div class="stat">
+              <div class="value" style="font-size: 32px;">22+</div>
+              <div class="desc">Anos de história</div>
+            </div>
+            <div class="stat">
+              <div class="value" style="font-size: 32px;">R$ 18 bi</div>
+              <div class="desc">Sob gestão</div>
+            </div>
+            <div class="stat">
+              <div class="value" style="font-size: 32px;">80+</div>
+              <div class="desc">Profissionais</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="card" style="margin-bottom: 12px;">
+            <h3 style="font-size: 13px; color: var(--gold); letter-spacing: 1px;">VERTICAIS DE SERVIÇO</h3>
+            <ul class="inline-list" style="margin-top: 12px;">
+              <li>Gestão de Investimentos 360º <span class="pill pill-gold" style="margin-left: auto;">bank-agnostic</span></li>
+              <li>Gestão de Contas (Concierge Financeiro)</li>
+              <li>Gestão Imobiliária — Lidderar <span class="pill pill-gold" style="margin-left: auto;">diferencial</span></li>
+              <li>Planejamento Patrimonial e Sucessório</li>
+              <li>Estruturações / Investment Banking</li>
+            </ul>
+          </div>
+          <div class="card" style="border-left: 2px solid var(--gold);">
+            <p><strong style="color: var(--gold);">Por que é único:</strong> a SOMMA trata imóveis como carteira de investimentos. A Lidderar (braço imobiliário) gere +R$ 1 bi em patrimônio imobiliário e já entregou aumento médio de 40% na receita de locação dos clientes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 7: CAMADA 2 — SERVIÇOS ESCALÁVEIS -->
+  <div class="slide" data-slide="6">
+    <div class="slide-inner">
+      <div class="layer-tag anim" style="background: rgba(74,125,189,0.12); color: var(--accent-blue);">
+        <span class="layer-dot" style="background: var(--accent-blue);"></span> Camada 2
+      </div>
+      <h2 class="anim anim-d1">Serviços que <em>escalam</em><br>para a base ampla</h2>
+      <div class="grid-3 anim anim-d2">
+        <div class="card">
+          <div class="icon" style="background: rgba(74,125,189,0.12); color: var(--accent-blue);">🏢</div>
+          <h3>Gestão Imobiliária Light</h3>
+          <p>Para famílias com 5-10 imóveis. Mapeamento, precificação, estratégia e controladoria — o modelo Lidderar adaptado para tickets menores.</p>
+          <div class="divider"></div>
+          <div class="num" style="font-size: 24px;">~50</div>
+          <div class="card-label">clientes potenciais</div>
+          <p style="margin-top: 8px; font-size: 12px; color: var(--gold);">Fee: ~0,5% a.a. sobre patrimônio imobiliário</p>
+        </div>
+        <div class="card">
+          <div class="icon" style="background: rgba(139,107,191,0.12); color: var(--accent-purple);">⚖</div>
+          <h3>Planejamento Sucessório</h3>
+          <p>Holdings patrimoniais, planejamento tributário, estruturação offshore, governança familiar — projeto + manutenção recorrente.</p>
+          <div class="divider"></div>
+          <div class="num" style="font-size: 24px;">~40</div>
+          <div class="card-label">famílias potenciais</div>
+          <p style="margin-top: 8px; font-size: 12px; color: var(--gold);">Projeto: R$ 30-80k &nbsp;+&nbsp; R$ 1-2k/mês</p>
+        </div>
+        <div class="card">
+          <div class="icon" style="background: rgba(90,158,111,0.12); color: var(--accent-green);">🛡</div>
+          <h3>Seguros Patrimoniais</h3>
+          <p>Cross-sell natural para toda a base. Seguro de vida, patrimonial, D&O, responsabilidade civil — comissão sobre prêmio, receita recorrente.</p>
+          <div class="divider"></div>
+          <div class="num" style="font-size: 24px;">200+</div>
+          <div class="card-label">clientes potenciais</div>
+          <p style="margin-top: 8px; font-size: 12px; color: var(--gold);">Comissão: 10-25% sobre prêmio</p>
+        </div>
+      </div>
+      <div class="card anim anim-d3" style="margin-top: 20px; max-width: 100%; background: rgba(74,125,189,0.04); border-color: rgba(74,125,189,0.15);">
+        <p><strong style="color: var(--accent-blue);">Volume real:</strong> enquanto o MFO atende 10-15 famílias, a camada 2 ativa receita em 100-200+ clientes. É aqui que o modelo se paga no curto prazo e gera credibilidade para crescer.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 8: CAMADA 3 — ORIGINAÇÃO -->
+  <div class="slide" data-slide="7">
+    <div class="slide-inner">
+      <div class="layer-tag anim" style="background: rgba(90,158,111,0.12); color: var(--accent-green);">
+        <span class="layer-dot" style="background: var(--accent-green);"></span> Camada 3
+      </div>
+      <h2 class="anim anim-d1">Originação e distribuição de <em>alternativos</em></h2>
+      <div class="two-col anim anim-d2">
+        <div>
+          <p style="margin-bottom: 20px;">A ideia central é transformar a Monvanti de <strong style="color: var(--text-primary);">distribuidora de produtos de terceiros</strong> em <strong style="color: var(--accent-green);">manufatureira de produto próprio</strong>.</p>
+          <h3 style="margin-top: 20px;">Ponta da demanda (originação)</h3>
+          <ul class="inline-list" style="margin-bottom: 20px;">
+            <li>Crédito com garantia real para clientes da base</li>
+            <li>Antecipação de recebíveis de empresas dos clientes</li>
+            <li>Operações lastreadas em imóveis da carteira</li>
+            <li>CPRs de produtores rurais (nova janela CVM 88)</li>
+          </ul>
+          <h3>Ponta da oferta (distribuição)</h3>
+          <ul class="inline-list">
+            <li>Plataforma CVM 88 regulamentada — distribui para a base e para investidores externos</li>
+            <li>Produtos estruturados: CRIs, CRAs, CCBs, debêntures</li>
+            <li>FICFIDC como veículo de escala (fase 2)</li>
+          </ul>
+        </div>
+        <div>
+          <div class="card" style="border-left: 2px solid var(--accent-green); margin-bottom: 16px;">
+            <h3 style="font-size: 13px; color: var(--accent-green); letter-spacing: 1px;">FONTES DE RECEITA</h3>
+            <ul class="inline-list" style="margin-top: 12px;">
+              <li><strong>Fee de estruturação:</strong>&nbsp; 1-3% sobre volume</li>
+              <li><strong>Taxa de distribuição:</strong>&nbsp; 2-5% sobre captação</li>
+              <li><strong>Administração do fundo:</strong>&nbsp; 0,5-1,5% a.a.</li>
+              <li><strong>Performance:</strong>&nbsp; 20% sobre excedente</li>
+              <li><strong>Spread na subordinada:</strong>&nbsp; se retiver cota</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3 style="font-size: 13px; color: var(--gold); letter-spacing: 1px;">CVM 88 — CONTEXTO REGULATÓRIO</h3>
+            <p style="margin-top: 8px;">A CVM está revisando a Resolução 88 em 2026 com ampliação significativa: captação de até R$ 25 mi por empresa, R$ 50 mi para securitizadoras, e inclusão de produtores rurais PF como emissores de CPRs. Janela de oportunidade para entrar.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 9: FICFIDC -->
+  <div class="slide" data-slide="8">
+    <div class="slide-inner">
+      <div class="label anim">Estrutura</div>
+      <h2 class="anim anim-d1">FICFIDC: o veículo de <em>escala</em></h2>
+      <p class="anim anim-d2" style="margin-bottom: 12px;">A estrutura permite captar de diferentes perfis de investidor e canalizar recursos para a compra de direitos creditórios originados na base.</p>
+
+      <div class="diagram anim anim-d3">
+        <!-- Top: Investors -->
+        <div class="diagram-row">
+          <div class="diagram-box gold-box" style="min-width: 200px;">
+            <strong>Clientes Monvanti</strong><br>
+            <span style="font-size: 11px; opacity: 0.8;">Cotistas do FICFIDC</span>
+          </div>
+          <div style="width: 60px;"></div>
+          <div class="diagram-box blue-box" style="min-width: 200px;">
+            <strong>Investidores Externos</strong><br>
+            <span style="font-size: 11px; opacity: 0.8;">Via plataforma CVM 88</span>
+          </div>
+        </div>
+
+        <!-- Arrow down -->
+        <div class="diagram-arrow-down">▼</div>
+
+        <!-- FICFIDC -->
+        <div class="diagram-row">
+          <div class="diagram-box gold-box" style="min-width: 420px; padding: 18px 32px;">
+            <strong style="font-size: 16px;">FICFIDC</strong><br>
+            <span style="font-size: 12px; opacity: 0.8;">Fundo feeder — investe mín. 95% em cotas do FIDC master</span><br>
+            <span style="font-size: 11px; opacity: 0.6;">Diferentes classes de cota: sênior · mezanino · subordinada</span>
+          </div>
+        </div>
+
+        <!-- Arrow down -->
+        <div class="diagram-arrow-down">▼</div>
+
+        <!-- FIDC Master -->
+        <div class="diagram-row">
+          <div class="diagram-box purple-box" style="min-width: 420px; padding: 18px 32px;">
+            <strong style="font-size: 16px;">FIDC Master</strong><br>
+            <span style="font-size: 12px; opacity: 0.8;">Compra os direitos creditórios originados — mín. 50% do PL em recebíveis</span>
+          </div>
+        </div>
+
+        <!-- Arrow down -->
+        <div class="diagram-arrow-down">▼</div>
+
+        <!-- Credit types -->
+        <div class="diagram-row" style="gap: 12px;">
+          <div class="diagram-box green-box">
+            <strong>Recebíveis</strong><br>
+            <span style="font-size: 11px;">Duplicatas, boletos,<br>notas comerciais</span>
+          </div>
+          <div class="diagram-box green-box">
+            <strong>Crédito c/ garantia</strong><br>
+            <span style="font-size: 11px;">Imóveis, veículos,<br>aplicações financeiras</span>
+          </div>
+          <div class="diagram-box green-box">
+            <strong>Agro</strong><br>
+            <span style="font-size: 11px;">CPRs, CRAs,<br>recebíveis rurais</span>
+          </div>
+          <div class="diagram-box green-box">
+            <strong>Imobiliário</strong><br>
+            <span style="font-size: 11px;">CRIs, contratos<br>de locação</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2 anim anim-d4" style="margin-top: 16px;">
+        <div class="card" style="border-left: 2px solid var(--accent-purple);">
+          <h3 style="font-size: 13px; color: var(--accent-purple);">POR QUE FICFIDC?</h3>
+          <p style="margin-top: 8px;">Permite criar janelas de acesso diferentes para cada perfil de investidor. Clientes Monvanti entram pela cota sênior (menor risco); investidores qualificados podem acessar mezanino ou subordinada.</p>
+        </div>
+        <div class="card" style="border-left: 2px solid var(--accent-red);">
+          <h3 style="font-size: 13px; color: var(--accent-red);">CAMINHO EVOLUTIVO</h3>
+          <p style="margin-top: 8px;">Começar com CCBs e CRIs distribuídos via plataforma CVM 88. Constituir o FIDC apenas quando o pipeline real justificar — a partir de R$ 50-80 mi em carteira de crédito.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 10: ECOSSISTEMA -->
+  <div class="slide" data-slide="9">
+    <div class="slide-inner">
+      <div class="label anim">Visão integrada</div>
+      <h2 class="anim anim-d1">O ecossistema <em>fechado</em></h2>
+      <p class="anim anim-d2">Cada etapa gera receita e alimenta a próxima. O cliente é atendido de ponta a ponta — e cada ponto de contato é uma linha de receita.</p>
+
+      <div class="eco-flow anim anim-d3">
+        <div class="eco-step">
+          <div class="eco-icon" style="background: var(--gold-dim); color: var(--gold);">🔍</div>
+          <div class="eco-title">Relacionamento</div>
+          <div class="eco-rev">Monvanti</div>
+          <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">700+ clientes<br>R$ 2,5 bi</p>
+        </div>
+        <div class="eco-arrow">→</div>
+        <div class="eco-step">
+          <div class="eco-icon" style="background: rgba(74,125,189,0.12); color: var(--accent-blue);">📋</div>
+          <div class="eco-title">Diagnóstico</div>
+          <div class="eco-rev">Advisory fee</div>
+          <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Mapeamento de<br>necessidades</p>
+        </div>
+        <div class="eco-arrow">→</div>
+        <div class="eco-step">
+          <div class="eco-icon" style="background: rgba(139,107,191,0.12); color: var(--accent-purple);">⚙</div>
+          <div class="eco-title">Estruturação</div>
+          <div class="eco-rev">Fee estruturação</div>
+          <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Holdings, FIDCs,<br>CRIs, CRAs</p>
+        </div>
+        <div class="eco-arrow">→</div>
+        <div class="eco-step">
+          <div class="eco-icon" style="background: rgba(90,158,111,0.12); color: var(--accent-green);">📡</div>
+          <div class="eco-title">Distribuição</div>
+          <div class="eco-rev">Fee distribuição</div>
+          <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Plataforma CVM 88<br>+ base própria</p>
+        </div>
+        <div class="eco-arrow">→</div>
+        <div class="eco-step">
+          <div class="eco-icon" style="background: var(--gold-dim); color: var(--gold);">💰</div>
+          <div class="eco-title">Gestão</div>
+          <div class="eco-rev">Taxa adm + perf</div>
+          <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">FICFIDC, carteiras,<br>patrimônio imobiliário</p>
+        </div>
+      </div>
+
+      <div class="card anim anim-d4" style="max-width: 100%; border-left: 2px solid var(--gold); margin-top: 12px;">
+        <p><strong style="color: var(--gold);">O ciclo virtuoso:</strong> a demanda de crédito de um cliente se torna o produto de investimento de outro. A gestão imobiliária gera lastro para CRIs. O planejamento sucessório estrutura holdings que originam novas operações. Cada serviço alimenta o próximo.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 11: MAPA DE RECEITAS -->
+  <div class="slide" data-slide="10">
+    <div class="slide-inner">
+      <div class="label anim">Projeção</div>
+      <h2 class="anim anim-d1">Mapa de <em>receitas</em></h2>
+      <p class="anim anim-d2">Estimativas conservadoras para os primeiros 12-24 meses de operação, considerando taxa de conversão realista da base.</p>
+      <div class="table-wrap anim anim-d3">
+        <table>
+          <thead>
+            <tr>
+              <th>Linha de receita</th>
+              <th>Estimativa anual</th>
+              <th>Tipo</th>
+              <th>Camada</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>MFO — advisory fee</td>
+              <td><strong>R$ 1,5 — 3 mi</strong></td>
+              <td><span class="pill pill-green">Recorrente</span></td>
+              <td><span class="pill pill-gold">1</span></td>
+            </tr>
+            <tr>
+              <td>Gestão imobiliária</td>
+              <td><strong>R$ 600 mil — 1,25 mi</strong></td>
+              <td><span class="pill pill-green">Recorrente</span></td>
+              <td><span class="pill pill-blue">2</span></td>
+            </tr>
+            <tr>
+              <td>Planejamento patrimonial (projetos)</td>
+              <td><strong>R$ 1 — 2 mi</strong></td>
+              <td><span class="pill pill-purple">Pontual</span></td>
+              <td><span class="pill pill-blue">2</span></td>
+            </tr>
+            <tr>
+              <td>Planejamento patrimonial (manutenção)</td>
+              <td><strong>R$ 300 — 600 mil</strong></td>
+              <td><span class="pill pill-green">Recorrente</span></td>
+              <td><span class="pill pill-blue">2</span></td>
+            </tr>
+            <tr>
+              <td>Estruturação de crédito (origination fees)</td>
+              <td><strong>R$ 500 mil — 2 mi</strong></td>
+              <td><span class="pill pill-red">Variável</span></td>
+              <td><span class="pill pill-green" style="background: rgba(90,158,111,0.15); color: var(--accent-green);">3</span></td>
+            </tr>
+            <tr>
+              <td>Administração FIDC / FICFIDC</td>
+              <td><strong>R$ 250 — 750 mil</strong></td>
+              <td><span class="pill pill-green">Recorrente</span></td>
+              <td><span class="pill pill-green" style="background: rgba(90,158,111,0.15); color: var(--accent-green);">3</span></td>
+            </tr>
+            <tr>
+              <td>Distribuição plataforma CVM 88</td>
+              <td><strong>R$ 300 mil — 1,5 mi</strong></td>
+              <td><span class="pill pill-red">Variável</span></td>
+              <td><span class="pill pill-green" style="background: rgba(90,158,111,0.15); color: var(--accent-green);">3</span></td>
+            </tr>
+            <tr>
+              <td>Seguros e cross-sell</td>
+              <td><strong>R$ 200 — 500 mil</strong></td>
+              <td><span class="pill pill-green">Recorrente</span></td>
+              <td><span class="pill pill-blue">2</span></td>
+            </tr>
+            <tr class="highlight-row">
+              <td><strong>TOTAL ESTIMADO</strong></td>
+              <td><strong>R$ 4,6 — 11,6 mi / ano</strong></td>
+              <td colspan="2"><span class="pill pill-gold">Mix recorrente + variável</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small-note anim anim-d4">Cenários estimativos. Dependem de taxa de conversão da base, velocidade de implantação e apetite dos clientes.</p>
+    </div>
+  </div>
+
+  <!-- SLIDE 12: CAMINHOS DE EXECUÇÃO -->
+  <div class="slide" data-slide="11">
+    <div class="slide-inner">
+      <div class="label anim">Execução</div>
+      <h2 class="anim anim-d1">Caminhos <em>possíveis</em></h2>
+      <div class="grid-3 anim anim-d2">
+        <div class="option-card">
+          <h3>Opção A — Construir In-House</h3>
+          <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6;">Montar equipe e infraestrutura próprias para MFO, estruturação e plataforma.</p>
+          <div class="pro-con">
+            <span class="pro">✓</span> Margem total<br>
+            <span class="pro">✓</span> Controle completo<br>
+            <span class="pro">✓</span> Valuation maior no longo prazo<br>
+            <span class="con">✗</span> Tempo: 18-24 meses para rodar<br>
+            <span class="con">✗</span> Custo: R$ 1,5-3 mi de setup<br>
+            <span class="con">✗</span> Risco de execução alto<br>
+            <span class="con">✗</span> Sem track record em MFO
+          </div>
+        </div>
+        <div class="option-card recommended">
+          <h3>Opção B — Híbrido com SOMMA</h3>
+          <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6;">Plugar a SOMMA para MFO, gestão imobiliária e estruturações. Construir internamente a plataforma CVM 88.</p>
+          <div class="pro-con">
+            <span class="pro">✓</span> Velocidade: opera em 3-6 meses<br>
+            <span class="pro">✓</span> Track record SOMMA (22 anos)<br>
+            <span class="pro">✓</span> Gestão imobiliária diferenciada<br>
+            <span class="pro">✓</span> Estruturação já rodando<br>
+            <span class="pro">✓</span> Plataforma proprietária<br>
+            <span class="con">✗</span> Split de receita no MFO<br>
+            <span class="con">✗</span> Dependência de parceiro
+          </div>
+        </div>
+        <div class="option-card">
+          <h3>Opção C — Parceria Light</h3>
+          <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6;">Revenue share por contrato, sem veículo societário novo. Testar antes de comprometer.</p>
+          <div class="pro-con">
+            <span class="pro">✓</span> Menor comprometimento<br>
+            <span class="pro">✓</span> Flexibilidade de saída<br>
+            <span class="pro">✓</span> Menor custo inicial<br>
+            <span class="con">✗</span> Menor alinhamento<br>
+            <span class="con">✗</span> Risco de desengajamento<br>
+            <span class="con">✗</span> Não constrói ativo próprio
+          </div>
+        </div>
+      </div>
+      <p class="small-note anim anim-d3">O modelo híbrido permite começar rápido com a expertise SOMMA e construir capacidade proprietária em paralelo — o melhor dos dois mundos.</p>
+    </div>
+  </div>
+
+  <!-- SLIDE 13: ROADMAP -->
+  <div class="slide" data-slide="12">
+    <div class="slide-inner">
+      <div class="label anim">Roadmap</div>
+      <h2 class="anim anim-d1">18 meses para <em>sair do papel</em></h2>
+
+      <div class="roadmap anim anim-d2">
+        <div class="phase">
+          <div class="phase-label">Meses 1-3</div>
+          <div class="dot"></div>
+          <div class="phase-title">Validação</div>
+          <div class="phase-items">
+            Segmentar a base por faixa patrimonial<br>
+            Mapear restrições contratuais<br>
+            Definir modelo societário e governança<br>
+            Formalizar parceria MFO
+          </div>
+        </div>
+        <div class="phase">
+          <div class="phase-label">Meses 3-6</div>
+          <div class="dot"></div>
+          <div class="phase-title">Quick Wins</div>
+          <div class="phase-items">
+            Ativar planejamento sucessório (10-15 famílias)<br>
+            Iniciar gestão imobiliária (5-10 clientes)<br>
+            Primeiras operações de crédito piloto (3-5 CCBs)
+          </div>
+        </div>
+        <div class="phase">
+          <div class="phase-label">Meses 6-12</div>
+          <div class="dot"></div>
+          <div class="phase-title">Infraestrutura</div>
+          <div class="phase-items">
+            Registro da plataforma CVM 88<br>
+            Primeiras ofertas na plataforma<br>
+            Avaliar pipeline para constituição do FIDC
+          </div>
+        </div>
+        <div class="phase">
+          <div class="phase-label">Meses 12-18</div>
+          <div class="dot"></div>
+          <div class="phase-title">Escala</div>
+          <div class="phase-items">
+            Constituir FIDC se pipeline &gt; R$ 50 mi<br>
+            Expandir originação com time de crédito<br>
+            Ampliar distribuição além da base Monvanti
+          </div>
+        </div>
+      </div>
+
+      <div class="card anim anim-d3" style="margin-top: 32px; max-width: 100%; border-left: 2px solid var(--gold);">
+        <p><strong style="color: var(--gold);">Princípio de execução:</strong> começar pelos serviços que geram receita imediata (planejamento patrimonial, gestão imobiliária), usar essa receita e credibilidade para financiar a construção da plataforma e do FIDC. Não tentar fazer tudo ao mesmo tempo.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 14: FECHAMENTO -->
+  <div class="slide cover" data-slide="13">
+    <div class="label anim">Próximos passos</div>
+    <h1 class="anim anim-d1">O momento é <em>agora</em></h1>
+    <p class="subtitle anim anim-d2">A Monvanti tem o que há de mais difícil no mercado: base de clientes, relacionamento e time comercial. O que falta é a arquitetura para capturar o valor completo desse ativo.</p>
+    <div class="anim anim-d3" style="margin-top: 32px;">
+      <div style="display: flex; gap: 32px; flex-wrap: wrap;">
+        <div>
+          <p style="color: var(--gold); font-weight: 600; font-size: 14px; margin-bottom: 6px;">1. Alinhar</p>
+          <p style="font-size: 14px; color: var(--text-secondary);">Decisão estratégica sobre<br>o modelo de execução</p>
+        </div>
+        <div>
+          <p style="color: var(--gold); font-weight: 600; font-size: 14px; margin-bottom: 6px;">2. Segmentar</p>
+          <p style="font-size: 14px; color: var(--text-secondary);">Mapeamento real da base<br>e priorização de clientes</p>
+        </div>
+        <div>
+          <p style="color: var(--gold); font-weight: 600; font-size: 14px; margin-bottom: 6px;">3. Ativar</p>
+          <p style="font-size: 14px; color: var(--text-secondary);">Primeiros quick wins em<br>90 dias para gerar tração</p>
+        </div>
+      </div>
+    </div>
+    <div class="meta anim anim-d4" style="margin-top: 48px;">Documento confidencial &nbsp;·&nbsp; Maio 2026</div>
+  </div>
+
+</div>
+
+<div class="slide-number" id="slideNumber">01 / 14</div>
+
+<div class="nav">
+  <button id="prevBtn" onclick="changeSlide(-1)" disabled>←</button>
+  <button id="nextBtn" onclick="changeSlide(1)">→</button>
+</div>
+
+<script>
+  let current = 0;
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  const progress = document.getElementById('progress');
+  const slideNum = document.getElementById('slideNumber');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  function updateSlide() {
+    slides.forEach((s, i) => {
+      s.classList.toggle('active', i === current);
+    });
+    progress.style.width = ((current + 1) / total * 100) + '%';
+    slideNum.textContent = String(current + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === total - 1;
+  }
+
+  function changeSlide(dir) {
+    const next = current + dir;
+    if (next >= 0 && next < total) {
+      current = next;
+      updateSlide();
+    }
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); changeSlide(1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); changeSlide(-1); }
+  });
+
+  // Touch support
+  let touchStartX = 0;
+  document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
+  document.addEventListener('touchend', (e) => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) { changeSlide(diff > 0 ? 1 : -1); }
+  });
+
+  updateSlide();
+</script>
+
+</body>
+</html>
