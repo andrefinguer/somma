@@ -448,7 +448,41 @@ main{max-width:1240px;margin:0 auto;padding:30px 28px 80px;display:grid;grid-tem
       </div>
     </div>
 
-    <!-- 7. PLANEJAMENTO PATRIMONIAL -->
+    <!-- 7. ESTRUTURAÇÃO DE FIDC -->
+    <div class="card off" id="card-fidc">
+      <div class="card-head">
+        <label class="switch"><input type="checkbox" class="line-toggle" data-line="fidc"><span class="slider-t"></span></label>
+        <div class="titles">
+          <h3>Estruturação de FIDC</h3>
+          <p>Regra própria de remuneração: o parceiro divide o setup. A SOMMA retém o mínimo de R$ 150 mil; do que exceder esse mínimo, o parceiro recebe 50%.</p>
+        </div>
+        <span class="tag pont">Pontual · regra própria</span>
+      </div>
+      <div class="card-body">
+        <div class="field">
+          <label for="fidc-setup">Setup cobrado (R$)</label>
+          <input type="text" id="fidc-setup" data-money value="300.000">
+        </div>
+        <div class="field">
+          <label for="fidc-min">Mínimo retido pela SOMMA (R$)</label>
+          <input type="text" id="fidc-min" data-money value="150.000">
+        </div>
+        <div class="field full">
+          <label for="fidc-share">Participação do parceiro sobre o excedente (%)</label>
+          <div class="range-field">
+            <input type="range" id="fidc-share" min="0" max="50" step="5" value="50">
+            <span class="rv num" id="fidc-share-v">50%</span>
+          </div>
+          <span class="hint">Esta linha não passa pela cascata comercial — o parceiro recebe direto a divisão do setup acima do mínimo.</span>
+        </div>
+      </div>
+      <div class="card-rev">
+        <span class="lbl">Setup / excedente acima do mínimo</span>
+        <span><span class="val num" id="rev-fidc">—</span> &nbsp;<span class="partner num" id="par-fidc"></span></span>
+      </div>
+    </div>
+
+    <!-- 8. PLANEJAMENTO PATRIMONIAL -->
     <div class="card off" id="card-pp">
       <div class="card-head">
         <label class="switch"><input type="checkbox" class="line-toggle" data-line="pp"><span class="slider-t"></span></label>
@@ -500,6 +534,7 @@ main{max-width:1240px;margin:0 auto;padding:30px 28px 80px;display:grid;grid-tem
         <div class="bar"><div class="bar-fill f-par" id="b-par" style="width:10%"></div><span class="pct-chip num" id="chip-par">50% do repasse</span></div>
       </div>
     </div>
+    <div id="cascade-note" style="display:none;font-size:11px;color:#9DB3AA;margin:-12px 0 18px;line-height:1.5">* A Estruturação de FIDC não passa pelo repasse comercial: o parceiro recebe direto a divisão do setup acima do mínimo da SOMMA. Esse valor já está somado na barra e no total do parceiro.</div>
 
     <div class="hero-num">
       <div class="lbl">Remuneração do parceiro · ano 1</div>
@@ -562,6 +597,7 @@ main{max-width:1240px;margin:0 auto;padding:30px 28px 80px;display:grid;grid-tem
     ['fo-fee', v=>fmtPct2(+v)], ['gp-fee', v=>fmtPct1(+v)], ['gi-fee', v=>fmtPct2(+v)],
     ['dev-coord', v=>fmtPct2(+v)], ['dev-estr', v=>fmtPct2(+v)], ['dev-capt-fee', v=>fmtPct2(+v)],
     ['dev-suc', v=>Math.round(+v)+'%'], ['cred-fee', v=>fmtPct2(+v)],
+    ['fidc-share', v=>Math.round(+v)+'%'],
     ['pp-prazo', v=>Math.round(+v)+'x']
   ];
   sliderLabels.forEach(([id,f])=>{
@@ -600,6 +636,7 @@ main{max-width:1240px;margin:0 auto;padding:30px 28px 80px;display:grid;grid-tem
     gi:  {label:'Gestão de Investimentos', type:'rec'},
     dev: {label:'Desenvolvimento Imobiliário', type:'pont'},
     cred:{label:'Captação de Crédito / Cotas', type:'pont'},
+    fidc:{label:'Estruturação de FIDC', type:'pont', special:true},
     pp:  {label:'Planejamento Patrimonial', type:'pont'}
   };
 
@@ -631,35 +668,55 @@ main{max-width:1240px;margin:0 auto;padding:30px 28px 80px;display:grid;grid-tem
 
     rev.pp = parseMoney($('pp-val').value);
 
+    rev.fidc = parseMoney($('fidc-setup').value);
+    const fidcMin   = parseMoney($('fidc-min').value);
+    const fidcShare = (+$('fidc-share').value)/100;
+    const fidcExced = Math.max(0, rev.fidc - fidcMin);
+    const fidcPar   = fidcExced * fidcShare;
+
     // per-line displays
-    let totRec=0, totPont=0;
+    let totRec=0, totPont=0;       // receita das linhas que passam pela cascata
+    let parRec=0, parPont=0;       // remuneração do parceiro
+    let totSpecial=0, parSpecial=0;// linhas com regra própria (FIDC)
     const bdRows = [];
     Object.keys(LINE_META).forEach(k=>{
       const on = lineOn(k);
-      const r = on ? rev[k] : 0;
-      const p = r * eff;
-      $('rev-'+k).textContent = fmtBRL.format(rev[k]);
+      const special = !!LINE_META[k].special;
+      const p = special ? fidcPar : rev[k] * eff;
+      if(k==='fidc'){
+        $('rev-fidc').textContent = fmtBRL.format(rev.fidc) + ' / ' + fmtBRL.format(fidcExced);
+      } else {
+        $('rev-'+k).textContent = fmtBRL.format(rev[k]);
+      }
       $('par-'+k).textContent = on ? ('parceiro: '+fmtBRL.format(p)) : 'fora da simulação';
       if(on){
-        if(LINE_META[k].type==='rec') totRec += rev[k]; else totPont += rev[k];
+        if(special){
+          totSpecial += rev[k]; parSpecial += p;
+        } else if(LINE_META[k].type==='rec'){
+          totRec += rev[k]; parRec += p;
+        } else {
+          totPont += rev[k]; parPont += p;
+        }
       }
-      bdRows.push({k, on, p, label:LINE_META[k].label});
+      bdRows.push({k, on, p, label:LINE_META[k].label, special});
     });
 
-    const total = totRec + totPont;
-    const com   = total * repasse;
-    const par   = com * share;
-    const parRec  = totRec * eff;
-    const parPont = totPont * eff;
+    const totalCascata = totRec + totPont;            // passa pelo repasse comercial
+    const total = totalCascata + totSpecial;          // receita SOMMA total
+    const com   = totalCascata * repasse;
+    const par   = com * share + parSpecial;           // parceiro: cascata + regra própria
+    parPont += parSpecial;                            // FIDC é pontual no resumo
+    const safe = total > 0 ? total : 1;
 
     // cascade
     $('c-total').textContent = fmtBRL.format(total);
-    $('c-com').textContent   = fmtBRL.format(com);
+    $('c-com').textContent   = fmtBRL.format(com) + (totSpecial>0 ? ' *' : '');
     $('c-par').textContent   = fmtBRL.format(par);
-    $('b-com').style.width   = (repasse*100)+'%';
-    $('b-par').style.width   = (eff*100)+'%';
+    $('b-com').style.width   = Math.max(com/safe*100, com>0?2:0)+'%';
+    $('b-par').style.width   = Math.max(par/safe*100, par>0?2:0)+'%';
     $('chip-com').textContent = Math.round(repasse*100)+'% da receita';
     $('chip-par').textContent = Math.round(share*100)+'% do repasse';
+    $('cascade-note').style.display = totSpecial>0 ? 'block' : 'none';
 
     $('hero').textContent  = fmtBRL.format(par);
     $('m-rec').textContent = fmtBRL.format(parRec);
@@ -673,7 +730,7 @@ main{max-width:1240px;margin:0 auto;padding:30px 28px 80px;display:grid;grid-tem
     bdRows.forEach(r=>{
       const div = document.createElement('div');
       div.className = 'bd-row' + (r.on ? '' : ' muted');
-      div.innerHTML = '<span>'+r.label+'</span><span class="n num">'+(r.on?fmtBRL.format(r.p):'—')+'</span>';
+      div.innerHTML = '<span>'+r.label+(r.special?' <em style="font-style:normal;font-size:10px;color:#C9A86A">· regra própria</em>':'')+'</span><span class="n num">'+(r.on?fmtBRL.format(r.p):'—')+'</span>';
       wrap.appendChild(div);
     });
   }
