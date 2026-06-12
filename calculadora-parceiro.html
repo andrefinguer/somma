@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOMMA · Simulador de Parceria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --petrol:#11302B;
+  --petrol-2:#1B4038;
+  --petrol-3:#24524740;
+  --paper:#F7F5F0;
+  --card:#FFFFFF;
+  --ink:#1E2421;
+  --ink-soft:#5C6660;
+  --gold:#B9914F;
+  --gold-soft:#D8BC87;
+  --sage:#7FA08F;
+  --line:#E4DfD2;
+  --radius:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Archivo',sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  font-size:15px;
+  line-height:1.5;
+}
+.num{font-variant-numeric:tabular-nums}
+
+/* ---------- HEADER ---------- */
+header{
+  background:var(--petrol);
+  color:#EFEAE0;
+  padding:34px 28px 30px;
+}
+.header-inner{max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px}
+.brand{font-family:'Fraunces',serif;font-weight:600;font-size:15px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-soft)}
+h1{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(26px,3.4vw,40px);line-height:1.12;margin-top:8px;max-width:680px}
+h1 em{font-style:italic;color:var(--gold-soft)}
+.header-note{font-size:13px;color:#B8C4BD;max-width:300px}
+
+/* ---------- LEVERS BAND ---------- */
+.levers{
+  background:var(--petrol-2);
+  border-top:1px solid #2C5A4F;
+  padding:20px 28px;
+}
+.levers-inner{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:28px;align-items:center}
+.lever label{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#9DB3AA;margin-bottom:8px;font-weight:600}
+.lever-row{display:flex;align-items:center;gap:14px}
+.lever-row input[type=range]{flex:1}
+.lever-val{font-family:'Fraunces',serif;font-size:26px;color:var(--gold-soft);min-width:74px;text-align:right}
+.lever-eff{color:#EFEAE0}
+.lever-eff small{display:block;font-size:11px;color:#9DB3AA;letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:4px}
+.lever-eff .big{font-family:'Fraunces',serif;font-size:26px;color:#fff}
+input[type=range]{
+  -webkit-appearance:none;appearance:none;height:4px;border-radius:2px;
+  background:#3A6457;outline:none;cursor:pointer;
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;width:18px;height:18px;border-radius:50%;
+  background:var(--gold);border:2px solid #fff;cursor:grab;
+}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--gold);border:2px solid #fff;cursor:grab}
+input[type=range]:focus-visible{outline:2px solid var(--gold-soft);outline-offset:4px}
+
+/* ---------- MAIN GRID ---------- */
+main{max-width:1240px;margin:0 auto;padding:30px 28px 80px;display:grid;grid-template-columns:1fr 420px;gap:30px;align-items:start}
+.col-left{display:flex;flex-direction:column;gap:16px}
+.section-label{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);font-weight:700;margin:10px 0 2px}
+
+/* ---------- CARDS ---------- */
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  overflow:hidden;
+  transition:opacity .25s;
+}
+.card.off .card-body{display:none}
+.card.off{opacity:.55}
+.card-head{
+  display:flex;align-items:flex-start;gap:14px;padding:16px 18px;cursor:default;
+}
+.card-head .titles{flex:1}
+.card-head h3{font-family:'Fraunces',serif;font-weight:600;font-size:17px}
+.card-head p{font-size:12.5px;color:var(--ink-soft);margin-top:2px}
+.tag{font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;padding:3px 8px;border-radius:99px;white-space:nowrap;margin-top:2px}
+.tag.rec{background:#E8F0EA;color:#3E6B53}
+.tag.pont{background:#F4ECDD;color:#8A6A2F}
+.card-rev{padding:10px 18px;border-top:1px dashed var(--line);display:flex;justify-content:space-between;align-items:baseline;background:#FBFAF6}
+.card-rev .lbl{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-weight:600}
+.card-rev .val{font-family:'Fraunces',serif;font-size:18px}
+.card-rev .partner{font-size:12px;color:var(--gold);font-weight:600}
+.card-body{padding:6px 18px 18px;display:grid;grid-template-columns:1fr 1fr;gap:14px 20px}
+.field{display:flex;flex-direction:column;gap:5px}
+.field.full{grid-column:1/-1}
+.field label{font-size:11.5px;font-weight:600;color:var(--ink-soft)}
+.field input[type=text]{
+  font-family:'Archivo',sans-serif;font-size:15px;font-weight:600;
+  padding:9px 11px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);
+  font-variant-numeric:tabular-nums;width:100%;
+}
+.field input[type=text]:focus{outline:2px solid var(--sage);outline-offset:1px;border-color:var(--sage)}
+.range-field{display:flex;align-items:center;gap:10px}
+.range-field input[type=range]{flex:1;background:#D8D2C2}
+.range-field .rv{font-weight:700;min-width:62px;text-align:right;font-size:14px}
+.hint{font-size:11px;color:var(--ink-soft)}
+
+/* toggle */
+.switch{position:relative;width:42px;height:24px;flex-shrink:0;margin-top:2px}
+.switch input{opacity:0;width:0;height:0}
+.slider-t{position:absolute;inset:0;background:#D5CFC0;border-radius:99px;transition:.2s;cursor:pointer}
+.slider-t:before{content:"";position:absolute;width:18px;height:18px;border-radius:50%;background:#fff;top:3px;left:3px;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.switch input:checked + .slider-t{background:var(--sage)}
+.switch input:checked + .slider-t:before{transform:translateX(18px)}
+.switch input:focus-visible + .slider-t{outline:2px solid var(--sage);outline-offset:2px}
+
+/* checkboxes pontas */
+.pontas{display:flex;gap:10px;flex-wrap:wrap}
+.ponta{
+  display:flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:8px;
+  padding:8px 12px;cursor:pointer;font-size:13px;font-weight:600;background:#fff;user-select:none;
+}
+.ponta input{accent-color:var(--petrol);width:15px;height:15px;cursor:pointer}
+.ponta.on{border-color:var(--sage);background:#F0F5F0}
+.ponta small{color:var(--ink-soft);font-weight:500}
+
+/* ---------- RESULTS PANEL ---------- */
+.panel{
+  position:sticky;top:18px;
+  background:var(--petrol);
+  border-radius:18px;
+  color:#EFEAE0;
+  padding:26px 24px 24px;
+  box-shadow:0 18px 50px -18px rgba(17,48,43,.55);
+}
+.panel h2{font-family:'Fraunces',serif;font-weight:500;font-size:21px;margin-bottom:2px}
+.panel .sub{font-size:12px;color:#9DB3AA;margin-bottom:20px}
+
+.cascade{display:flex;flex-direction:column;gap:4px;margin-bottom:22px}
+.stage{position:relative}
+.stage-label{display:flex;justify-content:space-between;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#9DB3AA;font-weight:600;margin-bottom:5px}
+.stage-label .amt{font-family:'Fraunces',serif;font-size:15px;letter-spacing:0;text-transform:none;color:#EFEAE0}
+.bar{height:30px;border-radius:7px;background:var(--petrol-3);overflow:hidden;position:relative}
+.bar-fill{height:100%;border-radius:7px;transition:width .45s cubic-bezier(.4,0,.2,1);min-width:3px}
+.f-total{background:linear-gradient(90deg,#3E7A66,#5C9B82)}
+.f-com{background:linear-gradient(90deg,#8E754A,#B9914F)}
+.f-par{background:linear-gradient(90deg,#C9A86A,#E4CC95)}
+.connector{height:14px;width:2px;background:#3A6457;margin-left:24px}
+.stage .pct-chip{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:11px;font-weight:700;color:#11302B;background:rgba(255,255,255,.75);padding:1px 7px;border-radius:99px}
+
+.hero-num{border-top:1px solid #2C5A4F;padding-top:18px;margin-top:4px}
+.hero-num .lbl{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-soft);font-weight:700}
+.hero-num .v{font-family:'Fraunces',serif;font-size:clamp(34px,3vw,44px);line-height:1.1;color:#fff;margin-top:4px}
+.hero-sub{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.mini{background:#1B4038;border-radius:10px;padding:12px}
+.mini .l{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#9DB3AA;font-weight:600}
+.mini .v{font-family:'Fraunces',serif;font-size:18px;margin-top:3px}
+.panel-foot{margin-top:16px;font-size:11.5px;color:#9DB3AA;line-height:1.55}
+
+/* breakdown table */
+.bd{margin-top:18px;border-top:1px solid #2C5A4F;padding-top:14px}
+.bd h4{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#9DB3AA;font-weight:700;margin-bottom:8px}
+.bd-row{display:flex;justify-content:space-between;font-size:12.5px;padding:4px 0;color:#D9E2DC}
+.bd-row .n{font-family:'Fraunces',serif}
+.bd-row.muted{opacity:.4;text-decoration:line-through}
+
+/* ---------- explainer ---------- */
+.explain{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:20px 22px;font-size:13.5px;color:var(--ink-soft);
+}
+.explain strong{color:var(--ink)}
+.explain ol{margin:8px 0 0 18px;display:flex;flex-direction:column;gap:5px}
+
+@media (max-width:980px){
+  main{grid-template-columns:1fr}
+  .panel{position:static}
+  .levers-inner{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  .card-body{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  .bar-fill{transition:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div>
+      <div class="brand">SOMMA · Multi-Family Office</div>
+      <h1>Simulador de Parceria: <em>quanto vale uma indicação?</em></h1>
+    </div>
+    <div class="header-note">Ajuste os valores ao vivo durante a conversa. Tudo recalcula em tempo real — nada precisa ser salvo.</div>
+  </div>
+</header>
+
+<div class="levers">
+  <div class="levers-inner">
+    <div class="lever">
+      <label for="repasse">Repasse à área comercial (15% – 30% da receita)</label>
+      <div class="lever-row">
+        <input type="range" id="repasse" min="15" max="30" step="1" value="20">
+        <span class="lever-val num" id="repasseVal">20%</span>
+      </div>
+    </div>
+    <div class="lever">
+      <label for="share">Participação do parceiro (50% – 70% do repasse)</label>
+      <div class="lever-row">
+        <input type="range" id="share" min="50" max="70" step="1" value="50">
+        <span class="lever-val num" id="shareVal">50%</span>
+      </div>
+    </div>
+    <div class="lever-eff">
+      <small>Taxa efetiva do parceiro sobre a receita SOMMA</small>
+      <span class="big num" id="effVal">10,0%</span>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div class="col-left">
+
+    <div class="explain">
+      <strong>Como funciona a remuneração do parceiro.</strong> Cada linha de receita gera faturamento para a SOMMA. Uma fatia dessa receita (de 15% a 30%) é repassada à área comercial; o parceiro que origina o relacionamento recebe de 50% a 70% desse repasse — começando em 50% e evoluindo conforme a maturidade da parceria.
+      <ol>
+        <li>Receita SOMMA → gerada pelo serviço contratado pela família;</li>
+        <li>Repasse comercial → % da receita destinada ao canal comercial;</li>
+        <li>Parceiro → % do repasse comercial que cabe a quem indicou.</li>
+      </ol>
+    </div>
+
+    <div class="section-label">Receitas recorrentes (anuais)</div>
+
+    <!-- 1. FAMILY OFFICE -->
+    <div class="card" id="card-fo">
+      <div class="card-head">
+        <label class="switch"><input type="checkbox" class="line-toggle" data-line="fo" checked><span class="slider-t"></span></label>
+        <div class="titles">
+          <h3>Family Office Completo</h3>
+          <p>CFO profissional da família — % anual sobre o tamanho e a complexidade patrimonial.</p>
+        </div>
+        <span class="tag rec">Recorrente</span>
+      </div>
+      <div class="card-body">
+        <div class="field">
+          <label for="fo-pat">Patrimônio da família (R$)</label>
+          <input type="text" id="fo-pat" data-money value="80.000.000">
+        </div>
+        <div class="field">
+          <label for="fo-fee">Fee anual (%)</label>
+          <div class="range-field">
+            <input type="range" id="fo-fee" min="0.10" max="1.50" step="0.05" value="0.50">
+            <span class="rv num" id="fo-fee-v">0,50%</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-rev">
+        <span class="lbl">Receita SOMMA / ano</span>
+        <span><span class="val num" id="rev-fo">—</span> &nbsp;<span class="partner num" id="par-fo"></span></span>
+      </div>
+    </div>
+
+    <!-- 2. GESTÃO DE PROPRIEDADES -->
+    <div class="card" id="card-gp">
+      <div class="card-head">
+        <label class="switch"><input type="checkbox" class="line-toggle" data-line="gp" checked><span class="slider-t"></span></label>
+        <div class="titles">
+          <h3>Gestão de Propriedades</h3>
+          <p>Gestão completa do imobilizado de renda: aluguéis, contratos, busca de inquilinos. % sobre a receita de aluguel.</p>
+        </div>
+        <span class="tag rec">Recorrente</span>
+      </div>
+      <div class="card-body">
+        <div class="field">
+          <label for="gp-alug">Receita mensal de aluguéis (R$)</label>
+          <input type="text" id="gp-alug" data-money value="150.000">
+        </div>
+        <div class="field">
+          <label for="gp-fee">Taxa sobre o aluguel (%)</label>
+          <div class="range-field">
+            <input type="range" id="gp-fee" min="4" max="15" step="0.5" value="8">
+            <span class="rv num" id="gp-fee-v">8,0%</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-rev">
+        <span class="lbl">Receita SOMMA / ano</span>
+        <span><span class="val num" id="rev-gp">—</span> &nbsp;<span class="partner num" id="par-gp"></span></span>
+      </div>
+    </div>
+
+    <!-- 3. CONTROLADORIA -->
+    <div class="card" id="card-ci">
+      <div class="card-head">
+        <label class="switch"><input type="checkbox" class="line-toggle" data-line="ci" checked><span class="slider-t"></span></label>
+        <div class="titles">
+          <h3>Controladoria Imobiliária</h3>
+          <p>Somente a controladoria dos recebíveis de aluguel. Valor fixo mensal, conforme volume e complexidade.</p>
+        </div>
+        <span class="tag rec">Recorrente</span>
+      </div>
+      <div class="card-body">
+        <div class="field full">
+          <label for="ci-fee">Fee mensal (R$)</label>
+          <input type="text" id="ci-fee" data-money value="8.000">
+        </div>
+      </div>
+      <div class="card-rev">
+        <span class="lbl">Receita SOMMA / ano</span>
+        <span><span class="val num" id="rev-ci">—</span> &nbsp;<span class="partner num" id="par-ci"></span></span>
+      </div>
+    </div>
+
+    <!-- 4. GESTÃO DE INVESTIMENTOS -->
+    <div class="card" id="card-gi">
+      <div class="card-head">
+        <label class="switch"><input type="checkbox" class="line-toggle" data-line="gi" checked><span class="slider-t"></span></label>
+        <div class="titles">
+          <h3>Gestão de Investimentos</h3>
+          <p>Gestão bank-agnostic da carteira, na instituição de preferência do cliente. % anual sobre a carteira.</p>
+        </div>
+        <span class="tag rec">Recorrente</span>
+      </div>
+      <div class="card-body">
+        <div class="field">
+          <label for="gi-cart">Carteira de investimentos (R$)</label>
+          <input type="text" id="gi-cart" data-money value="30.000.000">
+        </div>
+        <div class="field">
+          <label for="gi-fee">Fee anual (%)</label>
+          <div class="range-field">
+            <input type="range" id="gi-fee" min="0.20" max="1.50" step="0.05" value="0.70">
+            <span class="rv num" id="gi-fee-v">0,70%</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-rev">
+        <span class="lbl">Receita SOMMA / ano</span>
+        <span><span class="val num" id="rev-gi">—</span> &nbsp;<span class="partner num" id="par-gi"></span></span>
+      </div>
+    </div>
+
+    <div class="section-label">Receitas pontuais (por projeto / operação)</div>
+
+    <!-- 5. DESENVOLVIMENTO IMOBILIÁRIO -->
+    <div class="card off" id="card-dev">
+      <div class="card-head">
+        <label class="switch"><input type="checkbox" class="line-toggle" data-line="dev"><span class="slider-t"></span></label>
+        <div class="titles">
+          <h3>Desenvolvimento de Ativo Imobiliário</h3>
+          <p>Coordenação do desenvolvimento + estruturação do projeto + fee de captação de investidores + fee de sucesso.</p>
+        </div>
+        <span class="tag pont">Pontual</span>
+      </div>
+      <div class="card-body">
+        <div class="field">
+          <label for="dev-vgv">VGV / valor do projeto (R$)</label>
+          <input type="text" id="dev-vgv" data-money value="20.000.000">
+        </div>
+        <div class="field">
+          <label for="dev-coord">Fee de coordenação (% do VGV)</label>
+          <div class="range-field">
+            <input type="range" id="dev-coord" min="0" max="5" step="0.25" value="2">
+            <span class="rv num" id="dev-coord-v">2,00%</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="dev-estr">Taxa de estruturação (% do VGV)</label>
+          <div class="range-field">
+            <input type="range" id="dev-estr" min="0" max="4" step="0.25" value="1.5">
+            <span class="rv num" id="dev-estr-v">1,50%</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="dev-capt-vol">Capital captado de terceiros (R$)</label>
+          <input type="text" id="dev-capt-vol" data-money value="8.000.000">
+        </div>
+        <div class="field">
+          <label for="dev-capt-fee">Fee de captação (%)</label>
+          <div class="range-field">
+            <input type="range" id="dev-capt-fee" min="0" max="6" step="0.25" value="3">
+            <span class="rv num" id="dev-capt-fee-v">3,00%</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="dev-lucro">Lucro estimado do projeto (R$)</label>
+          <input type="text" id="dev-lucro" data-money value="4.000.000">
+        </div>
+        <div class="field">
+          <label for="dev-suc">Fee de sucesso (% do lucro)</label>
+          <div class="range-field">
+            <input type="range" id="dev-suc" min="0" max="20" step="1" value="10">
+            <span class="rv num" id="dev-suc-v">10%</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-rev">
+        <span class="lbl">Receita SOMMA / projeto</span>
+        <span><span class="val num" id="rev-dev">—</span> &nbsp;<span class="partner num" id="par-dev"></span></span>
+      </div>
+    </div>
+
+    <!-- 6. CAPTAÇÃO DE CRÉDITO -->
+    <div class="card off" id="card-cred">
+      <div class="card-head">
+        <label class="switch"><input type="checkbox" class="line-toggle" data-line="cred"><span class="slider-t"></span></label>
+        <div class="titles">
+          <h3>Captação de Crédito / Venda de Cotas</h3>
+          <p>% sobre o volume captado, dividido por ponta da operação. A mesma regra vale para a venda de cotas de projetos.</p>
+        </div>
+        <span class="tag pont">Pontual</span>
+      </div>
+      <div class="card-body">
+        <div class="field">
+          <label for="cred-vol">Volume da operação (R$)</label>
+          <input type="text" id="cred-vol" data-money value="10.000.000">
+        </div>
+        <div class="field">
+          <label for="cred-fee">Taxa total da operação (%)</label>
+          <div class="range-field">
+            <input type="range" id="cred-fee" min="0.5" max="6" step="0.25" value="3">
+            <span class="rv num" id="cred-fee-v">3,00%</span>
+          </div>
+        </div>
+        <div class="field full">
+          <label>Pontas em que a parceria participa</label>
+          <div class="pontas">
+            <label class="ponta on"><input type="checkbox" class="ponta-cb" data-w="0.15" checked> Originação <small>(15% da taxa)</small></label>
+            <label class="ponta"><input type="checkbox" class="ponta-cb" data-w="0.20"> Estruturação <small>(20% da taxa)</small></label>
+            <label class="ponta"><input type="checkbox" class="ponta-cb" data-w="0.65"> Distribuição <small>(65% da taxa)</small></label>
+          </div>
+          <span class="hint">A receita considerada na simulação é a fatia das pontas selecionadas.</span>
+        </div>
+      </div>
+      <div class="card-rev">
+        <span class="lbl">Receita considerada / operação</span>
+        <span><span class="val num" id="rev-cred">—</span> &nbsp;<span class="partner num" id="par-cred"></span></span>
+      </div>
+    </div>
+
+    <!-- 7. PLANEJAMENTO PATRIMONIAL -->
+    <div class="card off" id="card-pp">
+      <div class="card-head">
+        <label class="switch"><input type="checkbox" class="line-toggle" data-line="pp"><span class="slider-t"></span></label>
+        <div class="titles">
+          <h3>Planejamento Patrimonial e Sucessório</h3>
+          <p>Projeto com valor fixo conforme complexidade, parcelado em até 24 meses.</p>
+        </div>
+        <span class="tag pont">Pontual</span>
+      </div>
+      <div class="card-body">
+        <div class="field">
+          <label for="pp-val">Valor do projeto (R$)</label>
+          <input type="text" id="pp-val" data-money value="300.000">
+        </div>
+        <div class="field">
+          <label for="pp-prazo">Parcelamento (meses)</label>
+          <div class="range-field">
+            <input type="range" id="pp-prazo" min="1" max="24" step="1" value="12">
+            <span class="rv num" id="pp-prazo-v">12x</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-rev">
+        <span class="lbl">Receita SOMMA / projeto</span>
+        <span><span class="val num" id="rev-pp">—</span> &nbsp;<span class="partner num" id="par-pp"></span></span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ---------- RESULTS ---------- -->
+  <aside class="panel">
+    <h2>Cascata de remuneração</h2>
+    <div class="sub">Receita total considerada no 1º ano (recorrente + pontual)</div>
+
+    <div class="cascade">
+      <div class="stage">
+        <div class="stage-label"><span>Receita SOMMA</span><span class="amt num" id="c-total">—</span></div>
+        <div class="bar"><div class="bar-fill f-total" id="b-total" style="width:100%"></div></div>
+      </div>
+      <div class="connector"></div>
+      <div class="stage">
+        <div class="stage-label"><span>Repasse comercial</span><span class="amt num" id="c-com">—</span></div>
+        <div class="bar"><div class="bar-fill f-com" id="b-com" style="width:20%"></div><span class="pct-chip num" id="chip-com">20%</span></div>
+      </div>
+      <div class="connector"></div>
+      <div class="stage">
+        <div class="stage-label"><span>Parceiro</span><span class="amt num" id="c-par">—</span></div>
+        <div class="bar"><div class="bar-fill f-par" id="b-par" style="width:10%"></div><span class="pct-chip num" id="chip-par">50% do repasse</span></div>
+      </div>
+    </div>
+
+    <div class="hero-num">
+      <div class="lbl">Remuneração do parceiro · ano 1</div>
+      <div class="v num" id="hero">—</div>
+    </div>
+
+    <div class="hero-sub">
+      <div class="mini">
+        <div class="l">Recorrente / ano</div>
+        <div class="v num" id="m-rec">—</div>
+      </div>
+      <div class="mini">
+        <div class="l">≈ por mês (recorrente)</div>
+        <div class="v num" id="m-mes">—</div>
+      </div>
+      <div class="mini">
+        <div class="l">Pontual (projetos)</div>
+        <div class="v num" id="m-pont">—</div>
+      </div>
+      <div class="mini">
+        <div class="l">Taxa efetiva do parceiro</div>
+        <div class="v num" id="m-eff">—</div>
+      </div>
+    </div>
+
+    <div class="bd">
+      <h4>Contribuição do parceiro por linha</h4>
+      <div id="bd-rows"></div>
+    </div>
+
+    <div class="panel-foot">
+      A receita recorrente se repete todos os anos enquanto o cliente permanecer — o ganho do parceiro também. As receitas pontuais ocorrem por projeto ou operação. Valores ilustrativos para simulação; condições finais conforme contrato de parceria.
+    </div>
+  </aside>
+</main>
+
+<script>
+(function(){
+  const fmtBRL = new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});
+  const fmtPct1 = v => v.toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1}) + '%';
+  const fmtPct2 = v => v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}) + '%';
+  const $ = id => document.getElementById(id);
+
+  // ---- money inputs: parse & reformat ----
+  function parseMoney(str){
+    const digits = String(str).replace(/[^\d]/g,'');
+    return digits ? parseInt(digits,10) : 0;
+  }
+  function formatMoneyInput(el){
+    const v = parseMoney(el.value);
+    el.value = v.toLocaleString('pt-BR');
+  }
+  document.querySelectorAll('input[data-money]').forEach(el=>{
+    el.addEventListener('input', ()=>{ formatMoneyInput(el); recalc(); });
+    el.addEventListener('blur', ()=>formatMoneyInput(el));
+  });
+
+  // ---- sliders label sync ----
+  const sliderLabels = [
+    ['fo-fee', v=>fmtPct2(+v)], ['gp-fee', v=>fmtPct1(+v)], ['gi-fee', v=>fmtPct2(+v)],
+    ['dev-coord', v=>fmtPct2(+v)], ['dev-estr', v=>fmtPct2(+v)], ['dev-capt-fee', v=>fmtPct2(+v)],
+    ['dev-suc', v=>Math.round(+v)+'%'], ['cred-fee', v=>fmtPct2(+v)],
+    ['pp-prazo', v=>Math.round(+v)+'x']
+  ];
+  sliderLabels.forEach(([id,f])=>{
+    const el = $(id);
+    el.addEventListener('input', ()=>{ $(id+'-v').textContent = f(el.value); recalc(); });
+    $(id+'-v').textContent = f(el.value);
+  });
+
+  // ---- global levers ----
+  ['repasse','share'].forEach(id=>$(id).addEventListener('input', recalc));
+
+  // ---- toggles ----
+  document.querySelectorAll('.line-toggle').forEach(t=>{
+    t.addEventListener('change', ()=>{
+      t.closest('.card').classList.toggle('off', !t.checked);
+      recalc();
+    });
+  });
+
+  // ---- pontas ----
+  document.querySelectorAll('.ponta-cb').forEach(cb=>{
+    cb.addEventListener('change', ()=>{
+      cb.closest('.ponta').classList.toggle('on', cb.checked);
+      recalc();
+    });
+  });
+
+  function lineOn(name){
+    return document.querySelector('.line-toggle[data-line="'+name+'"]').checked;
+  }
+
+  const LINE_META = {
+    fo:  {label:'Family Office Completo', type:'rec'},
+    gp:  {label:'Gestão de Propriedades', type:'rec'},
+    ci:  {label:'Controladoria Imobiliária', type:'rec'},
+    gi:  {label:'Gestão de Investimentos', type:'rec'},
+    dev: {label:'Desenvolvimento Imobiliário', type:'pont'},
+    cred:{label:'Captação de Crédito / Cotas', type:'pont'},
+    pp:  {label:'Planejamento Patrimonial', type:'pont'}
+  };
+
+  function recalc(){
+    const repasse = (+$('repasse').value)/100;
+    const share   = (+$('share').value)/100;
+    const eff     = repasse*share;
+
+    $('repasseVal').textContent = Math.round(repasse*100)+'%';
+    $('shareVal').textContent   = Math.round(share*100)+'%';
+    $('effVal').textContent     = fmtPct1(eff*100);
+
+    // revenues per line
+    const rev = {};
+    rev.fo = parseMoney($('fo-pat').value) * (+$('fo-fee').value)/100;
+    rev.gp = parseMoney($('gp-alug').value) * 12 * (+$('gp-fee').value)/100;
+    rev.ci = parseMoney($('ci-fee').value) * 12;
+    rev.gi = parseMoney($('gi-cart').value) * (+$('gi-fee').value)/100;
+
+    const vgv = parseMoney($('dev-vgv').value);
+    rev.dev = vgv*(+$('dev-coord').value)/100
+            + vgv*(+$('dev-estr').value)/100
+            + parseMoney($('dev-capt-vol').value)*(+$('dev-capt-fee').value)/100
+            + parseMoney($('dev-lucro').value)*(+$('dev-suc').value)/100;
+
+    let pontasW = 0;
+    document.querySelectorAll('.ponta-cb:checked').forEach(cb=> pontasW += parseFloat(cb.dataset.w));
+    rev.cred = parseMoney($('cred-vol').value) * (+$('cred-fee').value)/100 * pontasW;
+
+    rev.pp = parseMoney($('pp-val').value);
+
+    // per-line displays
+    let totRec=0, totPont=0;
+    const bdRows = [];
+    Object.keys(LINE_META).forEach(k=>{
+      const on = lineOn(k);
+      const r = on ? rev[k] : 0;
+      const p = r * eff;
+      $('rev-'+k).textContent = fmtBRL.format(rev[k]);
+      $('par-'+k).textContent = on ? ('parceiro: '+fmtBRL.format(p)) : 'fora da simulação';
+      if(on){
+        if(LINE_META[k].type==='rec') totRec += rev[k]; else totPont += rev[k];
+      }
+      bdRows.push({k, on, p, label:LINE_META[k].label});
+    });
+
+    const total = totRec + totPont;
+    const com   = total * repasse;
+    const par   = com * share;
+    const parRec  = totRec * eff;
+    const parPont = totPont * eff;
+
+    // cascade
+    $('c-total').textContent = fmtBRL.format(total);
+    $('c-com').textContent   = fmtBRL.format(com);
+    $('c-par').textContent   = fmtBRL.format(par);
+    $('b-com').style.width   = (repasse*100)+'%';
+    $('b-par').style.width   = (eff*100)+'%';
+    $('chip-com').textContent = Math.round(repasse*100)+'% da receita';
+    $('chip-par').textContent = Math.round(share*100)+'% do repasse';
+
+    $('hero').textContent  = fmtBRL.format(par);
+    $('m-rec').textContent = fmtBRL.format(parRec);
+    $('m-mes').textContent = fmtBRL.format(parRec/12);
+    $('m-pont').textContent= fmtBRL.format(parPont);
+    $('m-eff').textContent = fmtPct1(eff*100);
+
+    // breakdown
+    const wrap = $('bd-rows');
+    wrap.innerHTML = '';
+    bdRows.forEach(r=>{
+      const div = document.createElement('div');
+      div.className = 'bd-row' + (r.on ? '' : ' muted');
+      div.innerHTML = '<span>'+r.label+'</span><span class="n num">'+(r.on?fmtBRL.format(r.p):'—')+'</span>';
+      wrap.appendChild(div);
+    });
+  }
+
+  // init money formatting + first calc
+  document.querySelectorAll('input[data-money]').forEach(formatMoneyInput);
+  recalc();
+})();
+</script>
+</body>
+</html>
