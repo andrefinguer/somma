@@ -24,157 +24,276 @@
 </script>
 <style>
 :root{
-  --petrol:#0B4A5C; --petrol-deep:#072F3B; --teal:#13929B; --aqua:#2BB8BF;
-  --gold:#F2B11B; --paper:#F4F8F9; --card:#FFFFFF; --ink:#10242B; --muted:#5B7480;
-  --line:#DCE7EA; --pos:#1E7F3C; --neg:#C0392B; --neg-bg:#FDECEA; --pos-bg:#EAF7EE;
+  --petrol:#0B4A5C; --petrol-deep:#06303D; --petrol-soft:#0E6276; --teal:#13929B; --aqua:#2BB8BF;
+  --gold:#F2B11B; --gold-deep:#9C6F00; --paper:#EEF4F5; --card:#FFFFFF; --ink:#10242B; --muted:#5B7480;
+  --line:#D8E4E7; --pos:#1E7F3C; --neg:#C0392B;
   --mono:'Consolas','SF Mono','Roboto Mono',monospace;
+  --shadow:0 1px 2px rgba(11,74,92,.06),0 4px 14px rgba(11,74,92,.07);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Segoe UI',system-ui,-apple-system,'Helvetica Neue',sans-serif;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.45}
-header{background:linear-gradient(120deg,var(--petrol-deep) 0%,var(--petrol) 55%,#0E6276 100%);color:#fff;padding:26px 32px 22px}
-header .brand{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
-header h1{font-size:24px;font-weight:700;letter-spacing:-.3px}
-header .tagline{color:#9FD3DC;font-size:13px}
-header .sub{margin-top:6px;color:#C8E5EA;font-size:12.5px;max-width:880px}
-.layout{display:grid;grid-template-columns:330px 1fr;gap:22px;padding:22px 32px 60px;max-width:1640px;margin:0 auto}
-@media(max-width:1000px){.layout{grid-template-columns:1fr}}
-/* ---------- sidebar ---------- */
-aside{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 16px;height:fit-content;position:sticky;top:14px;max-height:calc(100vh - 28px);overflow-y:auto}
-aside h2{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--teal);margin:18px 0 8px;border-bottom:1px solid var(--line);padding-bottom:5px}
-aside h2:first-of-type{margin-top:2px}
-.field{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:3.5px 0}
-.field label{font-size:12.5px;color:var(--ink);flex:1}
+body{font-family:'Segoe UI',system-ui,-apple-system,'Helvetica Neue',sans-serif;background:
+  radial-gradient(1200px 400px at 80% -100px,#DCEBEE 0%,transparent 60%),var(--paper);
+  color:var(--ink);font-size:14px;line-height:1.45}
+button{font-family:inherit}
+:focus-visible{outline:2px solid var(--aqua);outline-offset:2px;border-radius:4px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ============ TOPBAR ============ */
+.topbar{position:sticky;top:0;z-index:50;background:linear-gradient(110deg,var(--petrol-deep) 0%,var(--petrol) 55%,var(--petrol-soft) 100%);color:#fff;padding:16px 28px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;box-shadow:0 2px 14px rgba(6,48,61,.25)}
+.brandmark{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--aqua),var(--teal));display:grid;place-items:center;font-weight:800;font-size:15px;color:#04323D;letter-spacing:-.5px;flex:none}
+.topbar .tt h1{font-size:18px;font-weight:700;letter-spacing:-.2px;line-height:1.15}
+.topbar .tt span{font-size:11.5px;color:#9FD3DC;display:block}
+.topbar .actions{margin-left:auto;display:flex;gap:10px;flex-wrap:wrap}
+.btn{border:none;cursor:pointer;border-radius:9px;padding:9px 16px;font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:8px;transition:transform .12s,box-shadow .12s,background .12s}
+.btn:active{transform:translateY(1px)}
+.btn svg{width:15px;height:15px;flex:none}
+.btn-gold{background:var(--gold);color:#3D2E00;box-shadow:0 2px 10px rgba(242,177,27,.35)}
+.btn-gold:hover{background:#FFC53A}
+.btn-ghost{background:rgba(255,255,255,.12);color:#E3F2F5;border:1px solid rgba(255,255,255,.25)}
+.btn-ghost:hover{background:rgba(255,255,255,.22)}
+
+/* ============ LAYOUT ============ */
+.layout{display:grid;grid-template-columns:336px 1fr;gap:20px;padding:20px 28px 60px;max-width:1680px;margin:0 auto}
+@media(max-width:1020px){.layout{grid-template-columns:1fr}}
+
+/* ============ SIDEBAR ============ */
+aside{height:fit-content;position:sticky;top:84px;max-height:calc(100vh - 100px);overflow-y:auto;scrollbar-width:thin;padding-right:2px}
+.presets{display:flex;gap:6px;margin-bottom:12px}
+.chip{flex:1;border:1px solid var(--line);background:var(--card);border-radius:9px;padding:8px 4px;font-size:11.5px;font-weight:600;color:var(--muted);cursor:pointer;text-align:center;transition:all .15s}
+.chip:hover{border-color:var(--teal);color:var(--teal)}
+.chip.on{background:var(--petrol);border-color:var(--petrol);color:#fff}
+details.grp{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:10px;box-shadow:var(--shadow);overflow:hidden}
+details.grp summary{list-style:none;cursor:pointer;padding:12px 14px;display:flex;align-items:center;gap:10px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--petrol);user-select:none}
+details.grp summary::-webkit-details-marker{display:none}
+details.grp summary .ic{width:24px;height:24px;border-radius:7px;display:grid;place-items:center;background:#E3F0F2;color:var(--teal);flex:none}
+details.grp summary .ic svg{width:13px;height:13px}
+details.grp summary .car{margin-left:auto;color:var(--muted);transition:transform .2s;font-size:10px}
+details.grp[open] summary .car{transform:rotate(180deg)}
+details.grp .body{padding:2px 14px 12px;border-top:1px solid #EEF4F5}
+.field{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:4px 0}
+.field label{font-size:12.5px;color:var(--ink);flex:1;cursor:help}
 .field .hint{display:block;font-size:10.5px;color:var(--muted)}
-.field input{width:118px;padding:5px 7px;border:1px solid var(--line);border-radius:6px;font-family:var(--mono);font-size:12.5px;text-align:right;color:#0a3f9e;background:#FBFDFE}
-.field input:focus{outline:2px solid var(--aqua);border-color:var(--aqua)}
-.field .ro{width:118px;padding:5px 7px;font-family:var(--mono);font-size:12.5px;text-align:right;color:var(--muted)}
-.resetbar{margin-top:16px}
-.resetbar button{width:100%;padding:8px;border:1px solid var(--line);background:#F1F6F7;border-radius:8px;cursor:pointer;font-size:12.5px;color:var(--petrol);font-weight:600}
-.resetbar button:hover{background:#E4EFF1}
-/* ---------- main ---------- */
+.field input{width:116px;padding:6px 8px;border:1px solid var(--line);border-radius:7px;font-family:var(--mono);font-size:12.5px;text-align:right;color:#0a3f9e;background:#FBFDFE;transition:border .12s,box-shadow .12s}
+.field input:hover{border-color:#B9D2D8}
+.field input:focus{outline:none;border-color:var(--aqua);box-shadow:0 0 0 3px rgba(43,184,191,.18)}
+.field .ro{width:116px;padding:6px 8px;font-family:var(--mono);font-size:12.5px;text-align:right;color:var(--muted);background:#F3F7F8;border-radius:7px}
+
+/* ============ MAIN ============ */
 main{min-width:0}
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-bottom:18px}
-.kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
-.kpi .k-label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
-.kpi .k-value{font-family:var(--mono);font-size:21px;font-weight:700;color:var(--petrol);margin-top:4px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:12px;margin-bottom:16px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:14px 16px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.kpi::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--teal)}
+.kpi .k-label{font-size:10.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:600}
+.kpi .k-value{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--petrol);margin-top:5px;transition:color .2s}
 .kpi .k-foot{font-size:11px;color:var(--muted);margin-top:3px}
-.kpi.gold{background:linear-gradient(135deg,#FFF8E8,#FFF);border-color:#F0D9A0}
-.kpi.gold .k-value{color:#9C6F00}
+.kpi.gold::before{background:var(--gold)}
+.kpi.gold{background:linear-gradient(135deg,#FFF9EA,#FFF)}
+.kpi.gold .k-value{color:var(--gold-deep)}
 nav.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
-nav.tabs button{padding:9px 16px;border:1px solid var(--line);background:var(--card);border-radius:999px;cursor:pointer;font-size:13px;font-weight:600;color:var(--muted)}
-nav.tabs button.active{background:var(--petrol);color:#fff;border-color:var(--petrol)}
-section.panel{display:none;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px}
-section.panel.show{display:block}
+nav.tabs button{padding:9px 18px;border:1px solid var(--line);background:var(--card);border-radius:999px;cursor:pointer;font-size:13px;font-weight:600;color:var(--muted);transition:all .15s;display:inline-flex;align-items:center;gap:7px}
+nav.tabs button .dot{width:7px;height:7px;border-radius:50%;background:#C4D6DB;transition:background .15s}
+nav.tabs button:hover{border-color:var(--teal);color:var(--teal)}
+nav.tabs button.active{background:var(--petrol);color:#fff;border-color:var(--petrol);box-shadow:0 3px 10px rgba(11,74,92,.28)}
+nav.tabs button.active .dot{background:var(--gold)}
+section.panel{display:none;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:var(--shadow)}
+section.panel.show{display:block;animation:fadein .25s ease}
+@keyframes fadein{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 section.panel h3{font-size:16px;color:var(--petrol);margin-bottom:4px}
-section.panel p.desc{font-size:12.5px;color:var(--muted);margin-bottom:14px}
-.charts2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+section.panel p.desc{font-size:12.5px;color:var(--muted);margin-bottom:14px;max-width:900px}
+.charts2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px}
 @media(max-width:900px){.charts2{grid-template-columns:1fr}}
-.chartbox{border:1px solid var(--line);border-radius:10px;padding:12px}
-.chartbox h4{font-size:12.5px;color:var(--teal);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em}
+.chartbox{border:1px solid var(--line);border-radius:11px;padding:13px;background:#FDFEFE}
+.chartbox h4{font-size:11.5px;color:var(--teal);margin-bottom:8px;text-transform:uppercase;letter-spacing:.07em;font-weight:700}
 .chartwrap{position:relative;height:260px}
-/* ---------- tables ---------- */
-.tscroll{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
-table{border-collapse:collapse;width:100%;font-size:12px}
-th,td{padding:6px 10px;text-align:right;white-space:nowrap;font-family:var(--mono)}
-th{background:var(--petrol);color:#fff;font-family:inherit;font-weight:600;font-size:11.5px;position:sticky;top:0}
-td.lbl,th.lbl{text-align:left;font-family:inherit;position:sticky;left:0;background:#F1F6F7;font-weight:600;color:var(--petrol);z-index:1}
-th.lbl{background:var(--petrol);color:#fff;z-index:2}
-tr:nth-child(even) td:not(.lbl){background:#FAFCFD}
-tr.total td{background:#E6F1F3 !important;font-weight:700;color:var(--petrol)}
-tr.subtle td{color:var(--muted);font-size:11px}
-td.negv{color:var(--neg)}
-td.posv{color:var(--pos)}
-/* DRE */
-.dregrid{display:grid;grid-template-columns:1.1fr .9fr .9fr;gap:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;max-width:880px}
-.dregrid>div{padding:8px 14px;font-size:13px;border-bottom:1px solid var(--line)}
+.tablehead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px;flex-wrap:wrap}
+.toggle{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--muted);cursor:pointer;user-select:none}
+.toggle input{accent-color:var(--teal)}
+
+/* ============ TABLES ============ */
+.tscroll{overflow-x:auto;border:1px solid var(--line);border-radius:11px}
+table.data{border-collapse:collapse;width:100%;font-size:12px}
+.data th,.data td{padding:6.5px 11px;text-align:right;white-space:nowrap;font-family:var(--mono)}
+.data th{background:var(--petrol);color:#fff;font-family:inherit;font-weight:600;font-size:11.5px;position:sticky;top:0;z-index:2}
+.data td.lbl,.data th.lbl{text-align:left;font-family:inherit;position:sticky;left:0;background:#F1F6F7;font-weight:600;color:var(--petrol);z-index:1}
+.data th.lbl{background:var(--petrol);color:#fff;z-index:3}
+.data tbody tr:hover td:not(.lbl){background:#EDF6F8}
+.data tr:nth-child(even) td:not(.lbl){background:#FAFCFD}
+.data tr.total td{background:#E4F0F2 !important;font-weight:700;color:var(--petrol)}
+.data tr.subtle td{color:var(--muted);font-size:11px}
+.data td.negv{color:var(--neg)}
+.data td.posv{color:var(--pos)}
+
+/* ============ DRE ============ */
+.dre-eff{margin:0 0 18px;background:linear-gradient(120deg,var(--petrol-deep),var(--petrol) 70%);border-radius:14px;color:#fff;padding:20px 24px;display:flex;gap:34px;align-items:center;flex-wrap:wrap;box-shadow:0 6px 22px rgba(6,48,61,.30)}
+.dre-eff .big{font-family:var(--mono);font-size:32px;font-weight:700;color:var(--gold);line-height:1}
+.dre-eff .lab{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#A9D6DD;margin-bottom:7px}
+.dre-eff .note{font-size:12.5px;color:#D6ECF0;max-width:480px;line-height:1.55}
+.dregrid{display:grid;grid-template-columns:1.15fr .85fr .85fr;border:1px solid var(--line);border-radius:11px;overflow:hidden;max-width:880px}
+.dregrid>div{padding:8px 15px;font-size:13px;border-bottom:1px solid #ECF2F4}
 .dregrid .h{background:var(--petrol);color:#fff;font-weight:700;font-size:12.5px}
 .dregrid .r{font-family:var(--mono);text-align:right}
-.dregrid .name{color:var(--ink)}
 .dregrid .name.sub{padding-left:26px;color:var(--muted)}
 .dregrid .bold{font-weight:700;background:#F1F6F7}
-.dre-eff{margin:18px 0;max-width:880px;background:linear-gradient(135deg,var(--petrol-deep),var(--petrol));border-radius:12px;color:#fff;padding:18px 22px;display:flex;gap:28px;align-items:center;flex-wrap:wrap}
-.dre-eff .big{font-family:var(--mono);font-size:30px;font-weight:700;color:var(--gold)}
-.dre-eff .lab{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:#A9D6DD}
-.dre-eff .note{font-size:12.5px;color:#D6ECF0;max-width:430px}
-/* heatmap */
-.heat{border-collapse:separate;border-spacing:4px;margin:0 auto}
-.heat th{background:none;color:var(--ink);font-family:inherit;position:static}
-.heat th.cols{background:#2E3B40;color:#fff;border-radius:6px;padding:8px 22px}
-.heat th.rows{background:#EDF2F4;border-radius:6px;padding:8px 14px;font-family:var(--mono)}
-.heat td{border-radius:6px;padding:11px 22px;font-weight:700;text-align:center;font-size:13px}
-.scenarios{display:flex;gap:12px;justify-content:center;margin:16px 0;flex-wrap:wrap}
-.scen{border:1px solid var(--line);border-radius:10px;padding:10px 18px;text-align:center;background:#F7FAFB}
+.dregrid .fidc{color:var(--neg);font-weight:600}
+.dregrid .eff{color:var(--pos)}
+
+/* ============ HEATMAP ============ */
+.heat{border-collapse:separate;border-spacing:5px;margin:0 auto}
+.heat th{font-weight:700;font-size:12.5px}
+.heat th.cols{background:#27343A;color:#fff;border-radius:8px;padding:10px 26px}
+.heat th.rows{background:#E9F0F2;border-radius:8px;padding:10px 16px;font-family:var(--mono);color:var(--petrol)}
+.heat td{border-radius:8px;padding:13px 26px;font-weight:700;text-align:center;font-size:13.5px;font-family:var(--mono);color:#243036;transition:transform .12s}
+.heat td:hover{transform:scale(1.05)}
+.heat td.base{outline:2.5px solid var(--petrol);outline-offset:-1px}
+.scenarios{display:flex;gap:12px;justify-content:center;margin:18px 0;flex-wrap:wrap}
+.scen{border:1px solid var(--line);border-radius:11px;padding:11px 20px;text-align:center;background:#F7FAFB}
+.scen.hl{border-color:var(--gold);background:#FFF9EA}
 .scen b{display:block;color:var(--petrol);font-size:13px}
 .scen span{font-size:11.5px;color:var(--muted);font-family:var(--mono)}
-.callout{margin-top:16px;background:var(--petrol);color:#E7F3F5;border-radius:10px;padding:14px 18px;font-size:13px;max-width:980px}
+.callout{margin-top:16px;background:var(--petrol);color:#E7F3F5;border-radius:11px;padding:15px 19px;font-size:13px;max-width:980px;line-height:1.55}
 .callout b{color:var(--gold)}
-footer{padding:0 32px 40px;max-width:1640px;margin:0 auto;font-size:11px;color:var(--muted)}
+footer.note{padding:0 28px 40px;max-width:1680px;margin:0 auto;font-size:11px;color:var(--muted);line-height:1.6}
+
+/* ============ TOAST ============ */
+#toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--petrol-deep);color:#fff;padding:11px 22px;border-radius:999px;font-size:13px;font-weight:600;opacity:0;pointer-events:none;transition:all .25s;z-index:99;box-shadow:0 8px 24px rgba(6,48,61,.4)}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ============ PRINT REPORT ============ */
+#printReport{display:none}
+@media print{
+  body{background:#fff}
+  .app,#toast{display:none !important}
+  #printReport{display:block;font-size:11px;color:#10242B;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  @page{size:A4;margin:11mm 10mm}
+  .pr-band{background:linear-gradient(110deg,#06303D,#0B4A5C 60%,#0E6276);color:#fff;border-radius:10px;padding:18px 22px;display:flex;align-items:center;gap:16px;margin-bottom:14px}
+  .pr-band .bm{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#2BB8BF,#13929B);display:grid;place-items:center;font-weight:800;color:#04323D}
+  .pr-band h1{font-size:17px;margin:0}
+  .pr-band .dt{margin-left:auto;text-align:right;font-size:10px;color:#BFE2E8}
+  .pr-h2{font-size:13px;color:#0B4A5C;border-bottom:2px solid #0B4A5C;padding-bottom:4px;margin:16px 0 8px;text-transform:uppercase;letter-spacing:.06em}
+  .pr-kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:10px 0}
+  .pr-kpi{border:1px solid #D8E4E7;border-radius:8px;padding:8px 10px}
+  .pr-kpi .l{font-size:8px;text-transform:uppercase;letter-spacing:.07em;color:#5B7480;font-weight:700}
+  .pr-kpi .v{font-family:var(--mono);font-size:12.5px;font-weight:700;color:#0B4A5C;margin-top:3px}
+  .pr-kpi.g{background:#FFF9EA;border-color:#F0D9A0}.pr-kpi.g .v{color:#9C6F00}
+  .pr-prem{display:grid;grid-template-columns:repeat(3,1fr);gap:4px 18px;font-size:9.5px}
+  .pr-prem div{display:flex;justify-content:space-between;border-bottom:1px dotted #D8E4E7;padding:2.5px 0}
+  .pr-prem b{font-family:var(--mono);font-weight:600}
+  #printReport img.chart{width:100%;border:1px solid #E4ECEE;border-radius:8px}
+  .pr-2col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  #printReport table.data{font-size:8.4px;width:100%}
+  #printReport .data th,#printReport .data td{padding:3.5px 5px;position:static}
+  #printReport .data th{background:#0B4A5C !important;color:#fff !important}
+  #printReport .data td.lbl{background:#F1F6F7 !important}
+  #printReport .data tr.total td{background:#E4F0F2 !important}
+  #printReport .dregrid{max-width:100%;font-size:10px;border-radius:8px}
+  #printReport .dregrid>div{padding:4.5px 10px;font-size:10px}
+  #printReport .heat{border-spacing:3px}
+  #printReport .heat td{padding:7px 16px;font-size:10.5px}
+  #printReport .heat th.cols{padding:6px 16px;font-size:10px}
+  #printReport .heat th.rows{padding:6px 10px;font-size:10px}
+  #printReport .dre-eff{box-shadow:none;border-radius:10px;padding:13px 18px;margin-bottom:10px}
+  #printReport .dre-eff .big{font-size:22px}
+  #printReport .dre-eff .note{font-size:10px;max-width:none}
+  #printReport .callout{font-size:10px;padding:10px 14px;border-radius:8px}
+  .pb{page-break-before:always}
+  .avoid{page-break-inside:avoid}
+  .pr-foot{margin-top:14px;font-size:8px;color:#5B7480;border-top:1px solid #D8E4E7;padding-top:6px;line-height:1.5}
+}
 </style>
 </head>
 <body>
-<header>
-  <div class="brand"><h1>Simulador FIDC</h1><span class="tagline">Constituição do fundo · Eficiência tributária · Impacto na DRE</span></div>
-  <div class="sub">Modelo dinâmico baseado no estudo de constituição de FIDC. Ajuste as premissas no painel à esquerda — projeção de 60 meses, DRE comparativa e matriz de sensibilidade são recalculadas automaticamente.</div>
-</header>
+<div class="app">
+<div class="topbar">
+  <div class="brandmark">FX</div>
+  <div class="tt"><h1>Simulador FIDC</h1><span>Constituição do fundo · eficiência tributária · impacto na DRE</span></div>
+  <div class="actions">
+    <button class="btn btn-ghost" id="btnReset" title="Restaura todas as premissas do estudo original">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+      Restaurar estudo</button>
+    <button class="btn btn-gold" id="btnPDF" title="Gera o relatório completo do estudo em PDF">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+      Exportar PDF</button>
+  </div>
+</div>
 
 <div class="layout">
 <aside id="inputs">
-  <h2>Estrutura do fundo</h2>
-  <div class="field"><label>PL Subordinada inicial <span class="hint">R$</span></label><input type="number" id="plInicial" step="1000000" value="30000000"></div>
-  <div class="field"><label>IOF + Distribuição <span class="hint">% sobre PL (Ano 0)</span></label><input type="number" id="iofPct" step="0.01" value="0.39"></div>
-  <div class="field"><label>Estruturação <span class="hint">R$ (Ano 0)</span></label><input type="number" id="estrut" step="10000" value="300000"></div>
-  <div class="field"><label>CDI projetado <span class="hint">% a.a.</span></label><input type="number" id="cdi" step="0.05" value="14.40"></div>
+  <div class="presets">
+    <button class="chip on" data-preset="base">Estudo base</button>
+    <button class="chip" data-preset="cons">Conservador</button>
+    <button class="chip" data-preset="agr">Agressivo</button>
+  </div>
 
-  <h2>Carteira & taxas</h2>
-  <div class="field"><label>% Crediário</label><input type="number" id="pctCred" step="0.5" value="66.5"></div>
-  <div class="field"><label>Prazo médio crediário <span class="hint">dias</span></label><input type="number" id="prazoCred" step="5" value="140"></div>
-  <div class="field"><label>% Cartão de crédito</label><input type="number" id="pctCard" step="0.5" value="28.5"></div>
-  <div class="field"><label>Prazo médio cartão <span class="hint">dias</span></label><input type="number" id="prazoCard" step="5" value="90"></div>
-  <div class="field"><label>% Caixa <span class="hint">calculado (100 − DCs)</span></label><div class="ro" id="pctCaixaRO">5,0%</div></div>
-  <div class="field"><label>Taxa média de cessão <span class="hint">% a.m.</span></label><input type="number" id="taxaCessao" step="0.05" value="2.50"></div>
-  <div class="field"><label>Rentabilidade caixa <span class="hint">% do CDI</span></label><input type="number" id="caixaCdi" step="1" value="95"></div>
-  <div class="field"><label>PDD / perdas <span class="hint">% da carteira de DCs</span></label><input type="number" id="pddRate" step="0.05" value="0.95"></div>
+  <details class="grp" open>
+    <summary><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg></span>Estrutura do fundo<span class="car">▼</span></summary>
+    <div class="body">
+      <div class="field"><label title="Aporte do cedente na cota subordinada">PL Subordinada inicial <span class="hint">R$</span></label><input class="money" id="plInicial" inputmode="numeric" value="30000000"></div>
+      <div class="field"><label title="Custo de entrada sobre o PL no Ano 0">IOF + Distribuição <span class="hint">% sobre PL (Ano 0)</span></label><input type="number" id="iofPct" step="0.01" value="0.39"></div>
+      <div class="field"><label title="Custo único de estruturação do fundo">Estruturação <span class="hint">R$ (Ano 0)</span></label><input class="money" id="estrut" inputmode="numeric" value="300000"></div>
+      <div class="field"><label title="Curva de juros projetada para o caixa e comparativos">CDI projetado <span class="hint">% a.a.</span></label><input type="number" id="cdi" step="0.05" value="14.40"></div>
+    </div>
+  </details>
 
-  <h2>Custos operacionais</h2>
-  <div class="field"><label>Adm. e custódia <span class="hint">% a.a.</span></label><input type="number" id="admAA" step="0.01" value="0.22"></div>
-  <div class="field"><label>Adm. mínimo <span class="hint">R$/mês</span></label><input type="number" id="admMin" step="100" value="24222"></div>
-  <div class="field"><label>Gestão <span class="hint">% a.a.</span></label><input type="number" id="gestaoAA" step="0.05" value="1.50"></div>
-  <div class="field"><label>Taxa ANBIMA <span class="hint">R$/bimestre</span></label><input type="number" id="anbima" step="10" value="260"></div>
-  <div class="field"><label>Taxa CVM <span class="hint">R$/ano</span></label><input type="number" id="cvm" step="100" value="9487"></div>
-  <div class="field"><label>Banco liquidante <span class="hint">R$/mês</span></label><input type="number" id="banco" step="50" value="900"></div>
-  <div class="field"><label>Certificadora <span class="hint">R$/unidade cedida</span></label><input type="number" id="certUn" step="0.01" value="0.06"></div>
-  <div class="field"><label>Ticket médio por título <span class="hint">R$ (p/ certificadora)</span></label><input type="number" id="ticket" step="5" value="60"></div>
-  <div class="field"><label>Despesas gerais <span class="hint">% a.a. s/ PL</span></label><input type="number" id="geraisAA" step="0.01" value="0.05"></div>
-  <div class="field"><label>Registro duplicatas <span class="hint">R$ fixo/mês</span></label><input type="number" id="regFixo" step="500" value="5000"></div>
-  <div class="field"><label>Acessório cartão <span class="hint">% s/ deságio cartão</span></label><input type="number" id="regPctCard" step="0.5" value="2.0"></div>
-  <div class="field"><label>Auditoria externa <span class="hint">R$/ano</span></label><input type="number" id="audExt" step="100" value="8800"></div>
-  <div class="field"><label>Auditoria de lastro <span class="hint">R$/trimestre</span></label><input type="number" id="audLastro" step="100" value="3500"></div>
+  <details class="grp" open>
+    <summary><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></span>Carteira & taxas<span class="car">▼</span></summary>
+    <div class="body">
+      <div class="field"><label>% Crediário</label><input type="number" id="pctCred" step="0.5" value="66.5"></div>
+      <div class="field"><label>Prazo médio crediário <span class="hint">dias</span></label><input type="number" id="prazoCred" step="5" value="140"></div>
+      <div class="field"><label>% Cartão de crédito</label><input type="number" id="pctCard" step="0.5" value="28.5"></div>
+      <div class="field"><label>Prazo médio cartão <span class="hint">dias</span></label><input type="number" id="prazoCard" step="5" value="90"></div>
+      <div class="field"><label>% Caixa <span class="hint">calculado (100 − DCs)</span></label><div class="ro" id="pctCaixaRO">5,0%</div></div>
+      <div class="field"><label title="Deságio mensal médio cobrado na cessão dos recebíveis">Taxa média de cessão <span class="hint">% a.m.</span></label><input type="number" id="taxaCessao" step="0.05" value="2.50"></div>
+      <div class="field"><label>Rentabilidade caixa <span class="hint">% do CDI</span></label><input type="number" id="caixaCdi" step="1" value="95"></div>
+      <div class="field"><label title="Estoque-alvo de provisão sobre a carteira de direitos creditórios">PDD / perdas <span class="hint">% da carteira de DCs</span></label><input type="number" id="pddRate" step="0.05" value="0.95"></div>
+    </div>
+  </details>
 
-  <h2>DRE da empresa (cedente)</h2>
-  <div class="field"><label>Receita líquida <span class="hint">R$/ano</span></label><input type="number" id="dreRL" step="1000000" value="681428149"></div>
-  <div class="field"><label>(−) CMV <span class="hint">R$/ano</span></label><input type="number" id="dreCMV" step="1000000" value="447638330"></div>
-  <div class="field"><label>(−) Despesas operacionais</label><input type="number" id="dreDO" step="1000000" value="203967021"></div>
-  <div class="field"><label>(+) Receitas financeiras</label><input type="number" id="dreRF" step="100000" value="9925816"></div>
-  <div class="field"><label>(−) Despesas financeiras</label><input type="number" id="dreDF" step="100000" value="29781312"></div>
+  <details class="grp">
+    <summary><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span>Custos operacionais<span class="car">▼</span></summary>
+    <div class="body">
+      <div class="field"><label>Adm. e custódia <span class="hint">% a.a.</span></label><input type="number" id="admAA" step="0.01" value="0.22"></div>
+      <div class="field"><label>Adm. mínimo <span class="hint">R$/mês</span></label><input class="money" id="admMin" inputmode="numeric" value="24222"></div>
+      <div class="field"><label>Gestão <span class="hint">% a.a.</span></label><input type="number" id="gestaoAA" step="0.05" value="1.50"></div>
+      <div class="field"><label>Taxa ANBIMA <span class="hint">R$/bimestre</span></label><input class="money" id="anbima" inputmode="numeric" value="260"></div>
+      <div class="field"><label>Taxa CVM <span class="hint">R$/ano</span></label><input class="money" id="cvm" inputmode="numeric" value="9487"></div>
+      <div class="field"><label>Banco liquidante <span class="hint">R$/mês</span></label><input class="money" id="banco" inputmode="numeric" value="900"></div>
+      <div class="field"><label>Certificadora <span class="hint">R$/unidade cedida</span></label><input type="number" id="certUn" step="0.01" value="0.06"></div>
+      <div class="field"><label title="Usado para estimar o nº de títulos cedidos por mês">Ticket médio por título <span class="hint">R$</span></label><input type="number" id="ticket" step="5" value="60"></div>
+      <div class="field"><label>Despesas gerais <span class="hint">% a.a. s/ PL</span></label><input type="number" id="geraisAA" step="0.01" value="0.05"></div>
+      <div class="field"><label>Registro duplicatas <span class="hint">R$ fixo/mês</span></label><input class="money" id="regFixo" inputmode="numeric" value="5000"></div>
+      <div class="field"><label>Acessório cartão <span class="hint">% s/ deságio cartão</span></label><input type="number" id="regPctCard" step="0.5" value="2.0"></div>
+      <div class="field"><label>Auditoria externa <span class="hint">R$/ano</span></label><input class="money" id="audExt" inputmode="numeric" value="8800"></div>
+      <div class="field"><label>Auditoria de lastro <span class="hint">R$/trimestre</span></label><input class="money" id="audLastro" inputmode="numeric" value="3500"></div>
+    </div>
+  </details>
 
-  <div class="resetbar"><button id="btnReset">Restaurar premissas do estudo</button></div>
+  <details class="grp" open>
+    <summary><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg></span>DRE da empresa<span class="car">▼</span></summary>
+    <div class="body">
+      <div class="field"><label>Receita líquida <span class="hint">R$/ano</span></label><input class="money" id="dreRL" inputmode="numeric" value="681428149"></div>
+      <div class="field"><label>(−) CMV <span class="hint">R$/ano</span></label><input class="money" id="dreCMV" inputmode="numeric" value="447638330"></div>
+      <div class="field"><label>(−) Despesas operacionais</label><input class="money" id="dreDO" inputmode="numeric" value="203967021"></div>
+      <div class="field"><label>(+) Receitas financeiras</label><input class="money" id="dreRF" inputmode="numeric" value="9925816"></div>
+      <div class="field"><label>(−) Despesas financeiras</label><input class="money" id="dreDF" inputmode="numeric" value="29781312"></div>
+    </div>
+  </details>
 </aside>
 
 <main>
   <div class="kpis">
     <div class="kpi"><div class="k-label">PL após custos iniciais</div><div class="k-value" id="kpiPL0">—</div><div class="k-foot">Ano 0 (IOF + estruturação)</div></div>
     <div class="kpi"><div class="k-label">PL ao fim de 5 anos</div><div class="k-value" id="kpiPL5">—</div><div class="k-foot" id="kpiMult">—</div></div>
-    <div class="kpi"><div class="k-label">CAGR cota subordinada</div><div class="k-value" id="kpiCagr">—</div><div class="k-foot">% a.a. · 60 meses</div></div>
+    <div class="kpi"><div class="k-label">CAGR cota subordinada</div><div class="k-value" id="kpiCagr">—</div><div class="k-foot" id="kpiCagrFoot">—</div></div>
     <div class="kpi"><div class="k-label">Despesa financeira FIDC</div><div class="k-value" id="kpiDesagio">—</div><div class="k-foot">Deságio Ano 1 (na DRE)</div></div>
     <div class="kpi gold"><div class="k-label">Eficiência tributária</div><div class="k-value" id="kpiEff">—</div><div class="k-foot">Redução de IRPJ/CSLL no ano</div></div>
   </div>
 
   <nav class="tabs">
-    <button data-tab="t5" class="active">Projeção 5 anos</button>
-    <button data-tab="tm">Mensal · 1º ano</button>
-    <button data-tab="tdre">Impacto na DRE</button>
-    <button data-tab="tmx">Matriz de sensibilidade</button>
+    <button data-tab="t5" class="active"><span class="dot"></span>Projeção 5 anos</button>
+    <button data-tab="tm"><span class="dot"></span>Mensal · 1º ano</button>
+    <button data-tab="tdre"><span class="dot"></span>Impacto na DRE</button>
+    <button data-tab="tmx"><span class="dot"></span>Matriz de sensibilidade</button>
   </nav>
 
   <section class="panel show" id="t5">
@@ -184,13 +303,16 @@ footer{padding:0 32px 40px;max-width:1640px;margin:0 auto;font-size:11px;color:v
       <div class="chartbox"><h4>Evolução anualizada do PL (R$ MM)</h4><div class="chartwrap"><canvas id="chPL"></canvas></div></div>
       <div class="chartbox"><h4>Comparativo cota subordinada vs. CDI (base 1,0)</h4><div class="chartwrap"><canvas id="chCota"></canvas></div></div>
     </div>
-    <div class="tscroll"><table id="tblAnual"></table></div>
+    <div class="tscroll"><table class="data" id="tblAnual"></table></div>
   </section>
 
   <section class="panel" id="tm">
     <h3>Despesas & Resultados — Detalhe mensal do 1º ano</h3>
     <p class="desc">Abertura mês a mês das receitas, despesas do fundo, provisão para devedores duvidosos e PL.</p>
-    <div class="tscroll"><table id="tblMensal"></table></div>
+    <div class="tablehead">
+      <label class="toggle"><input type="checkbox" id="tglDesp" checked> Mostrar abertura das despesas</label>
+    </div>
+    <div class="tscroll"><table class="data" id="tblMensal"></table></div>
   </section>
 
   <section class="panel" id="tdre">
@@ -205,26 +327,39 @@ footer{padding:0 32px 40px;max-width:1640px;margin:0 auto;font-size:11px;color:v
 
   <section class="panel" id="tmx">
     <h3>Matriz de sensibilidade & resultados</h3>
-    <p class="desc">Rentabilidade anualizada (CAGR 5 anos) da cota subordinada — PL inicial × taxa de cessão, mantendo as demais premissas do painel.</p>
-    <div class="tscroll" style="border:none"><table class="heat" id="tblHeat"></table></div>
+    <p class="desc">Rentabilidade anualizada (CAGR 5 anos) da cota subordinada — PL inicial × taxa de cessão, mantendo as demais premissas do painel. A célula destacada é o cenário base.</p>
+    <div class="tscroll" style="border:none;overflow-x:auto"><table class="heat" id="tblHeat"></table></div>
     <div class="scenarios" id="scenBoxes"></div>
     <div class="chartbox"><h4>Análise resultado ano a ano (% a.a. por cenário)</h4><div class="chartwrap" style="height:300px"><canvas id="chScen"></canvas></div></div>
     <div class="callout" id="mxCallout"></div>
   </section>
 </main>
 </div>
-<footer>Simulação ilustrativa. Resultados dependem das premissas adotadas e não constituem garantia de rentabilidade. Tributação: CSLL 9%, IRPJ 15% e adicional de 10% sobre o LAIR que exceder R$ 240 mil/ano (Lucro Real). PDD aplicada com rampa de constituição proporcional ao prazo médio da carteira.</footer>
+<footer class="note">Simulação ilustrativa. Resultados dependem das premissas adotadas e não constituem garantia de rentabilidade. Tributação: CSLL 9%, IRPJ 15% e adicional de 10% sobre o LAIR que exceder R$ 240 mil/ano (Lucro Real). PDD aplicada com rampa de constituição proporcional ao prazo médio da carteira.</footer>
+</div>
+
+<div id="printReport"></div>
+<div id="toast"></div>
 
 <script>
 const $=id=>document.getElementById(id);
+const MONEY_IDS=['plInicial','estrut','admMin','anbima','cvm','banco','regFixo','audExt','audLastro','dreRL','dreCMV','dreDO','dreRF','dreDF'];
 const DEFAULTS={plInicial:30000000,iofPct:0.39,estrut:300000,cdi:14.40,pctCred:66.5,prazoCred:140,pctCard:28.5,prazoCard:90,taxaCessao:2.50,caixaCdi:95,pddRate:0.95,admAA:0.22,admMin:24222,gestaoAA:1.50,anbima:260,cvm:9487,banco:900,certUn:0.06,ticket:60,geraisAA:0.05,regFixo:5000,regPctCard:2.0,audExt:8800,audLastro:3500,dreRL:681428149,dreCMV:447638330,dreDO:203967021,dreRF:9925816,dreDF:29781312};
+const PRESETS={
+  base:{...DEFAULTS},
+  cons:{...DEFAULTS,taxaCessao:2.00,pddRate:1.50},
+  agr:{...DEFAULTS,taxaCessao:3.00,pddRate:0.70}
+};
 const fmt0=v=>v.toLocaleString('pt-BR',{maximumFractionDigits:0});
 const fmtR=v=>(v<0?'(':'')+Math.abs(v).toLocaleString('pt-BR',{maximumFractionDigits:0})+(v<0?')':'');
 const fmtMM=v=>(v/1e6).toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1})+' MM';
 const fmtP=(v,d=2)=>(v*100).toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d})+'%';
+const parseBR=s=>{s=(''+s).trim().replace(/\./g,'').replace(',', '.').replace(/[^\d.-]/g,'');const v=parseFloat(s);return isNaN(v)?0:v;};
+function getNum(id){const el=$(id);return el.type==='number'?(parseFloat(el.value)||0):parseBR(el.value);}
+function setVal(id,v){const el=$(id);if(!el)return;el.value=el.type==='number'?v:Math.round(v).toLocaleString('pt-BR');}
 
 function P(){
-  const g=id=>parseFloat($(id).value)||0;
+  const g=getNum;
   const p={plInicial:g('plInicial'),iof:g('iofPct')/100,estrut:g('estrut'),cdi:g('cdi')/100,
     sCred:g('pctCred')/100,pzCred:Math.max(g('prazoCred'),1),sCard:g('pctCard')/100,pzCard:Math.max(g('prazoCard'),1),
     taxa:g('taxaCessao')/100,caixaCdi:g('caixaCdi')/100,pdd:g('pddRate')/100,
@@ -286,12 +421,16 @@ function taxes(lair){
 }
 
 let chPL,chCota,chScen;
+const LAST={};
 function ensureCharts(){
+  try{
   const common={responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{boxWidth:12,font:{size:11}}}}};
   if(!chPL)chPL=new Chart($('chPL'),{type:'bar',data:{labels:[],datasets:[]},options:{...common,scales:{y:{ticks:{font:{size:10}}},x:{ticks:{font:{size:11}}}}}});
   if(!chCota)chCota=new Chart($('chCota'),{type:'line',data:{labels:[],datasets:[]},options:{...common,scales:{y:{ticks:{font:{size:10}}},x:{ticks:{font:{size:9},maxTicksLimit:12}}},elements:{point:{radius:0}}}});
   if(!chScen)chScen=new Chart($('chScen'),{type:'bar',data:{labels:[],datasets:[]},options:{...common,scales:{y:{ticks:{font:{size:10},callback:v=>v+'%'}},x:{ticks:{font:{size:11}}}}}});
+  }catch(e){console.warn('Gráficos indisponíveis:',e.message);}
 }
+function safeChart(c,fn){try{if(c&&c.ctx){fn(c);c.update();}}catch(e){console.warn('chart:',e.message);}}
 
 function heatColor(v,min,max){
   const t=max===min?0.5:(v-min)/(max-min);
@@ -301,24 +440,53 @@ function heatColor(v,min,max){
   return`rgb(${c[0]},${c[1]},${c[2]})`;
 }
 
+function buildMensalTable(M,p,showDetail){
+  const line=(name,fn,neg,cls='')=>`<tr class="${cls}"><td class="lbl">${name}</td>`+M.map(x=>{const v=fn(x);return v===null?'<td>—</td>':`<td class="${neg&&v!==0?'negv':''}">${fmtR(neg?-Math.abs(v):v)}</td>`;}).join('')+'</tr>';
+  let tm='<tr><th class="lbl"></th>'+M.map(x=>`<th>Mês ${x.m}</th>`).join('')+'</tr>';
+  tm+=line('Patrimônio líquido inicial',x=>x.pl,false,'total');
+  tm+=line('Crediário ('+(p.sCred*100).toLocaleString('pt-BR')+'%)',x=>x.recCred,false);
+  tm+=line('Cartão de crédito ('+(p.sCard*100).toLocaleString('pt-BR')+'%)',x=>x.recCard,false);
+  tm+=line('Caixa @ '+(p.caixaCdi*100).toLocaleString('pt-BR')+'% CDI',x=>x.recCx,false);
+  tm+=line('Despesas do fundo',x=>x.desp,true,'total');
+  if(showDetail){
+    tm+=line('· Taxa de adm. e custódia',x=>x.dAdm,true,'subtle');
+    tm+=line('· Taxa de gestão',x=>x.dGest,true,'subtle');
+    tm+=line('· Taxa ANBIMA',x=>x.dAnb||null,true,'subtle');
+    tm+=line('· Taxa CVM',x=>x.dCvm||null,true,'subtle');
+    tm+=line('· Banco liquidante',x=>x.dBanco,true,'subtle');
+    tm+=line('· Certificadora',x=>x.dCert,true,'subtle');
+    tm+=line('· Gerais',x=>x.dGer,true,'subtle');
+    tm+=line('· Registro duplic. / acess. cartão',x=>x.dReg,true,'subtle');
+    tm+=line('· Auditoria externa',x=>x.dAudE,true,'subtle');
+    tm+=line('· Auditoria de lastro',x=>x.dAudL||null,true,'subtle');
+  }
+  tm+=line('Lucro auferido pelo fundo',x=>x.lucro+x.dPdd,false,'total');
+  tm+=line('Provisão p/ devedores duvidosos (acum.)',x=>x.pddStock||null,true);
+  tm+=line('Patrimônio líquido final',x=>x.plF,false,'total');
+  tm+='<tr class="subtle"><td class="lbl">Spread over CDI bruto</td>'+M.map(x=>{const r=(x.lucro+x.dPdd)/x.pl;return`<td>${fmtP(r/x.cdiM,1)}</td>`;}).join('')+'</tr>';
+  return tm;
+}
+
 function render(){
   const p=P();
   $('pctCaixaRO').textContent=(p.sCaixa*100).toLocaleString('pt-BR',{maximumFractionDigits:1})+'%';
   const sim=simulate(p);
   ensureCharts();
+  LAST.p=p; LAST.sim=sim;
 
-  // KPIs
   $('kpiPL0').textContent='R$ '+fmt0(sim.pl0);
   $('kpiPL5').textContent='R$ '+fmtMM(sim.plFinal);
   $('kpiMult').textContent=(sim.plFinal/sim.pl0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})+'× o capital · '+(sim.plFinal/p.plInicial).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})+'× o aporte';
   $('kpiCagr').textContent=fmtP(sim.cagr);
+  $('kpiCagrFoot').textContent='vs. CDI '+fmtP(p.cdi)+' a.a. → +'+fmtP(sim.cagr-p.cdi,1)+' de excesso';
   $('kpiDesagio').textContent='R$ '+fmt0(sim.desagioAno1);
 
-  // DRE
+  // ---- DRE ----
   const lairSem=p.dreRL-p.dreCMV-p.dreDO+p.dreRF-p.dreDF;
   const lairCom=lairSem-sim.desagioAno1;
   const tS=taxes(lairSem),tC=taxes(lairCom);
   const eff=tS.total-tC.total;
+  LAST.dre={lairSem,lairCom,tS,tC,eff};
   $('kpiEff').textContent='R$ '+fmt0(eff);
   $('effBig').textContent='R$ '+fmt0(eff);
   $('effNote').innerHTML=`O FIDC gera despesa financeira de <b style="color:#fff">R$ ${fmt0(sim.desagioAno1)}</b> no 1º ano, reduzindo a base de cálculo em igual montante. Os tributos do período caem de R$ ${fmt0(tS.total)} para R$ ${fmt0(tC.total)} — e o deságio retorna aos sócios como rentabilidade da cota subordinada.`;
@@ -332,7 +500,7 @@ function render(){
     ['LAJIR',lajir,lajir,2],
     ['(+) Receitas financeiras',p.dreRF,p.dreRF,1],
     ['(−) Despesas financeiras',-p.dreDF,-p.dreDF,1],
-    ['(−) Despesas financeiras FIDC',0,-sim.desagioAno1,1],
+    ['(−) Despesas financeiras FIDC',0,-sim.desagioAno1,3],
     ['LAIR',lairSem,lairCom,2],
     ['CSLL (9%)',-tS.csll,-tC.csll,1],
     ['IRPJ (15%)',-tS.irpj,-tC.irpj,1],
@@ -342,13 +510,14 @@ function render(){
   ];
   let h='<div class="h name">Rubrica</div><div class="h r">Sem FIDC</div><div class="h r">Com FIDC</div>';
   rows.forEach(([n,a,b,t])=>{
-    const cls=t===2?'bold':'', sub=t===1?'sub':'';
-    h+=`<div class="name ${sub} ${cls}">${n}</div><div class="r ${cls}">${a===0&&n.includes('FIDC')?'—':fmtR(a)}</div><div class="r ${cls}">${fmtR(b)}</div>`;
+    const cls=t===2?'bold':(t===3?'fidc':'');const sub=(t===1||t===3)?'sub':'';
+    h+=`<div class="name ${sub} ${cls}">${n}</div><div class="r ${cls}">${a===0&&t===3?'—':fmtR(a)}</div><div class="r ${cls}">${fmtR(b)}</div>`;
   });
-  h+=`<div class="name bold" style="color:#1E7F3C">Eficiência tributária</div><div class="r bold" style="grid-column:span 2;color:#1E7F3C">${fmtR(eff)}</div>`;
+  h+=`<div class="name bold eff">Eficiência tributária</div><div class="r bold eff" style="grid-column:span 2">${fmtR(eff)}</div>`;
   $('dreGrid').innerHTML=h;
+  LAST.dreHTML=h;
 
-  // Annual table
+  // ---- Annual table ----
   let ta='<tr><th class="lbl">Classe</th><th>Ano 0</th>'+sim.years.map(y=>`<th>Ano ${y.y}</th>`).join('')+'</tr>';
   const cols=[
     ['Patrimônio início período',[p.plInicial,...sim.years.map(y=>y.plIni)]],
@@ -366,76 +535,173 @@ function render(){
   ta+=`<tr class="total"><td class="lbl">Patrimônio fim período</td><td>${fmtR(sim.pl0)}</td>`+sim.years.map(y=>`<td>${fmtR(y.plFim)}</td>`).join('')+'</tr>';
   ta+=`<tr class="subtle"><td class="lbl">Retorno no ano</td><td>—</td>`+sim.years.map(y=>`<td>${fmtP(y.ret)}</td>`).join('')+'</tr>';
   $('tblAnual').innerHTML=ta;
+  LAST.anualHTML=ta;
 
-  // Monthly table (12 months)
+  // ---- Monthly table ----
   const M=sim.months.slice(0,12);
-  const line=(name,fn,neg,cls='')=>`<tr class="${cls}"><td class="lbl">${name}</td>`+M.map(x=>{const v=fn(x);return v===null?'<td>—</td>':`<td class="${neg&&v!==0?'negv':''}">${fmtR(neg?-Math.abs(v):v)}</td>`;}).join('')+'</tr>';
-  let tm='<tr><th class="lbl"></th>'+M.map(x=>`<th>Mês ${x.m}</th>`).join('')+'</tr>';
-  tm+=line('Patrimônio líquido inicial',x=>x.pl,false,'total');
-  tm+=line('Crediário ('+(p.sCred*100).toLocaleString('pt-BR')+'%)',x=>x.recCred,false);
-  tm+=line('Cartão de crédito ('+(p.sCard*100).toLocaleString('pt-BR')+'%)',x=>x.recCard,false);
-  tm+=line('Caixa @ '+(p.caixaCdi*100).toLocaleString('pt-BR')+'% CDI',x=>x.recCx,false);
-  tm+=line('Despesas do fundo',x=>x.desp,true,'total');
-  tm+=line('· Taxa de adm. e custódia',x=>x.dAdm,true,'subtle');
-  tm+=line('· Taxa de gestão',x=>x.dGest,true,'subtle');
-  tm+=line('· Taxa ANBIMA',x=>x.dAnb||null,true,'subtle');
-  tm+=line('· Taxa CVM',x=>x.dCvm||null,true,'subtle');
-  tm+=line('· Banco liquidante',x=>x.dBanco,true,'subtle');
-  tm+=line('· Certificadora',x=>x.dCert,true,'subtle');
-  tm+=line('· Gerais',x=>x.dGer,true,'subtle');
-  tm+=line('· Registro duplic. / acess. cartão',x=>x.dReg,true,'subtle');
-  tm+=line('· Auditoria externa',x=>x.dAudE,true,'subtle');
-  tm+=line('· Auditoria de lastro',x=>x.dAudL||null,true,'subtle');
-  tm+=line('Lucro auferido pelo fundo',x=>x.lucro+x.dPdd,false,'total');
-  tm+=line('Provisão p/ devedores duvidosos (acum.)',x=>x.pddStock||null,true);
-  tm+=line('Patrimônio líquido final',x=>x.plF,false,'total');
-  tm+='<tr class="subtle"><td class="lbl">Spread over CDI bruto</td>'+M.map(x=>{const r=(x.lucro+x.dPdd)/x.pl;return`<td>${fmtP(r/x.cdiM,1)}</td>`;}).join('')+'</tr>';
-  $('tblMensal').innerHTML=tm;
+  const showDetail=$('tglDesp').checked;
+  $('tblMensal').innerHTML=buildMensalTable(M,p,showDetail);
+  LAST.mensalHTML=buildMensalTable(M,p,true);
 
-  // Charts proj
-  chPL.data.labels=sim.years.map(y=>'Ano '+y.y);
-  chPL.data.datasets=[{label:'PL fim do período (R$ MM)',data:sim.years.map(y=>y.plFim/1e6),backgroundColor:'#0B4A5C',borderRadius:5}];
-  chPL.update();
+  // ---- Charts proj ----
+  safeChart(chPL,c=>{c.data.labels=sim.years.map(y=>'Ano '+y.y);
+    c.data.datasets=[{label:'PL fim do período (R$ MM)',data:sim.years.map(y=>+(y.plFim/1e6).toFixed(2)),backgroundColor:'#0B4A5C',borderRadius:5}];});
   let cota=1,cdix=1;const sc=[1],sd=[1];
-  sim.months.forEach(x=>{cota*=x.plF/x.pl;cdix*=1+x.cdiM;sc.push(cota);sd.push(cdix);});
-  chCota.data.labels=Array.from({length:61},(_,i)=>i);
-  chCota.data.datasets=[
+  sim.months.forEach(x=>{cota*=x.plF/x.pl;cdix*=1+x.cdiM;sc.push(+cota.toFixed(5));sd.push(+cdix.toFixed(5));});
+  LAST.cotaSc=sc; LAST.cotaSd=sd;
+  safeChart(chCota,c=>{c.data.labels=Array.from({length:61},(_,i)=>i);
+    c.data.datasets=[
     {label:'Cota subordinada ('+sc[60].toLocaleString('pt-BR',{minimumFractionDigits:4,maximumFractionDigits:4})+')',data:sc,borderColor:'#F2B11B',backgroundColor:'#F2B11B',borderWidth:2.5,tension:.25},
-    {label:'CDI ('+sd[60].toLocaleString('pt-BR',{minimumFractionDigits:4,maximumFractionDigits:4})+')',data:sd,borderColor:'#0B4A5C',backgroundColor:'#0B4A5C',borderWidth:2.5,tension:.25}];
-  chCota.update();
+    {label:'CDI ('+sd[60].toLocaleString('pt-BR',{minimumFractionDigits:4,maximumFractionDigits:4})+')',data:sd,borderColor:'#0B4A5C',backgroundColor:'#0B4A5C',borderWidth:2.5,tension:.25}];});
 
-  // Matrix
+  // ---- Matrix ----
   const pls=[10e6,30e6,50e6], txs=[0.020,0.0225,0.025,0.0275,0.030];
   const grid=txs.map(t=>pls.map(plv=>simulate(p,plv,t).cagr));
   const flat=grid.flat(), mn=Math.min(...flat), mx=Math.max(...flat);
+  LAST.mxMin=mn; LAST.mxMax=mx;
   let th='<tr><th></th>'+pls.map(v=>`<th class="cols">${v/1e6} MM</th>`).join('')+'</tr>';
   txs.forEach((t,i)=>{
-    th+=`<tr><th class="rows">${(t*100).toLocaleString('pt-BR',{minimumFractionDigits:2})}%</th>`+grid[i].map(v=>`<td style="background:${heatColor(v,mn,mx)}">${fmtP(v)}</td>`).join('')+'</tr>';
+    th+=`<tr><th class="rows">${(t*100).toLocaleString('pt-BR',{minimumFractionDigits:2})}%</th>`+grid[i].map((v,j)=>{
+      const isBase=(Math.abs(t-0.025)<1e-9&&j===1);
+      return`<td class="${isBase?'base':''}" style="background:${heatColor(v,mn,mx)}">${fmtP(v)}</td>`;}).join('')+'</tr>';
   });
   $('tblHeat').innerHTML=th;
+  LAST.heatHTML=th;
 
   const scens=[{n:'Cenário 1',pl:10e6,t:0.020,c:'#0B4A5C'},{n:'Cenário base',pl:30e6,t:0.025,c:'#F2B11B'},{n:'Cenário 2',pl:50e6,t:0.030,c:'#9AA8AE'}];
-  $('scenBoxes').innerHTML=scens.map(s=>`<div class="scen"><b>${s.n}</b><span>PL = ${s.pl/1e6}MM · Taxa ${(s.t*100).toLocaleString('pt-BR',{minimumFractionDigits:2})}% a.m.</span></div>`).join('');
+  $('scenBoxes').innerHTML=scens.map(s=>`<div class="scen ${s.n==='Cenário base'?'hl':''}"><b>${s.n}</b><span>PL = ${s.pl/1e6}MM · Taxa ${(s.t*100).toLocaleString('pt-BR',{minimumFractionDigits:2})}% a.m.</span></div>`).join('');
   const scenSims=scens.map(s=>simulate(p,s.pl,s.t));
-  chScen.data.labels=['Ano 1','Ano 2','Ano 3','Ano 4','Ano 5'];
-  chScen.data.datasets=scens.map((s,i)=>({label:s.n,data:scenSims[i].years.map(y=>+(y.ret*100).toFixed(2)),backgroundColor:s.c,borderRadius:4}));
-  chScen.update();
+  LAST.scens=scens; LAST.scenSims=scenSims;
+  safeChart(chScen,c=>{c.data.labels=['Ano 1','Ano 2','Ano 3','Ano 4','Ano 5'];
+    c.data.datasets=scens.map((s,i)=>({label:s.n,data:scenSims[i].years.map(y=>+(y.ret*100).toFixed(2)),backgroundColor:s.c,borderRadius:4}));});
   const base=simulate(p,30e6,0.025).cagr;
-  $('mxCallout').innerHTML=`Considerando o cenário base, o resultado esperado da cota subordinada é de <b>${fmtP(base)} a.a.</b> Em cenários extremos, o resultado anualizado do fundo varia de <b>${fmtP(mn)}</b> a <b>${fmtP(mx)} a.a.</b>`;
+  const co=`Considerando o cenário base, o resultado esperado da cota subordinada é de <b>${fmtP(base)} a.a.</b> Em cenários extremos, o resultado anualizado do fundo varia de <b>${fmtP(mn)}</b> a <b>${fmtP(mx)} a.a.</b>`;
+  $('mxCallout').innerHTML=co;
+  LAST.calloutHTML=co;
 }
 
-// tabs
+/* ============ TOAST ============ */
+let toastT;
+function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2400);}
+
+/* ============ PDF EXPORT ============ */
+function captureChart(cfg,w,h){
+  return new Promise(res=>{
+    const cv=document.createElement('canvas');
+    cv.width=w;cv.height=h;
+    cv.style.cssText=`position:fixed;left:-12000px;top:0;width:${w}px;height:${h}px`;
+    document.body.appendChild(cv);
+    const ch=new Chart(cv,{...cfg,options:{...cfg.options,responsive:false,animation:false,devicePixelRatio:2}});
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      const url=cv.toDataURL('image/png');ch.destroy();cv.remove();res(url);
+    }));
+  });
+}
+async function exportPDF(){
+  toast('Preparando relatório…');
+  render(); // garante estado atualizado
+  const p=LAST.p, sim=LAST.sim, d=LAST.dre;
+  const axis={grid:{color:'#E4ECEE'},ticks:{font:{size:12},color:'#41545C'}};
+  const leg={labels:{boxWidth:14,font:{size:12},color:'#10242B'}};
+  const imgPL=await captureChart({type:'bar',data:{labels:sim.years.map(y=>'Ano '+y.y),datasets:[{label:'PL fim do período (R$ MM)',data:sim.years.map(y=>+(y.plFim/1e6).toFixed(2)),backgroundColor:'#0B4A5C',borderRadius:6}]},options:{plugins:{legend:leg},scales:{x:axis,y:axis}}},860,330);
+  const imgCota=await captureChart({type:'line',data:{labels:Array.from({length:61},(_,i)=>i),datasets:[
+    {label:'Cota subordinada',data:LAST.cotaSc,borderColor:'#F2B11B',borderWidth:3,pointRadius:0,tension:.25},
+    {label:'CDI',data:LAST.cotaSd,borderColor:'#0B4A5C',borderWidth:3,pointRadius:0,tension:.25}]},
+    options:{plugins:{legend:leg},scales:{x:{...axis,ticks:{...axis.ticks,maxTicksLimit:13}},y:axis}}},860,330);
+  const imgScen=await captureChart({type:'bar',data:{labels:['Ano 1','Ano 2','Ano 3','Ano 4','Ano 5'],datasets:LAST.scens.map((s,i)=>({label:s.n,data:LAST.scenSims[i].years.map(y=>+(y.ret*100).toFixed(2)),backgroundColor:s.c,borderRadius:5}))},options:{plugins:{legend:leg},scales:{x:axis,y:{...axis,ticks:{...axis.ticks,callback:v=>v+'%'}}}}},1760,420);
+
+  const dt=new Date();
+  const dts=dt.toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'})+' · '+dt.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  const prem=[
+    ['PL Subordinada inicial','R$ '+fmt0(p.plInicial)],['IOF + Distribuição',fmtP(p.iof)],['Estruturação','R$ '+fmt0(p.estrut)],
+    ['CDI projetado',fmtP(p.cdi)+' a.a.'],['% Crediário',fmtP(p.sCred,1)],['Prazo médio crediário',p.pzCred+' dias'],
+    ['% Cartão de crédito',fmtP(p.sCard,1)],['Prazo médio cartão',p.pzCard+' dias'],['% Caixa',fmtP(p.sCaixa,1)],
+    ['Taxa média de cessão',fmtP(p.taxa)+' a.m.'],['Rentabilidade caixa',fmtP(p.caixaCdi,0)+' do CDI'],['PDD / perdas',fmtP(p.pdd)+' da carteira'],
+    ['Adm. e custódia',fmtP(p.admAA)+' a.a. (mín. R$ '+fmt0(p.admMin)+'/mês)'],['Taxa de gestão',fmtP(p.gestAA)+' a.a.'],['Demais custos','ANBIMA, CVM, certificadora, auditorias…']
+  ].map(([a,b])=>`<div><span>${a}</span><b>${b}</b></div>`).join('');
+
+  $('printReport').innerHTML=`
+  <div class="pr-band">
+    <div class="bm">FX</div>
+    <div><h1>Estudo de Constituição de FIDC</h1><div style="font-size:10px;color:#BFE2E8">Simulação de performance, eficiência tributária e impacto na DRE</div></div>
+    <div class="dt">Gerado em<br><b>${dts}</b></div>
+  </div>
+
+  <div class="pr-h2">Premissas da simulação</div>
+  <div class="pr-prem">${prem}</div>
+
+  <div class="pr-h2">Indicadores-chave</div>
+  <div class="pr-kpis">
+    <div class="pr-kpi"><div class="l">PL após custos iniciais</div><div class="v">R$ ${fmt0(sim.pl0)}</div></div>
+    <div class="pr-kpi"><div class="l">PL ao fim de 5 anos</div><div class="v">R$ ${fmt0(sim.plFinal)}</div></div>
+    <div class="pr-kpi"><div class="l">CAGR cota subordinada</div><div class="v">${fmtP(sim.cagr)} a.a.</div></div>
+    <div class="pr-kpi"><div class="l">Despesa financeira FIDC (Ano 1)</div><div class="v">R$ ${fmt0(sim.desagioAno1)}</div></div>
+    <div class="pr-kpi g"><div class="l">Eficiência tributária</div><div class="v">R$ ${fmt0(d.eff)}</div></div>
+  </div>
+
+  <div class="pr-h2">Projeção 5 anos — Premissa & Performance</div>
+  <div class="pr-2col avoid">
+    <div><img class="chart" src="${imgPL}" alt="Evolução do PL"></div>
+    <div><img class="chart" src="${imgCota}" alt="Cota vs CDI"></div>
+  </div>
+  <div class="avoid" style="margin-top:8px"><table class="data">${LAST.anualHTML}</table></div>
+
+  <div class="pb"></div>
+  <div class="pr-h2">Despesas & Resultados — Detalhe mensal do 1º ano</div>
+  <table class="data">${LAST.mensalHTML}</table>
+
+  <div class="pr-h2" style="margin-top:14px">Impacto na DRE — Eficiência tributária</div>
+  <div class="dre-eff avoid">
+    <div><div class="lab">Eficiência tributária no ano</div><div class="big">R$ ${fmt0(d.eff)}</div></div>
+    <div class="note">O FIDC gera despesa financeira de <b style="color:#fff">R$ ${fmt0(sim.desagioAno1)}</b> no 1º ano, reduzindo a base de cálculo em igual montante. Os tributos do período caem de R$ ${fmt0(d.tS.total)} para R$ ${fmt0(d.tC.total)} — e o deságio retorna aos sócios como rentabilidade da cota subordinada.</div>
+  </div>
+  <div class="dregrid avoid">${LAST.dreHTML}</div>
+
+  <div class="pb"></div>
+  <div class="pr-h2">Matriz de sensibilidade — CAGR 5 anos (PL inicial × taxa de cessão)</div>
+  <table class="heat avoid">${LAST.heatHTML}</table>
+  <div class="pr-h2" style="margin-top:12px">Análise resultado ano a ano por cenário</div>
+  <img class="chart avoid" src="${imgScen}" alt="Resultado ano a ano" style="max-height:230px;object-fit:contain">
+  <div class="callout avoid">${LAST.calloutHTML}</div>
+
+  <div class="pr-foot">Simulação ilustrativa gerada pelo Simulador FIDC. Resultados dependem das premissas adotadas e não constituem garantia de rentabilidade futura nem oferta de investimento. Tributação considerada: CSLL 9%, IRPJ 15% e adicional de 10% sobre o LAIR excedente a R$ 240 mil/ano (regime de Lucro Real). PDD com rampa de constituição proporcional ao prazo médio da carteira. Documento de uso interno.</div>`;
+
+  toast('Na janela de impressão, escolha “Salvar como PDF”.');
+  setTimeout(()=>window.print(),350);
+}
+
+/* ============ BINDINGS ============ */
 document.querySelectorAll('nav.tabs button').forEach(b=>b.addEventListener('click',()=>{
   document.querySelectorAll('nav.tabs button').forEach(x=>x.classList.remove('active'));
   document.querySelectorAll('section.panel').forEach(x=>x.classList.remove('show'));
   b.classList.add('active');$(b.dataset.tab).classList.add('show');
-  requestAnimationFrame(()=>{[chPL,chCota,chScen].forEach(c=>{if(c){c.resize();c.update();}});});
+  requestAnimationFrame(()=>{[chPL,chCota,chScen].forEach(c=>{try{if(c&&c.ctx){c.resize();c.update();}}catch(e){}});});
 }));
-document.querySelectorAll('aside input').forEach(i=>i.addEventListener('input',render));
-$('btnReset').addEventListener('click',()=>{Object.entries(DEFAULTS).forEach(([k,v])=>{if($(k))$(k).value=v;});render();});
+document.querySelectorAll('aside input:not([type=checkbox])').forEach(i=>{
+  i.addEventListener('input',()=>{render();markCustom();});
+  if(i.classList.contains('money')){
+    i.addEventListener('focus',()=>{i.value=''+Math.round(parseBR(i.value));i.select();});
+    i.addEventListener('blur',()=>{i.value=Math.round(parseBR(i.value)).toLocaleString('pt-BR');});
+  }
+});
+$('tglDesp').addEventListener('change',render);
+function applyPreset(name){
+  const pv=PRESETS[name];
+  Object.entries(pv).forEach(([k,v])=>setVal(k,v));
+  document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c.dataset.preset===name));
+  render();
+}
+function markCustom(){document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));}
+document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{applyPreset(c.dataset.preset);toast(c.textContent+' aplicado');}));
+$('btnReset').addEventListener('click',()=>{applyPreset('base');toast('Premissas do estudo restauradas');});
+$('btnPDF').addEventListener('click',exportPDF);
+window.addEventListener('resize',()=>{[chPL,chCota,chScen].forEach(c=>{try{if(c&&c.ctx)c.resize();}catch(e){}});});
+window.addEventListener('afterprint',()=>{$('printReport').innerHTML='';});
+
 if(typeof Chart==='undefined'){document.querySelectorAll('.chartwrap').forEach(d=>d.innerHTML='<div style="padding:30px;color:#C0392B;font-size:13px">Biblioteca de gráficos não carregada — tabelas permanecem funcionais.</div>');}
+// formata campos monetários iniciais
+MONEY_IDS.forEach(id=>{const el=$(id);if(el)el.value=Math.round(parseBR(el.value)).toLocaleString('pt-BR');});
 render();
-window.addEventListener('resize',()=>{[chPL,chCota,chScen].forEach(c=>c&&c.resize());});
 </script>
 </body>
 </html>
