@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Política Comercial e de Originação — Apresentação do Modelo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F4F1E9;
+    --paper-deep:#ECE7D9;
+    --ink:#19231F;
+    --ink-dim:#5A6058;
+    --pine:#16382F;
+    --pine-soft:#21473C;
+    --pine-line:#2E5A4C;
+    --brass:#97782F;
+    --brass-bright:#B6933F;
+    --line:#D5CFBC;
+    --line-soft:#E2DDCC;
+    --alert:#8C3B2E;
+    --radius:3px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Archivo',sans-serif;
+    font-size:16px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--brass);color:#fff;}
+
+  /* ---------- utilities ---------- */
+  .wrap{max-width:1060px;margin:0 auto;padding:0 32px;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--brass);font-weight:600;
+  }
+  .eyebrow.light{color:var(--brass-bright);}
+  h2{
+    font-family:'Libre Caslon Text',serif;
+    font-weight:400;font-size:clamp(28px,3.6vw,40px);
+    line-height:1.18;letter-spacing:-.01em;
+    margin:14px 0 10px;
+  }
+  .lede{font-size:17.5px;color:var(--ink-dim);max-width:680px;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  em.caslon{font-family:'Libre Caslon Text',serif;font-style:italic;}
+
+  /* ruler divider — assinatura visual */
+  .ruler-divider{
+    height:18px;margin:34px 0 40px;position:relative;
+    background:
+      repeating-linear-gradient(90deg,
+        var(--line) 0, var(--line) 1px, transparent 1px, transparent 12.5%),
+      repeating-linear-gradient(90deg,
+        var(--line-soft) 0, var(--line-soft) 1px, transparent 1px, transparent 2.5%);
+    background-size:100% 18px, 100% 9px;
+    background-repeat:no-repeat;
+    background-position:bottom left, bottom left;
+    border-bottom:1px solid var(--ink);
+  }
+  .ruler-divider.light{
+    border-bottom-color:rgba(244,241,233,.85);
+    background:
+      repeating-linear-gradient(90deg, rgba(244,241,233,.5) 0, rgba(244,241,233,.5) 1px, transparent 1px, transparent 12.5%),
+      repeating-linear-gradient(90deg, rgba(244,241,233,.22) 0, rgba(244,241,233,.22) 1px, transparent 1px, transparent 2.5%);
+    background-size:100% 18px, 100% 9px;
+    background-repeat:no-repeat;
+    background-position:bottom left, bottom left;
+  }
+
+  /* gauge — barra graduada de percentual */
+  .gauge{margin:10px 0 2px;}
+  .gauge .track{
+    position:relative;height:30px;border:1px solid var(--ink);
+    background:
+      repeating-linear-gradient(90deg, var(--line) 0, var(--line) 1px, transparent 1px, transparent 10%),
+      #FBF9F2;
+  }
+  .gauge .fill{
+    position:absolute;inset:0 auto 0 0;background:var(--brass);
+    border-right:2px solid var(--ink);
+  }
+  .gauge .lbl{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;
+    color:var(--ink-dim);margin-top:5px;display:flex;justify-content:space-between;
+  }
+
+  /* ---------- nav ---------- */
+  nav{
+    position:sticky;top:0;z-index:60;
+    background:rgba(244,241,233,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .bar{
+    max-width:1060px;margin:0 auto;padding:12px 32px;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+  }
+  nav .doc{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;
+    text-transform:uppercase;font-weight:600;color:var(--ink);white-space:nowrap;
+  }
+  nav .doc b{color:var(--brass);}
+  nav .links{display:flex;gap:18px;flex-wrap:wrap;justify-content:flex-end;}
+  nav .links a{
+    font-size:12.5px;font-weight:600;color:var(--ink-dim);text-decoration:none;
+    letter-spacing:.02em;
+  }
+  nav .links a:hover, nav .links a:focus-visible{color:var(--brass);}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--brass);outline-offset:3px;}
+
+  /* ---------- capa ---------- */
+  header.cover{
+    background:var(--pine);color:var(--paper);
+    padding:96px 0 0;position:relative;overflow:hidden;
+  }
+  header.cover .wrap{position:relative;z-index:2;}
+  .cover-meta{
+    display:flex;gap:28px;flex-wrap:wrap;
+    font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;
+    text-transform:uppercase;color:rgba(244,241,233,.65);margin-bottom:54px;
+  }
+  .cover-meta b{color:var(--brass-bright);font-weight:600;}
+  h1{
+    font-family:'Libre Caslon Text',serif;font-weight:400;
+    font-size:clamp(40px,6.4vw,76px);line-height:1.06;letter-spacing:-.015em;
+    max-width:860px;
+  }
+  h1 em{font-style:italic;color:var(--brass-bright);}
+  .cover-sub{
+    margin:28px 0 0;max-width:620px;font-size:17.5px;line-height:1.7;
+    color:rgba(244,241,233,.82);
+  }
+  .cover-foot{
+    margin-top:70px;padding:22px 0 26px;border-top:1px solid var(--pine-line);
+    display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:rgba(244,241,233,.6);
+  }
+  .cover-ruler{margin-top:64px;}
+
+  /* ---------- sections ---------- */
+  section{padding:84px 0 30px;}
+  section.dark{background:var(--pine);color:var(--paper);}
+  section.dark .lede{color:rgba(244,241,233,.78);}
+  section.dark h2{color:var(--paper);}
+  .chapter-head{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;}
+  .chapter-no{
+    font-family:'Libre Caslon Text',serif;font-style:italic;
+    font-size:clamp(40px,5vw,58px);color:var(--brass);line-height:1;
+    min-width:74px;
+  }
+  section.dark .chapter-no{color:var(--brass-bright);}
+
+  /* ---------- problema ---------- */
+  .pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:42px;}
+  .pain{background:var(--paper);padding:26px 24px 30px;}
+  .pain .tag{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--alert);font-weight:600;}
+  .pain h3{font-family:'Libre Caslon Text',serif;font-weight:400;font-size:20px;margin:10px 0 8px;line-height:1.3;}
+  .pain p{font-size:14.5px;color:var(--ink-dim);}
+  .thesis{
+    margin:46px 0 10px;padding:30px 34px;background:var(--paper-deep);
+    border-left:3px solid var(--brass);
+    font-family:'Libre Caslon Text',serif;font-size:21px;line-height:1.55;
+    max-width:840px;
+  }
+  .thesis em{font-style:italic;color:var(--brass);}
+
+  /* ---------- princípio (diagrama) ---------- */
+  .principle-diagram{margin-top:46px;display:grid;gap:26px;}
+  .holding-box{
+    border:1px solid rgba(244,241,233,.4);padding:22px 26px;
+    display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;
+    background:rgba(244,241,233,.04);
+  }
+  .holding-box .name{font-family:'Libre Caslon Text',serif;font-size:22px;}
+  .locked{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+    border:1px solid var(--brass-bright);color:var(--brass-bright);
+    padding:7px 14px;font-weight:600;
+  }
+  .vehicles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  .vehicle{
+    border:1px solid var(--pine-line);background:rgba(244,241,233,.05);
+    padding:20px 18px;
+  }
+  .vehicle .vt{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(244,241,233,.55);font-weight:600;}
+  .vehicle .vn{font-family:'Libre Caslon Text',serif;font-size:18px;margin:6px 0 14px;}
+  .chiprow{display:flex;gap:8px;flex-wrap:wrap;}
+  .chip{
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:600;
+    padding:5px 10px;border:1px solid rgba(244,241,233,.35);color:rgba(244,241,233,.85);
+  }
+  .chip.exec{border-color:var(--brass-bright);color:var(--brass-bright);}
+  .principle-note{margin-top:26px;font-size:15px;color:rgba(244,241,233,.72);max-width:760px;}
+
+  /* ---------- papéis ---------- */
+  .roles{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:44px;}
+  .role{background:#FBF9F2;padding:30px 26px 32px;display:flex;flex-direction:column;}
+  .role .glyph{
+    font-family:'Libre Caslon Text',serif;font-style:italic;font-size:46px;
+    color:var(--brass);line-height:1;
+  }
+  .role h3{font-family:'Libre Caslon Text',serif;font-weight:700;font-size:22px;margin:14px 0 4px;}
+  .role .delivers{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);font-weight:600;margin-bottom:14px;}
+  .role p{font-size:14.5px;color:var(--ink-dim);}
+  .role .proof{
+    margin-top:auto;padding-top:18px;border-top:1px dashed var(--line);
+    font-size:13px;color:var(--ink-dim);
+  }
+  .role .proof b{color:var(--ink);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.1em;display:block;margin-bottom:4px;}
+  .rules-strip{
+    margin-top:26px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;
+  }
+  .rule-card{border:1px solid var(--line);padding:18px 20px;background:var(--paper);}
+  .rule-card .rt{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--brass);}
+  .rule-card p{font-size:13.5px;color:var(--ink-dim);margin-top:6px;}
+
+  /* ---------- tabelas ---------- */
+  table{width:100%;border-collapse:collapse;margin-top:34px;background:#FBF9F2;border:1px solid var(--ink);}
+  caption{
+    caption-side:top;text-align:left;font-family:'IBM Plex Mono',monospace;
+    font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;
+    color:var(--ink-dim);padding-bottom:10px;
+  }
+  th,td{padding:14px 16px;border:1px solid var(--line);font-size:14px;vertical-align:top;text-align:left;}
+  thead th{
+    background:var(--pine);color:var(--paper);
+    font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;
+    text-transform:uppercase;font-weight:600;border-color:var(--pine-line);
+  }
+  td .pct{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:15px;color:var(--ink);}
+  td .cond{display:block;font-size:12px;color:var(--ink-dim);margin-top:2px;}
+  tbody th{
+    font-weight:600;font-size:13.5px;background:var(--paper-deep);
+    width:230px;
+  }
+  .tnote{font-size:13px;color:var(--ink-dim);margin-top:12px;max-width:780px;}
+  .tnote b{color:var(--ink);}
+
+  /* caixa "em palavras simples" */
+  .plain{
+    margin-top:22px;padding:18px 22px;background:var(--paper-deep);
+    border:1px dashed var(--brass);max-width:840px;font-size:14.5px;color:var(--ink);
+  }
+  .plain .pt{
+    display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;
+    letter-spacing:.18em;text-transform:uppercase;font-weight:600;color:var(--brass);
+    margin-bottom:6px;
+  }
+  .plain.light{
+    background:rgba(244,241,233,.06);border-color:var(--brass-bright);
+    color:rgba(244,241,233,.88);
+  }
+  .plain.light .pt{color:var(--brass-bright);}
+
+  /* glossário */
+  .gloss{
+    display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);
+    border:1px solid var(--line);margin-top:42px;
+  }
+  .g{background:#FBF9F2;padding:20px 22px;}
+  .g dt{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--brass);font-weight:600;
+  }
+  .g dd{font-size:14px;color:var(--ink-dim);margin-top:6px;}
+  @media (max-width:640px){ .gloss{grid-template-columns:1fr;} }
+
+  /* layer blocks */
+  .layer{margin-top:54px;}
+  .layer .lh{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;}
+  .layer .ln{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;
+    letter-spacing:.16em;color:var(--paper);background:var(--pine);
+    padding:6px 12px;
+  }
+  .layer h3{font-family:'Libre Caslon Text',serif;font-weight:400;font-size:24px;}
+  .layer .ld{font-size:14.5px;color:var(--ink-dim);margin-top:8px;max-width:760px;}
+  .gauges{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:26px;}
+  .gauge h4{font-size:13px;font-weight:600;letter-spacing:.04em;}
+
+  /* ---------- categorias especiais ---------- */
+  .special{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:44px;}
+  .sp{background:var(--paper);padding:30px 28px;}
+  .sp .st{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;color:var(--brass);}
+  .sp h3{font-family:'Libre Caslon Text',serif;font-weight:400;font-size:23px;margin:10px 0 8px;}
+  .sp p{font-size:14.5px;color:var(--ink-dim);}
+  .sp .formula{
+    margin-top:16px;padding:14px 16px;background:var(--paper-deep);
+    font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:500;
+    border-left:3px solid var(--brass);
+  }
+
+  /* ---------- atribuição (genealogia) ---------- */
+  .genea{margin-top:46px;display:grid;gap:0;}
+  .gen-node{
+    border:1px solid var(--line);background:#FBF9F2;padding:18px 22px;
+    display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap;
+  }
+  .gen-node.root{border-color:var(--ink);background:var(--paper-deep);}
+  .gen-node .gl{font-size:14.5px;}
+  .gen-node .gl b{font-family:'Libre Caslon Text',serif;font-weight:700;font-size:16.5px;}
+  .gen-node .gr{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;color:var(--brass);white-space:nowrap;}
+  .gen-link{
+    width:1px;height:26px;background:var(--ink);margin-left:42px;position:relative;
+  }
+  .gen-link::after{content:"";position:absolute;bottom:-1px;left:-3px;width:7px;height:7px;border-radius:50%;background:var(--brass);}
+
+  /* ---------- governança ---------- */
+  .gov-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:44px;}
+  .gov-card{border:1px solid var(--pine-line);background:rgba(244,241,233,.05);padding:28px;}
+  .gov-card h3{font-family:'Libre Caslon Text',serif;font-weight:400;font-size:22px;margin-bottom:10px;}
+  .gov-card p{font-size:14px;color:rgba(244,241,233,.75);}
+  .gov-card ul{list-style:none;margin-top:14px;}
+  .gov-card li{
+    font-size:13.5px;color:rgba(244,241,233,.85);padding:8px 0 8px 22px;position:relative;
+    border-bottom:1px solid rgba(244,241,233,.12);
+  }
+  .gov-card li:last-child{border-bottom:none;}
+  .gov-card li::before{content:"—";position:absolute;left:0;color:var(--brass-bright);}
+  .timeline{margin-top:30px;display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--pine-line);}
+  .tl-step{padding:22px 20px;border-right:1px solid var(--pine-line);}
+  .tl-step:last-child{border-right:none;}
+  .tl-step .td{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--brass-bright);font-weight:600;}
+  .tl-step h4{font-family:'Libre Caslon Text',serif;font-weight:400;font-size:18px;margin:8px 0 6px;}
+  .tl-step p{font-size:13px;color:rgba(244,241,233,.7);}
+
+  /* ---------- sucessão ---------- */
+  .succ{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:44px;}
+  .succ .sc{background:var(--paper);padding:28px 26px;}
+  .succ .sc .si{font-family:'Libre Caslon Text',serif;font-style:italic;font-size:30px;color:var(--brass);line-height:1;}
+  .succ .sc h3{font-family:'Libre Caslon Text',serif;font-weight:400;font-size:20px;margin:10px 0 6px;}
+  .succ .sc p{font-size:14px;color:var(--ink-dim);}
+  .insurance{
+    margin-top:26px;background:var(--pine);color:var(--paper);padding:34px 36px;
+    display:grid;grid-template-columns:1.3fr 1fr;gap:30px;align-items:center;
+  }
+  .insurance h3{font-family:'Libre Caslon Text',serif;font-weight:400;font-size:26px;line-height:1.3;}
+  .insurance h3 em{font-style:italic;color:var(--brass-bright);}
+  .insurance p{font-size:14px;color:rgba(244,241,233,.78);margin-top:10px;}
+  .insurance .mech{border-left:1px solid var(--pine-line);padding-left:30px;}
+  .insurance .mech .step{font-size:13.5px;padding:9px 0;border-bottom:1px solid var(--pine-line);color:rgba(244,241,233,.85);}
+  .insurance .mech .step:last-child{border-bottom:none;}
+  .insurance .mech .step b{color:var(--brass-bright);font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;margin-right:8px;}
+
+  /* ---------- simulações ---------- */
+  .case{
+    border:1px solid var(--ink);background:#FBF9F2;margin-top:40px;
+  }
+  .case-head{
+    background:var(--paper-deep);border-bottom:1px solid var(--ink);
+    padding:20px 28px;display:flex;justify-content:space-between;align-items:baseline;gap:18px;flex-wrap:wrap;
+  }
+  .case-head h3{font-family:'Libre Caslon Text',serif;font-weight:400;font-size:24px;}
+  .case-tags{display:flex;gap:8px;flex-wrap:wrap;}
+  .ctag{
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:600;
+    letter-spacing:.14em;text-transform:uppercase;padding:6px 11px;
+    border:1px solid var(--brass);color:var(--brass);
+  }
+  .ctag.dark{background:var(--pine);border-color:var(--pine);color:var(--paper);}
+  .case-body{padding:26px 28px 30px;}
+  .case-body .narr{font-size:15px;color:var(--ink-dim);max-width:820px;}
+  .calc{width:100%;border-collapse:collapse;margin-top:22px;border:1px solid var(--line);}
+  .calc th,.calc td{padding:11px 14px;font-size:13.5px;border:1px solid var(--line-soft);}
+  .calc thead th{background:var(--paper-deep);color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;border-color:var(--line);}
+  .calc td.num{font-family:'IBM Plex Mono',monospace;font-weight:500;white-space:nowrap;}
+  .calc tr.total td{background:var(--pine);color:var(--paper);font-weight:600;border-color:var(--pine);}
+  .calc tr.total td.num{color:var(--brass-bright);font-weight:600;}
+  .case-note{font-size:12.5px;color:var(--ink-dim);margin-top:12px;}
+  .disclaimer{
+    margin-top:30px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;
+    color:var(--ink-dim);letter-spacing:.06em;border-top:1px dashed var(--line);padding-top:14px;
+  }
+
+  /* ---------- fechamento ---------- */
+  .balance{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--pine-line);border:1px solid var(--pine-line);margin-top:44px;}
+  .side{background:var(--pine);padding:32px 30px;}
+  .side h3{font-family:'Libre Caslon Text',serif;font-weight:400;font-size:22px;color:var(--paper);margin-bottom:16px;}
+  .side h3 em{color:var(--brass-bright);font-style:italic;}
+  .side ul{list-style:none;}
+  .side li{font-size:14px;color:rgba(244,241,233,.82);padding:9px 0 9px 24px;position:relative;border-bottom:1px solid var(--pine-line);}
+  .side li:last-child{border-bottom:none;}
+  .side li::before{content:"";position:absolute;left:0;top:16px;width:10px;height:1px;background:var(--brass-bright);}
+  .next{margin-top:48px;}
+  .next ol{counter-reset:n;list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:24px;}
+  .next li{
+    counter-increment:n;border:1px solid var(--pine-line);padding:20px 18px;
+    background:rgba(244,241,233,.05);font-size:13.5px;color:rgba(244,241,233,.85);
+  }
+  .next li::before{
+    content:counter(n,decimal-leading-zero);display:block;
+    font-family:'Libre Caslon Text',serif;font-style:italic;font-size:26px;
+    color:var(--brass-bright);margin-bottom:8px;
+  }
+  footer{
+    background:var(--pine);color:rgba(244,241,233,.55);
+    border-top:1px solid var(--pine-line);
+  }
+  footer .wrap{
+    padding:26px 32px 34px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;
+    font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  }
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease;}
+  .reveal.in{opacity:1;transform:none;}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+  }
+
+  /* responsive */
+  @media (max-width:900px){
+    .pain-grid,.roles,.gauges,.rules-strip,.vehicles,.next ol{grid-template-columns:1fr 1fr;}
+    .insurance{grid-template-columns:1fr;}
+    .insurance .mech{border-left:none;padding-left:0;border-top:1px solid var(--pine-line);padding-top:22px;}
+  }
+  @media (max-width:640px){
+    .pain-grid,.roles,.gauges,.special,.succ,.gov-grid,.timeline,.balance,.rules-strip,.vehicles,.next ol{grid-template-columns:1fr;}
+    .tl-step{border-right:none;border-bottom:1px solid var(--pine-line);}
+    nav .links{display:none;}
+    tbody th{width:auto;}
+    th,td{padding:10px 10px;font-size:13px;}
+  }
+</style>
+</head>
+<body>
+
+<nav aria-label="Navegação do documento">
+  <div class="bar">
+    <span class="doc">Política <b>Comercial &amp; de Originação</b> · v1.0</span>
+    <div class="links">
+      <a href="#problema">Contexto</a>
+      <a href="#principio">Princípio</a>
+      <a href="#papeis">Papéis</a>
+      <a href="#regua">A Régua</a>
+      <a href="#governanca">Governança</a>
+      <a href="#sucessao">Sucessão</a>
+      <a href="#simulacoes">Simulações</a>
+      <a href="#glossario">Glossário</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ CAPA ============ -->
+<header class="cover">
+  <div class="wrap">
+    <div class="cover-meta">
+      <span><b>Documento interno</b> · Confidencial</span>
+      <span>Proposta para deliberação</span>
+      <span>Junho · 2026</span>
+    </div>
+    <h1>Política Comercial<br>e de <em>Originação</em></h1>
+    <p class="cover-sub">
+      Um modelo institucional para originar, enquadrar, remunerar e proteger
+      os novos negócios da casa — substituindo a negociação caso a caso por
+      uma régua única, conhecida por todos antes do primeiro aperto de mão.
+    </p>
+    <div class="cover-ruler ruler-divider light" role="presentation"></div>
+    <div class="cover-foot">
+      <span>Apresentação do modelo · precede a minuta formal</span>
+      <span>Exemplos numéricos fictícios e ilustrativos</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============ 01 CONTEXTO ============ -->
+<section id="problema">
+  <div class="wrap reveal">
+    <div class="chapter-head">
+      <span class="chapter-no">01</span>
+      <div>
+        <p class="eyebrow">Contexto</p>
+        <h2>O custo invisível de não ter uma régua</h2>
+      </div>
+    </div>
+    <p class="lede" style="margin-top:14px;">
+      A casa origina cada vez mais negócios fora do pipeline corrente — parcerias,
+      canais, veículos, sociedades. Cada um deles, hoje, exige uma negociação
+      interna do zero. Isso gera três custos recorrentes:
+    </p>
+
+    <div class="pain-grid">
+      <div class="pain">
+        <span class="tag">Custo 01</span>
+        <h3>Negociação tardia</h3>
+        <p>A economia de quem origina é discutida depois que o negócio já está na mesa —
+        o pior momento para os dois lados: o executivo perdeu alavancagem e a casa
+        ganhou um passivo de expectativa.</p>
+      </div>
+      <div class="pain">
+        <span class="tag">Custo 02</span>
+        <h3>Assimetria interna</h3>
+        <p>O canal comercial já recebe repasse padronizado sobre o que origina.
+        Executivos que originam negócios maiores e mais complexos não têm regra
+        equivalente — a casa paga pela originação pequena e improvisa na grande.</p>
+      </div>
+      <div class="pain">
+        <span class="tag">Custo 03</span>
+        <h3>Incentivo corroído</h3>
+        <p>Sem regra, cada oportunidade nova é um risco pessoal de quem a traz.
+        O resultado racional é originar menos, ou originar fora. A casa perde
+        exatamente o fluxo que mais precisa para crescer.</p>
+      </div>
+    </div>
+
+    <div class="thesis">
+      A política não cria um benefício novo. Ela <em>estende e governa</em> uma prática
+      que a casa já adota com seu canal comercial — agora com registro, enquadramento,
+      transparência e proteção para os dois lados.
+    </div>
+    <div class="ruler-divider" role="presentation"></div>
+  </div>
+</section>
+
+<!-- ============ 02 PRINCÍPIO ============ -->
+<section id="principio" class="dark">
+  <div class="wrap reveal">
+    <div class="chapter-head">
+      <span class="chapter-no">02</span>
+      <div>
+        <p class="eyebrow light">Princípio estruturante</p>
+        <h2>Participação no negócio. Nunca na holding.</h2>
+      </div>
+    </div>
+    <p class="lede" style="margin-top:14px;">
+      Toda a economia da política incide sobre cada negócio originado — receitas,
+      trilhas e, quando houver veículo novo, participação societária <em class="caslon">naquele veículo</em>.
+      O quadro societário da holding permanece intocado.
+    </p>
+
+    <div class="principle-diagram">
+      <div class="holding-box">
+        <span class="name">Holding · quadro societário atual</span>
+        <span class="locked">Preservado — fora do alcance da política</span>
+      </div>
+      <div class="holding-box" style="border-style:dashed;background:transparent;">
+        <span class="name" style="font-size:19px;">Novos negócios originados pela política</span>
+        <span class="locked" style="border-style:dashed;">É aqui que incide toda a economia</span>
+      </div>
+    </div>
+    <p class="principle-note">
+      Cada novo negócio tem sua própria economia — fees, trilhas de receita e, quando
+      o negócio criar uma estrutura societária própria, participação <em class="caslon">naquela estrutura</em>.
+      Os sócios atuais não são diluídos em nada que já existe: dividem apenas algo que
+      <strong>não existiria sem a originação</strong>. E a participação concedida exige permanência —
+      é a mesma lógica de comprometimento que a casa pede a parceiros externos,
+      aplicada com simetria a quem constrói por dentro.
+    </p>
+    <div class="plain light">
+      <span class="pt">Em palavras simples</span>
+      A participação não é entregue de uma vez: ela se consolida aos poucos, ao longo
+      de 4 anos (isso se chama <strong>vesting</strong> — 25% ao ano). E no primeiro ano nada se
+      consolida (o <strong>cliff</strong>, uma carência inicial). Quem sai cedo, leva apenas o que já
+      consolidou. Quem fica e constrói, leva tudo.
+    </div>
+    <div class="ruler-divider light" role="presentation"></div>
+  </div>
+</section>
+
+<!-- ============ 03 PAPÉIS ============ -->
+<section id="papeis">
+  <div class="wrap reveal">
+    <div class="chapter-head">
+      <span class="chapter-no">03</span>
+      <div>
+        <p class="eyebrow">Enquadramento</p>
+        <h2>Três papéis, três entregas</h2>
+      </div>
+    </div>
+    <p class="lede" style="margin-top:14px;">
+      Todo negócio registrado é enquadrado em um de três papéis. A distinção não é
+      hierárquica — é a natureza da entrega de quem originou.
+    </p>
+    <div class="plain">
+      <span class="pt">Em palavras simples</span>
+      O papel não mede esforço nem cargo — mede a entrega. Abriu a porta e apresentou?
+      <strong>Originador</strong>. Ficou na sala e conduziu até a assinatura? <strong>Negociador</strong>.
+      Continua tocando o negócio no dia a dia depois de assinado? <strong>Operador</strong>.
+    </div>
+
+    <div class="roles">
+      <div class="role">
+        <span class="glyph">A</span>
+        <h3>Originador</h3>
+        <span class="delivers">Entrega: a porta aberta</span>
+        <p>Identificou a oportunidade, qualificou e apresentou as partes com contexto.
+        A condução do negócio segue com a área responsável.</p>
+        <div class="proof">
+          <b>Como se comprova</b>
+          Deal memo registrado antes do contato institucional + introdução qualificada das partes.
+        </div>
+      </div>
+      <div class="role">
+        <span class="glyph">B</span>
+        <h3>Negociador</h3>
+        <span class="delivers">Entrega: o acordo conduzido</span>
+        <p>Além de originar, envolveu-se nas conversas e promoveu o fechamento:
+        foi ponto focal da contraparte, conduziu condições comerciais ou orquestrou
+        as partes necessárias à mesa.</p>
+        <div class="proof">
+          <b>Como se comprova</b>
+          Rastro de condução — e-mails, reuniões, follow-ups. Em divergência, decide o rastro.
+        </div>
+      </div>
+      <div class="role">
+        <span class="glyph">C</span>
+        <h3>Operador</h3>
+        <span class="delivers">Entrega: o negócio rodando</span>
+        <p>Atua direta e ativamente no dia a dia da operação criada — com função
+        formal, dedicação de agenda acordada e responsabilidade por resultado.</p>
+        <div class="proof">
+          <b>Como se comprova</b>
+          Ato formal de nomeação. Os papéis A e B se constatam; o papel C se contrata.
+        </div>
+      </div>
+    </div>
+
+    <div class="rules-strip">
+      <div class="rule-card">
+        <span class="rt">True-up no fechamento</span>
+        <p>O papel registrado é conferido contra o papel efetivamente exercido.
+        O acerto só promove — nunca rebaixa o registro.</p>
+      </div>
+      <div class="rule-card">
+        <span class="rt">Um líder por negócio</span>
+        <p>Todo deal tem um único originador-líder, com piso de <strong>70%</strong> da economia
+        de originação. Até 30% reconhecem contribuições, alocados por ele no registro.</p>
+      </div>
+      <div class="rule-card">
+        <span class="rt">Desempate objetivo</span>
+        <p>Dois executivos alegando o mesmo relacionamento: vale o registro mais antigo.
+        Sem registro, não há alegação.</p>
+      </div>
+    </div>
+    <div class="ruler-divider" role="presentation"></div>
+  </div>
+</section>
+
+<!-- ============ 04 A RÉGUA ============ -->
+<section id="regua">
+  <div class="wrap reveal">
+    <div class="chapter-head">
+      <span class="chapter-no">04</span>
+      <div>
+        <p class="eyebrow">Remuneração</p>
+        <h2>A régua — três camadas, uma base</h2>
+      </div>
+    </div>
+    <p class="lede" style="margin-top:14px;">
+      Base universal de cálculo: <strong>receita efetivamente recebida pela casa</strong>, deduzidos
+      exclusivamente tributos sobre receita e repasses contratuais a terceiros externos.
+      Regime de caixa — devido no mês subsequente ao recebimento.
+    </p>
+    <div class="plain">
+      <span class="pt">Em palavras simples</span>
+      Os percentuais incidem sobre o que <strong>de fato entra na conta da casa</strong> com o negócio,
+      descontados apenas impostos e o que a casa repassa a parceiros de fora — nunca
+      descontados custos internos (salários, estrutura), que são problema da margem,
+      não da régua. E só é devido quando o dinheiro entra: contrato assinado que não
+      pagou, não gera nada para ninguém.
+    </div>
+
+    <!-- Camada 1 -->
+    <div class="layer">
+      <div class="lh"><span class="ln">CAMADA 1</span><h3>Fee de originação — o evento</h3></div>
+      <p class="ld">Incide sobre a receita não-recorrente gerada no fechamento: taxa de
+      estruturação, honorário de êxito, comissão de intermediação. Pagamento único.</p>
+      <div class="plain">
+        <span class="pt">Em palavras simples</span>
+        O "evento" é a receita que acontece <strong>uma única vez</strong>, na largada do negócio —
+        como uma taxa de montagem ou um honorário pago no fechamento. Quem originou
+        recebe sua fatia dessa receita, uma vez, conforme seu papel.
+      </div>
+      <div class="gauges">
+        <div class="gauge">
+          <h4>Originador</h4>
+          <div class="track"><div class="fill" style="width:10%"></div></div>
+          <div class="lbl"><span>10%</span><span>do evento</span></div>
+        </div>
+        <div class="gauge">
+          <h4>Negociador</h4>
+          <div class="track"><div class="fill" style="width:20%"></div></div>
+          <div class="lbl"><span>20%</span><span>do evento</span></div>
+        </div>
+        <div class="gauge">
+          <h4>Operador</h4>
+          <div class="track"><div class="fill" style="width:30%"></div></div>
+          <div class="lbl"><span>30%</span><span>do evento</span></div>
+        </div>
+      </div>
+      <p class="tnote"><b>Negócio sem receita de evento:</b> a Camada 1 incide sobre a receita
+      recorrente líquida dos 12 primeiros meses, paga conforme recebimento.</p>
+    </div>
+
+    <!-- Camada 1.1 -->
+    <div class="layer">
+      <div class="lh"><span class="ln">CAMADA 1.1</span><h3>Eventos de capital</h3></div>
+      <p class="ld">Quando o evento é um <strong>investimento da casa</strong> (aquisição de participação,
+      aporte em sociedade), o fee incide sobre o valor da transação, em tabela regressiva —
+      preservando a viabilidade da cláusula em transações de grande porte.</p>
+      <div class="plain">
+        <span class="pt">Em palavras simples</span>
+        Às vezes o negócio originado não gera receita — gera um <strong>investimento</strong>: a casa
+        coloca dinheiro para comprar participação em uma empresa, por exemplo. Nesse caso,
+        o fee de quem originou incide sobre o valor investido, com percentual que diminui
+        conforme o tamanho do cheque cresce.
+      </div>
+      <table>
+        <caption>Fee de originação sobre o valor da transação</caption>
+        <thead>
+          <tr><th>Faixa da transação</th><th>Fee</th><th>Exemplo ilustrativo</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Até R$ 5 milhões</td>
+            <td><span class="pct">8%</span></td>
+            <td class="mono">Aporte de R$ 2,0M → fee de R$ 160 mil</td>
+          </tr>
+          <tr>
+            <td>De R$ 5M a R$ 20M</td>
+            <td><span class="pct">4%</span></td>
+            <td class="mono">Aporte de R$ 10,0M → fee de R$ 400 mil</td>
+          </tr>
+          <tr>
+            <td>Acima de R$ 20M</td>
+            <td><span class="pct">2%</span></td>
+            <td class="mono">Aporte de R$ 30,0M → fee de R$ 600 mil</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Camada 2 -->
+    <div class="layer">
+      <div class="lh"><span class="ln">CAMADA 2</span><h3>Trilha recorrente — o relacionamento</h3></div>
+      <p class="ld">A regra é uma só: <strong>toda receita recorrente líquida gerada por um novo
+      negócio paga ao executivo o percentual do seu papel</strong>, pelo prazo correspondente.</p>
+      <div class="gauges">
+        <div class="gauge">
+          <h4>Originador</h4>
+          <div class="track"><div class="fill" style="width:10%"></div></div>
+          <div class="lbl"><span>10%</span><span>× 12 meses</span></div>
+        </div>
+        <div class="gauge">
+          <h4>Negociador</h4>
+          <div class="track"><div class="fill" style="width:20%"></div></div>
+          <div class="lbl"><span>20%</span><span>× 36 meses</span></div>
+        </div>
+        <div class="gauge">
+          <h4>Operador</h4>
+          <div class="track"><div class="fill" style="width:30%"></div></div>
+          <div class="lbl"><span>30%</span><span>enquanto operar</span></div>
+        </div>
+      </div>
+      <p class="tnote"><b>A política não se sobrepõe ao modelo comercial vigente.</b> Receitas já
+      contempladas pela operação atual da casa — como o repasse comercial sobre taxa de
+      gestão de fundos e FIDCs, ou a remuneração padrão de contratos da operação corrente —
+      permanecem regidas pelo modelo vigente. A trilha desta política alcança o que o modelo
+      atual <em>não</em> alcança: os novos negócios. Cada novo negócio do mesmo cliente abre
+      uma nova trilha.</p>
+      <div class="plain">
+        <span class="pt">Em palavras simples</span>
+        A trilha é uma <strong>"cauda" de receita</strong>: enquanto o novo negócio que você originou
+        continuar pagando a casa, uma fração dessa receita acompanha quem o originou —
+        pelo prazo do seu papel. Não é salário, não é bônus: é participação na receita
+        que você fez existir.
+      </div>
+    </div>
+
+    <!-- Camada 3 -->
+    <div class="layer">
+      <div class="lh"><span class="ln">CAMADA 3</span><h3>Participação patrimonial — o veículo</h3></div>
+      <p class="ld">Aplicável apenas quando o negócio cria um veículo novo. Sweat equity
+      com vesting de 4 anos, cliff de 1 ano e diluição pro rata em captações futuras.</p>
+      <div class="gauges" style="grid-template-columns:repeat(2,1fr);max-width:660px;">
+        <div class="gauge">
+          <h4>Negociador</h4>
+          <div class="track"><div class="fill" style="width:5%"></div></div>
+          <div class="lbl"><span>5%</span><span>do veículo</span></div>
+        </div>
+        <div class="gauge">
+          <h4>Operador</h4>
+          <div class="track"><div class="fill" style="width:20%"></div></div>
+          <div class="lbl"><span>20%</span><span>do veículo</span></div>
+        </div>
+      </div>
+      <p class="tnote"><b>As camadas são cumulativas, não alternativas.</b> Um negócio de Operador
+      com veículo novo aciona as três: fee no evento, trilha enquanto operar e equity vestindo.</p>
+      <div class="plain">
+        <span class="pt">Em palavras simples</span>
+        Essa participação é o que o mercado chama de <strong>sweat equity</strong> — sociedade ganha
+        pelo trabalho, não por dinheiro investido. Por isso vem amarrada ao tempo (vesting)
+        e, se o negócio captar investidores no futuro, a fatia do executivo encolhe na mesma
+        proporção que a de todos os outros sócios (<strong>diluição pro rata</strong>) — ninguém tem
+        privilégio.
+      </div>
+    </div>
+    <div class="ruler-divider" role="presentation"></div>
+  </div>
+</section>
+
+<!-- ============ 05 CATEGORIAS ESPECIAIS ============ -->
+<section id="categorias">
+  <div class="wrap reveal">
+    <div class="chapter-head">
+      <span class="chapter-no">05</span>
+      <div>
+        <p class="eyebrow">Categorias especiais</p>
+        <h2>Canais, derivados e indicações</h2>
+      </div>
+    </div>
+
+    <div class="special">
+      <div class="sp">
+        <span class="st">Originação de canal</span>
+        <h3>Quem traz o canal participa do que o canal produz</h3>
+        <p>Quando o executivo origina uma parceria ou sociedade que, por sua vez,
+        gera negócios para a casa (escritórios, consultorias, gestoras parceiras),
+        sua trilha é uma fração da economia comercial que o canal produz — não a régua
+        cheia de cliente direto, porque os clientes são originados pelo parceiro.
+        A economia comercial de cada produto segue o modelo vigente da casa;
+        a política apenas reconhece quem construiu o canal que a alimenta.</p>
+        <div class="formula">trilha = 20% da economia comercial gerada pelo canal<br>vigência = enquanto o canal produzir e os veículos existirem</div>
+      </div>
+      <div class="sp">
+        <span class="st">Atribuição por relacionamento</span>
+        <h3>O cliente é a origem — não a transação</h3>
+        <p>Todo negócio derivado de um cliente originado entra na régua, mesmo
+        desenvolvido por outra área: o executivo é, no mínimo, Originador no derivado.
+        Se a casa se tornar <strong>sócia</strong> de um negócio do cliente, aciona-se a Camada&nbsp;3.
+        Remunera-se a origem sem subtrair nada de quem executa.</p>
+        <div class="formula">derivado sem participação ativa = papel Originador (10%)<br>derivado com condução = Negociador ou Operador</div>
+      </div>
+      <div class="sp">
+        <span class="st">Indicação de 2º grau</span>
+        <h3>A ponte registrada define o direito</h3>
+        <p>Cliente originado indica um terceiro. Se a indicação passa pelo executivo
+        — que faz a ponte e registra — é nova originação cheia. Se chega
+        espontaneamente a outra área, cabe apenas o fee de rede.</p>
+        <div class="formula">fee de rede = 50% da Camada 1 do papel Originador<br>pago uma única vez, no primeiro negócio, sem trilha</div>
+      </div>
+      <div class="sp">
+        <span class="st">Fronteira com a função</span>
+        <h3>A política remunera o que está fora do pipeline</h3>
+        <p>A função executiva cobre a operação corrente da casa. A política alcança
+        o que <em class="caslon">não existiria</em> por ela: contrapartes novas, frentes novas, veículos
+        novos. O instrumento que marca essa fronteira é o registro do deal memo.</p>
+        <div class="formula">precisou ser registrado porque não existia → é originação</div>
+      </div>
+    </div>
+
+    <!-- genealogia visual -->
+    <div class="genea" aria-label="Exemplo de genealogia de atribuição">
+      <div class="gen-node root">
+        <span class="gl"><b>Cliente originado</b> — registrado via deal memo pelo executivo</span>
+        <span class="gr">ATRIBUIÇÃO: RELACIONAMENTO</span>
+      </div>
+      <div class="gen-link" role="presentation"></div>
+      <div class="gen-node">
+        <span class="gl">Negócio derivado conduzido por outra área</span>
+        <span class="gr">ORIGINADOR · 10%</span>
+      </div>
+      <div class="gen-link" role="presentation"></div>
+      <div class="gen-node">
+        <span class="gl">Casa torna-se sócia de negócio do cliente</span>
+        <span class="gr">CAMADA 3 ACIONADA</span>
+      </div>
+      <div class="gen-link" role="presentation"></div>
+      <div class="gen-node">
+        <span class="gl">Cliente indica terceiro diretamente a outra área</span>
+        <span class="gr">FEE DE REDE · 50% DA C1</span>
+      </div>
+    </div>
+    <div class="ruler-divider" role="presentation"></div>
+  </div>
+</section>
+
+<!-- ============ 06 GOVERNANÇA ============ -->
+<section id="governanca" class="dark">
+  <div class="wrap reveal">
+    <div class="chapter-head">
+      <span class="chapter-no">06</span>
+      <div>
+        <p class="eyebrow light">Governança</p>
+        <h2>Registro, comitê e o direito de primeira oferta</h2>
+      </div>
+    </div>
+
+    <div class="gov-grid">
+      <div class="gov-card">
+        <h3>O deal memo</h3>
+        <p>Uma página. É o ato que cria o direito — registrado antes do primeiro
+        contato institucional com a contraparte.</p>
+        <ul>
+          <li>Data do registro e contraparte</li>
+          <li>Contexto do relacionamento — como chegou ao executivo</li>
+          <li>Tese preliminar do negócio</li>
+          <li>Papel pretendido: Originador, Negociador ou Operador</li>
+          <li>Categoria provável: cliente direto, canal, evento de capital</li>
+          <li>Split, se houver contribuição de terceiros (até 30%)</li>
+          <li>Próximo passo proposto</li>
+        </ul>
+      </div>
+      <div class="gov-card">
+        <h3>O comitê de novos negócios</h3>
+        <p>Três membros, funções taxativas — valida enquadramentos, homologa
+        true-ups e arbitra divergências de atribuição.</p>
+        <ul>
+          <li>Valida o enquadramento em até 15 dias corridos — silêncio aceita</li>
+          <li>Divergência não trava o negócio: o true-up resolve no fechamento</li>
+          <li>Não altera a régua caso a caso — a régua só muda na revisão anual</li>
+          <li>Irretroatividade: deal registrado opera pela régua vigente no registro</li>
+          <li>Disputa persistente: mediação e, em último caso, arbitragem</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="plain light">
+      <span class="pt">Em palavras simples</span>
+      O <strong>deal memo</strong> é uma ficha de uma página que "carimba" data e autoria da
+      oportunidade — registrada <em>antes</em> de a casa falar com a contraparte, é ela que
+      cria o direito. O <strong>true-up</strong> é a conferência final no fechamento: compara-se o
+      papel registrado com o que de fato aconteceu, comprovado pelo rastro de e-mails
+      e reuniões — e o papel só pode subir, nunca descer.
+    </div>
+
+    <h3 style="font-family:'Libre Caslon Text',serif;font-weight:400;font-size:24px;margin-top:54px;">
+      Direito de primeira oferta — a casa decide primeiro, sempre
+    </h3>
+    <div class="timeline">
+      <div class="tl-step">
+        <span class="td">Dia zero</span>
+        <h4>Apresentação</h4>
+        <p>A oportunidade é ofertada à casa via deal memo. O relógio começa
+        na data da apresentação registrada.</p>
+      </div>
+      <div class="tl-step">
+        <span class="td">Até 10 dias úteis</span>
+        <h4>Janela de decisão</h4>
+        <p>A casa manifesta interesse formal em desenvolver a oportunidade
+        dentro da estrutura.</p>
+      </div>
+      <div class="tl-step">
+        <span class="td">Após o prazo</span>
+        <h4>Liberação</h4>
+        <p>Recusa expressa ou silêncio caracteriza liberação: o executivo pode
+        desenvolver a oportunidade fora — sem uso de recursos, marca ou
+        informação confidencial da casa.</p>
+      </div>
+    </div>
+    <p class="principle-note" style="margin-top:24px;">
+      A cláusula protege os dois lados: a casa nunca perde uma oportunidade sem
+      tê-la visto primeiro — e nenhuma oportunidade morre por inércia de decisão.
+    </p>
+
+    <h3 style="font-family:'Libre Caslon Text',serif;font-weight:400;font-size:24px;margin-top:54px;">
+      Sobrevivência — o que permanece em caso de saída
+    </h3>
+    <div class="gov-grid">
+      <div class="gov-card">
+        <h3 style="font-size:18px;">Permanece</h3>
+        <ul>
+          <li>Trilhas de produto/veículo — enquanto o veículo existir sob a casa</li>
+          <li>Trilhas de serviço — até o fim do prazo já corrido</li>
+          <li>Trilhas de canal — por 24 meses após a saída</li>
+          <li>Participação vestida — é do executivo, definitivamente</li>
+        </ul>
+      </div>
+      <div class="gov-card">
+        <h3 style="font-size:18px;">Cessa</h3>
+        <ul>
+          <li>Participação não vestida — caduca integralmente</li>
+          <li>Atribuição de novos derivados após a data do desligamento</li>
+          <li>Registro de novas oportunidades pela política</li>
+        </ul>
+      </div>
+    </div>
+    <p class="principle-note" style="margin-top:24px;">
+      Regra-mestra: <em class="caslon">o que foi gerado e consolidado, sobrevive; o que dependeria
+      de trabalho futuro, cessa.</em>
+    </p>
+    <div class="ruler-divider light" role="presentation"></div>
+  </div>
+</section>
+
+<!-- ============ 07 SUCESSÃO ============ -->
+<section id="sucessao">
+  <div class="wrap reveal">
+    <div class="chapter-head">
+      <span class="chapter-no">07</span>
+      <div>
+        <p class="eyebrow">Sucessão e proteção familiar</p>
+        <h2>Uma política comercial que não morre com o executivo</h2>
+      </div>
+    </div>
+    <p class="lede" style="margin-top:14px;">
+      Receita de originação é renda já gerada — e por isso pode, e deve, proteger a
+      família de quem a gerou. Em caso de falecimento ou invalidez permanente do
+      executivo elegível:
+    </p>
+
+    <div class="succ">
+      <div class="sc">
+        <span class="si">i.</span>
+        <h3>Valores apurados e negócios em curso</h3>
+        <p>Tudo que estiver apurado e não pago vai ao espólio imediatamente.
+        Negócios registrados que fecharem em até 12 meses pagam a Camada 1
+        à família — o trabalho de originação já estava feito.</p>
+      </div>
+      <div class="sc">
+        <span class="si">ii.</span>
+        <h3>Trilhas recorrentes</h3>
+        <p>Continuam sendo pagas aos herdeiros: as de prazo definido, pelo prazo
+        remanescente; as perpétuas, convertidas em <strong>36 meses</strong> a partir do
+        falecimento — horizonte real de reorganização financeira da família.</p>
+      </div>
+      <div class="sc">
+        <span class="si">iii.</span>
+        <h3>Aceleração de vesting</h3>
+        <p>Morte ou invalidez permanente aceleram <strong>100% do vesting</strong>: a participação
+        prometida consolida-se integralmente. A família não é punida pelo calendário.</p>
+      </div>
+      <div class="sc">
+        <span class="si">iv.</span>
+        <h3>Recompra obrigatória</h3>
+        <p>A casa compra a participação dos herdeiros a valor justo, por critério
+        definido em contrato e pagamento parcelado. A família recebe liquidez;
+        a casa não ganha herdeiros no quadro societário.</p>
+      </div>
+    </div>
+
+    <div class="plain">
+      <span class="pt">Em palavras simples</span>
+      <strong>Espólio</strong> é o conjunto de bens e direitos da pessoa falecida, administrado até a
+      partilha entre os herdeiros. A regra inteira se resume a isto: a receita que o
+      executivo já gerou continua chegando à família dele por um período de transição,
+      e a participação que ele construiu vira dinheiro — comprada pela casa, financiada
+      por um seguro. A invalidez permanente recebe o mesmo tratamento.
+    </div>
+
+    <div class="insurance">
+      <div>
+        <h3>O mecanismo que financia tudo:<br><em>seguro corporativo com cláusula buy-sell</em></h3>
+        <p>A casa contrata e paga seguro de vida sobre cada executivo elegível,
+        com capital dimensionado para cobrir a recompra da participação e as
+        trilhas convertidas — referência de 36× a receita média mensal das trilhas,
+        recalibrada anualmente.</p>
+      </div>
+      <div class="mech">
+        <div class="step"><b>01</b>O seguro paga à casa</div>
+        <div class="step"><b>02</b>A casa paga à família — recompra + trilhas</div>
+        <div class="step"><b>03</b>Ninguém escreve cheque do caixa</div>
+        <div class="step"><b>04</b>A família não depende da saúde financeira da casa no pior momento da vida dela</div>
+      </div>
+    </div>
+    <div class="ruler-divider" role="presentation"></div>
+  </div>
+</section>
+
+<!-- ============ 08 SIMULAÇÕES ============ -->
+<section id="simulacoes">
+  <div class="wrap reveal">
+    <div class="chapter-head">
+      <span class="chapter-no">08</span>
+      <div>
+        <p class="eyebrow">Simulações</p>
+        <h2>A régua aplicada a quatro situações</h2>
+      </div>
+    </div>
+    <p class="lede" style="margin-top:14px;">
+      Nomes, valores e taxas são fictícios e ilustrativos — escolhidos para demonstrar
+      o funcionamento da régua em cada categoria de negócio.
+    </p>
+
+    <!-- CASO 1 -->
+    <div class="case">
+      <div class="case-head">
+        <h3>Caso 1 · Grupo Almeida Têxtil</h3>
+        <div class="case-tags">
+          <span class="ctag dark">Papel: Negociador</span>
+          <span class="ctag">Cliente direto</span>
+        </div>
+      </div>
+      <div class="case-body">
+        <p class="narr">
+          Executivo origina relacionamento com família empresária do setor têxtil,
+          registra o deal memo e conduz a negociação até o fechamento de um mandato
+          de planejamento patrimonial: estruturação de holding (fee de evento) +
+          consultoria continuada (receita de serviço). Oito meses depois, a área de
+          estruturados monta um CRI para o grupo — <strong>sem participação ativa do
+          executivo</strong>, que figura como Originador no negócio derivado.
+        </p>
+        <table class="calc">
+          <thead>
+            <tr><th>Componente</th><th>Base</th><th>Régua</th><th>Resultado</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Camada 1 — estruturação da holding</td>
+              <td class="num">R$ 300.000 (evento)</td>
+              <td class="num">20%</td>
+              <td class="num">R$ 60.000 únicos</td>
+            </tr>
+            <tr>
+              <td>Camada 2 — consultoria continuada (serviço)</td>
+              <td class="num">R$ 45.000/mês</td>
+              <td class="num">20% × 36 meses</td>
+              <td class="num">R$ 9.000/mês · total R$ 324.000</td>
+            </tr>
+            <tr>
+              <td>Derivado — CRI conduzido por outra área</td>
+              <td class="num">R$ 500.000 (fee do CRI)</td>
+              <td class="num">10% (Originador)</td>
+              <td class="num">R$ 50.000 únicos</td>
+            </tr>
+            <tr class="total">
+              <td colspan="3">Economia total do executivo no relacionamento (36 meses)</td>
+              <td class="num">R$ 434.000</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="case-note">O derivado demonstra a atribuição por relacionamento: a área de
+        estruturados mantém integralmente sua execução e seu resultado — a fatia do
+        originador sai da margem da casa, remunerando a porta que tornou o CRI possível.</p>
+      </div>
+    </div>
+
+    <!-- CASO 2 -->
+    <div class="case">
+      <div class="case-head">
+        <h3>Caso 2 · Canal Veritas</h3>
+        <div class="case-tags">
+          <span class="ctag dark">Originação de canal</span>
+          <span class="ctag">Canal de geração de FIDCs</span>
+        </div>
+      </div>
+      <div class="case-body">
+        <p class="narr">
+          Executivo origina parceria com uma consultoria que se torna um <strong>canal de
+          geração de FIDCs</strong> para a casa. O produto segue o modelo comercial vigente:
+          cada FIDC gera repasse de <strong>20% da taxa de gestão</strong> ao comercial, por tempo
+          indeterminado, enquanto o veículo existir sob gestão da casa. A trilha de quem
+          originou o canal é <strong>20% dessa economia comercial</strong> — a política não cria regra
+          nova sobre o produto; ela reconhece quem construiu o canal que o alimenta.
+          No ano 1, o canal gera um FIDC de R$ 50 milhões; no ano 2, um segundo, de R$ 100 milhões.
+        </p>
+        <table class="calc">
+          <thead>
+            <tr><th>Veículo gerado pelo canal</th><th>Taxa de gestão (1% a.a.)</th><th>Repasse comercial (20% · modelo vigente)</th><th>Trilha do executivo (20% do repasse)</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>FIDC I — R$ 50M (ano 1)</td>
+              <td class="num">R$ 500.000/ano</td>
+              <td class="num">R$ 100.000/ano</td>
+              <td class="num">R$ 20.000/ano</td>
+            </tr>
+            <tr>
+              <td>FIDC II — R$ 100M (ano 2)</td>
+              <td class="num">R$ 1.000.000/ano</td>
+              <td class="num">R$ 200.000/ano</td>
+              <td class="num">R$ 40.000/ano</td>
+            </tr>
+            <tr class="total">
+              <td colspan="3">Trilha acumulada a partir do ano 2 — enquanto os veículos existirem sob a casa</td>
+              <td class="num">R$ 60.000/ano</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="case-note">A esteira é o ponto: cada novo FIDC gerado pelo canal soma uma trilha
+        nova, que se acumula às anteriores. O executivo tem incentivo permanente de nutrir
+        o canal — e a casa, de recebê-lo.</p>
+      </div>
+    </div>
+
+    <!-- CASO 3 -->
+    <div class="case">
+      <div class="case-head">
+        <h3>Caso 3 · Participação Atlântica</h3>
+        <div class="case-tags">
+          <span class="ctag dark">Papel: Negociador</span>
+          <span class="ctag">Evento de capital</span>
+        </div>
+      </div>
+      <div class="case-body">
+        <p class="narr">
+          Executivo origina e conduz a aquisição, pela casa, de 25% de uma consultoria
+          regional de investimentos por R$ 8 milhões. Não há receita de evento — há um
+          <strong>investimento de capital</strong>, remunerado pela tabela degressiva da Camada 1.1.
+        </p>
+        <table class="calc">
+          <thead>
+            <tr><th>Componente</th><th>Base</th><th>Régua</th><th>Resultado</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Camada 1.1 — fee sobre o valor da transação</td>
+              <td class="num">R$ 8.000.000 aportados</td>
+              <td class="num">4% (faixa R$ 5–20M)</td>
+              <td class="num">R$ 320.000 únicos</td>
+            </tr>
+            <tr class="total">
+              <td colspan="3">Fee de originação do evento de capital</td>
+              <td class="num">R$ 320.000</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="case-note">Se a sociedade adquirida passar a originar clientes para a casa,
+        configura-se também originação de canal — e a trilha de 20% da economia comercial
+        soma-se ao fee do evento.</p>
+      </div>
+    </div>
+
+    <!-- CASO 4 -->
+    <div class="case">
+      <div class="case-head">
+        <h3>Caso 4 · Plataforma Meridiana</h3>
+        <div class="case-tags">
+          <span class="ctag dark">Papel: Operador</span>
+          <span class="ctag">Veículo novo · 3 camadas</span>
+        </div>
+      </div>
+      <div class="case-body">
+        <p class="narr">
+          Executivo origina, negocia e é formalmente nomeado diretor de uma JV de
+          coordenação de projetos de ativos reais — casa com 80%, executivo com 20%
+          em vesting de 4 anos. O veículo cobra fee de coordenação dos projetos que
+          estrutura. Primeiro mandato: receita líquida de R$ 1,2 milhão/ano para a casa.
+        </p>
+        <table class="calc">
+          <thead>
+            <tr><th>Componente</th><th>Base</th><th>Régua</th><th>Resultado</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Camada 1 — fee de estruturação da JV</td>
+              <td class="num">R$ 200.000 (evento)</td>
+              <td class="num">30%</td>
+              <td class="num">R$ 60.000 únicos</td>
+            </tr>
+            <tr>
+              <td>Camada 2 — trilha sobre a receita da casa no veículo</td>
+              <td class="num">R$ 1.200.000/ano</td>
+              <td class="num">30% enquanto operar</td>
+              <td class="num">R$ 360.000/ano</td>
+            </tr>
+            <tr>
+              <td>Camada 3 — participação no veículo</td>
+              <td class="num">20% · vesting 4 anos</td>
+              <td class="num">cliff de 1 ano</td>
+              <td class="num">5% consolidados ao ano</td>
+            </tr>
+            <tr class="total">
+              <td colspan="3">Cenário ilustrativo de saída: venda do veículo por R$ 10M no ano 5</td>
+              <td class="num">fatia vestida = R$ 2.000.000</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="case-note">No papel de Operador, a trilha da Camada 2 cumpre a função de
+        remuneração variável pela gestão da frente — e o equity, vestindo ano a ano,
+        materializa o comprometimento de longo prazo que a casa exige.</p>
+      </div>
+    </div>
+
+    <p class="disclaimer">
+      Todos os nomes, valores, taxas e cenários desta seção são fictícios, criados
+      exclusivamente para demonstrar a mecânica da régua. Não representam negócios,
+      clientes ou contrapartes reais.
+    </p>
+    <div class="ruler-divider" role="presentation"></div>
+  </div>
+</section>
+
+<!-- ============ 09 GLOSSÁRIO ============ -->
+<section id="glossario">
+  <div class="wrap reveal">
+    <div class="chapter-head">
+      <span class="chapter-no">09</span>
+      <div>
+        <p class="eyebrow">Glossário</p>
+        <h2>Os termos deste documento, sem rodeios</h2>
+      </div>
+    </div>
+
+    <div class="gloss">
+      <dl class="g">
+        <dt>Originação</dt>
+        <dd>O ato de identificar uma oportunidade nova e trazê-la para a casa —
+        um cliente, um canal, uma sociedade que não existiria sem aquela pessoa.</dd>
+      </dl>
+      <dl class="g">
+        <dt>Deal memo</dt>
+        <dd>Ficha de uma página que registra a oportunidade com data e autoria,
+        antes do primeiro contato institucional. É o ato que cria o direito.</dd>
+      </dl>
+      <dl class="g">
+        <dt>Evento</dt>
+        <dd>Receita que acontece uma única vez, no fechamento do negócio —
+        taxa de montagem, honorário de êxito, comissão.</dd>
+      </dl>
+      <dl class="g">
+        <dt>Trilha recorrente</dt>
+        <dd>A "cauda" de receita: fração da receita mensal que o novo negócio gera,
+        paga a quem o originou pelo prazo do seu papel.</dd>
+      </dl>
+      <dl class="g">
+        <dt>Regime de caixa</dt>
+        <dd>A fatia só é devida quando o dinheiro entra na conta da casa —
+        não quando o contrato é assinado.</dd>
+      </dl>
+      <dl class="g">
+        <dt>True-up</dt>
+        <dd>Conferência final no fechamento: compara o papel registrado com o
+        efetivamente exercido. Só promove — nunca rebaixa.</dd>
+      </dl>
+      <dl class="g">
+        <dt>Rastro</dt>
+        <dd>O conjunto de evidências da condução: e-mails, reuniões, follow-ups.
+        Em divergência de papel, decide o rastro.</dd>
+      </dl>
+      <dl class="g">
+        <dt>Split</dt>
+        <dd>Divisão da economia de originação quando houve contribuição de terceiros.
+        O originador-líder mantém o piso de 70% e aloca o restante no registro.</dd>
+      </dl>
+      <dl class="g">
+        <dt>Equity / participação</dt>
+        <dd>Fatia societária em um negócio. Na política, sempre no negócio novo —
+        nunca na holding.</dd>
+      </dl>
+      <dl class="g">
+        <dt>Sweat equity</dt>
+        <dd>Participação societária ganha pelo trabalho entregue, e não por
+        dinheiro investido.</dd>
+      </dl>
+      <dl class="g">
+        <dt>Vesting &amp; cliff</dt>
+        <dd>Vesting: a participação se consolida aos poucos (4 anos, 25% ao ano).
+        Cliff: carência inicial de 1 ano em que nada se consolida. Saiu antes,
+        leva só o consolidado.</dd>
+      </dl>
+      <dl class="g">
+        <dt>Diluição pro rata</dt>
+        <dd>Se o negócio capta investidores, a fatia de todos os sócios encolhe
+        na mesma proporção — sem privilégios.</dd>
+      </dl>
+      <dl class="g">
+        <dt>Direito de primeira oferta</dt>
+        <dd>Toda oportunidade é oferecida primeiro à casa, que tem 10 dias úteis
+        para decidir. Recusa ou silêncio liberam o executivo para desenvolvê-la fora.</dd>
+      </dl>
+      <dl class="g">
+        <dt>Buy-sell (com seguro)</dt>
+        <dd>Acordo em que a casa compra a participação dos herdeiros em caso de
+        falecimento, com recursos de um seguro de vida que a própria casa contrata
+        sobre o executivo.</dd>
+      </dl>
+      <dl class="g">
+        <dt>Espólio</dt>
+        <dd>O conjunto de bens e direitos da pessoa falecida, administrado até
+        a partilha entre os herdeiros.</dd>
+      </dl>
+      <dl class="g">
+        <dt>Comitê de novos negócios</dt>
+        <dd>Grupo de três membros que valida enquadramentos, homologa true-ups e
+        arbitra divergências. Não altera a régua caso a caso.</dd>
+      </dl>
+    </div>
+    <div class="ruler-divider" role="presentation"></div>
+  </div>
+</section>
+
+<!-- ============ 10 FECHAMENTO ============ -->
+<section id="fechamento" class="dark">
+  <div class="wrap reveal">
+    <div class="chapter-head">
+      <span class="chapter-no">10</span>
+      <div>
+        <p class="eyebrow light">Equilíbrio do modelo</p>
+        <h2>O que cada lado leva da mesa</h2>
+      </div>
+    </div>
+
+    <div class="balance">
+      <div class="side">
+        <h3>A <em>casa</em> ganha</h3>
+        <ul>
+          <li>Um motor de originação institucional — sem depender de heroísmo individual</li>
+          <li>Direito de primeira oferta sobre toda oportunidade originada por seus executivos</li>
+          <li>Comprometimento de longo prazo materializado em vesting e cliff</li>
+          <li>Quadro societário da holding integralmente preservado</li>
+          <li>Regra única — fim das negociações caso a caso e do passivo de expectativas</li>
+          <li>Atração e retenção de perfil empreendedor sem inflar folha fixa</li>
+        </ul>
+      </div>
+      <div class="side">
+        <h3>O <em>executivo</em> ganha</h3>
+        <ul>
+          <li>Economia conhecida antes de trazer o negócio — nunca depois</li>
+          <li>Proteção objetiva da originação: registro, true-up e rastro</li>
+          <li>Trilhas que espelham a prática já vigente com o canal comercial</li>
+          <li>Construção patrimonial real em veículos que ajudou a criar</li>
+          <li>Liberação formal para desenvolver fora o que a casa recusar</li>
+          <li>Proteção da família — sucessão, aceleração e seguro</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="next">
+      <p class="eyebrow light">Próximos passos propostos</p>
+      <ol>
+        <li>Aprovação do modelo em conceito pelo comitê / sócios</li>
+        <li>Redação da minuta formal — Política + Termo de Adesão individual</li>
+        <li>Constituição do comitê de novos negócios e do fluxo de registro</li>
+        <li>Transição: enquadramento, em bloco, da carteira viva de oportunidades</li>
+      </ol>
+    </div>
+    <div class="ruler-divider light" role="presentation" style="margin-bottom:0;"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Política Comercial e de Originação · v1.0 · Junho 2026</span>
+    <span>Documento interno · Confidencial · Proposta para deliberação</span>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var els = document.querySelectorAll('.reveal');
+    if (reduced || !('IntersectionObserver' in window)) {
+      els.forEach(function(e){ e.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, {threshold: 0.08});
+    els.forEach(function(e){ io.observe(e); });
+  })();
+</script>
+</body>
+</html>
