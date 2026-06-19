@@ -755,10 +755,159 @@
   .reveal-delay-2 { transition-delay: 0.16s; }
   .reveal-delay-3 { transition-delay: 0.24s; }
 
+  /* =============== EXPORT FAB =============== */
+  .export-fab {
+    position: fixed; bottom: 28px; right: 28px; z-index: 70;
+    font-family: var(--font);
+  }
+  .export-trigger {
+    background: var(--somma-slate-800); color: var(--paper);
+    border: none; padding: 13px 20px 13px 16px; cursor: pointer;
+    font-family: var(--font); font-size: 12px; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 10px;
+    border-radius: var(--r-diag-sm);
+    box-shadow: 0 6px 20px rgba(28, 41, 49, 0.22);
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .export-trigger:hover {
+    background: var(--somma-slate-900); transform: translateY(-1px);
+    box-shadow: 0 10px 26px rgba(28, 41, 49, 0.28);
+  }
+  .export-trigger svg {
+    width: 16px; height: 16px; stroke-width: 1.6;
+    transition: transform 0.25s ease;
+  }
+  .export-fab.open .export-trigger svg.chevron { transform: rotate(180deg); }
+
+  .export-menu {
+    position: absolute; bottom: calc(100% + 12px); right: 0;
+    background: var(--paper); border: 1px solid var(--rule);
+    border-radius: var(--r-diag-md);
+    box-shadow: 0 16px 40px rgba(28, 41, 49, 0.14);
+    min-width: 320px; overflow: hidden;
+    opacity: 0; pointer-events: none; transform: translateY(8px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  .export-fab.open .export-menu {
+    opacity: 1; pointer-events: auto; transform: translateY(0);
+  }
+  .export-menu .menu-header {
+    padding: 14px 20px; background: var(--paper-2);
+    border-bottom: 1px solid var(--rule);
+    font-size: 10px; font-weight: 600; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--somma-slate);
+  }
+  .export-option {
+    width: 100%; background: transparent; border: none; cursor: pointer;
+    padding: 18px 20px; display: flex; align-items: center; gap: 16px;
+    text-align: left; border-bottom: 1px solid var(--rule);
+    font-family: var(--font); transition: background 0.15s ease;
+  }
+  .export-option:last-child { border-bottom: none; }
+  .export-option:hover { background: var(--paper-2); }
+  .export-option .ico-wrap {
+    width: 38px; height: 38px; background: var(--paper-2);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--somma-slate); flex-shrink: 0;
+    border-radius: var(--r-diag-sm);
+    border: 1px solid var(--rule);
+  }
+  .export-option:hover .ico-wrap {
+    background: var(--somma-slate); color: var(--paper); border-color: var(--somma-slate);
+  }
+  .export-option .ico-wrap svg { width: 18px; height: 18px; stroke-width: 1.5; }
+  .export-option .m-text { flex: 1; min-width: 0; }
+  .export-option .m-title {
+    font-size: 14px; font-weight: 600; color: var(--somma-slate-800);
+    margin-bottom: 3px; letter-spacing: -0.005em;
+  }
+  .export-option .m-sub {
+    font-size: 12px; color: var(--ink-2); line-height: 1.4;
+  }
+
+  .export-toast {
+    position: fixed; bottom: 96px; right: 28px; z-index: 80;
+    background: var(--somma-slate-800); color: var(--paper);
+    padding: 12px 18px; font-family: var(--font); font-size: 12px;
+    letter-spacing: 0.06em;
+    border-radius: var(--r-diag-sm);
+    box-shadow: 0 8px 24px rgba(28, 41, 49, 0.22);
+    opacity: 0; pointer-events: none; transform: translateY(8px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+  .export-toast.show { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 700px) {
+    .export-fab { bottom: 20px; right: 20px; }
+    .export-trigger { padding: 12px 16px 12px 14px; font-size: 11px; }
+    .export-menu { min-width: 280px; right: 0; }
+    .export-toast { left: 20px; right: 20px; text-align: center; }
+  }
+
+  /* =============== PRINT (PDF EXPORT) =============== */
   @media print {
-    .side-nav, .top-bar { display: none; }
-    section { min-height: auto; page-break-after: always; padding: 40px 24px; }
-    .reveal { opacity: 1; transform: none; }
+    @page { size: A4 landscape; margin: 0; }
+
+    * {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      color-adjust: exact !important;
+    }
+
+    html, body {
+      background: var(--paper) !important;
+      width: 297mm;
+      min-height: 100vh;
+    }
+
+    .top-bar, .side-nav, .export-fab, .export-toast { display: none !important; }
+
+    .reveal { opacity: 1 !important; transform: none !important; }
+
+    section {
+      min-height: 200mm !important;
+      page-break-after: always;
+      page-break-inside: avoid;
+      padding: 24mm 22mm !important;
+      display: flex !important;
+      flex-direction: column;
+      justify-content: center;
+    }
+    section.compact { min-height: 200mm !important; padding: 22mm 22mm !important; }
+    section:last-child { page-break-after: auto; }
+
+    /* Preserve dark sections */
+    #tese, #autonomia, #fechamento {
+      background-color: var(--somma-slate-800) !important;
+      color: var(--paper) !important;
+    }
+
+    /* Avoid breaking key blocks */
+    .compare-row, .step-item, .resumo-row, .formal-step,
+    .pillar, .perf-rule, .governance-item, .autonomy-card,
+    .date-hero, .perf-example, .resumo-card { page-break-inside: avoid; }
+
+    /* Container width */
+    .container, .container-wide { max-width: 100% !important; width: 100% !important; }
+
+    /* Slightly tighter type for print */
+    h1.display { font-size: 56px !important; }
+    h2.section-title { font-size: 40px !important; }
+    .hero-number { font-size: 200px !important; }
+    p.lead { font-size: 18px !important; }
+
+    /* Capa grid stays 2-col on landscape A4 */
+    .capa-grid { gap: 40px !important; }
+
+    /* Resumo card */
+    .resumo-card { box-shadow: none !important; }
+    .resumo-header { background: var(--somma-slate-800) !important; }
+    .resumo-row .key { background: var(--paper-2) !important; }
+    .resumo-footer { background: var(--paper-2) !important; }
+
+    /* Top bar shadow / borders that might leak */
+    .top-bar { box-shadow: none !important; border: none !important; }
   }
 </style>
 </head>
@@ -1258,6 +1407,41 @@
   </div>
 </section>
 
+<!-- EXPORT FAB -->
+<div class="export-fab" id="exportFab">
+  <button class="export-trigger" id="exportTrigger" aria-haspopup="menu" aria-expanded="false" aria-controls="exportMenu">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    <span>Exportar</span>
+    <svg xmlns="http://www.w3.org/2000/svg" class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+
+  <div class="export-menu" id="exportMenu" role="menu" aria-labelledby="exportTrigger">
+    <div class="menu-header">Baixar esta proposta</div>
+
+    <button class="export-option" id="btnExportPDF" role="menuitem">
+      <div class="ico-wrap">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 13h6"/><path d="M9 17h4"/></svg>
+      </div>
+      <div class="m-text">
+        <div class="m-title">Salvar como PDF</div>
+        <div class="m-sub">Abre o diálogo de impressão · ideal para envio formal</div>
+      </div>
+    </button>
+
+    <button class="export-option" id="btnExportHTML" role="menuitem">
+      <div class="ico-wrap">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      </div>
+      <div class="m-text">
+        <div class="m-title">Baixar arquivo HTML</div>
+        <div class="m-sub">Versão interativa, autocontida e off-line</div>
+      </div>
+    </button>
+  </div>
+</div>
+
+<div class="export-toast" id="exportToast">Preparando download&hellip;</div>
+
 <script>
   // Top bar shadow on scroll
   const topbar = document.getElementById('topbar');
@@ -1291,6 +1475,80 @@
     });
   }, { threshold: 0.35 });
   sections.forEach(s => sectionObserver.observe(s));
+
+  // =============== EXPORT ===============
+  const exportFab = document.getElementById('exportFab');
+  const exportTrigger = document.getElementById('exportTrigger');
+  const exportMenu = document.getElementById('exportMenu');
+  const exportToast = document.getElementById('exportToast');
+  const btnPDF = document.getElementById('btnExportPDF');
+  const btnHTML = document.getElementById('btnExportHTML');
+
+  function setFabOpen(open) {
+    exportFab.classList.toggle('open', open);
+    exportTrigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+
+  function showToast(msg, ms = 2200) {
+    exportToast.textContent = msg;
+    exportToast.classList.add('show');
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(() => exportToast.classList.remove('show'), ms);
+  }
+
+  exportTrigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    setFabOpen(!exportFab.classList.contains('open'));
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.export-fab')) setFabOpen(false);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setFabOpen(false);
+  });
+
+  // PDF export: trigger native print dialog (best fidelity)
+  btnPDF.addEventListener('click', () => {
+    setFabOpen(false);
+    showToast('Abrindo diálogo de impressão. No destino, escolha "Salvar como PDF".', 4000);
+    // Pequeno delay para o toast aparecer antes do bloqueio do print
+    setTimeout(() => window.print(), 400);
+  });
+
+  // HTML export: download a clean, self-contained copy of the page
+  btnHTML.addEventListener('click', () => {
+    setFabOpen(false);
+    try {
+      // Clona o documento e limpa estados dinâmicos para entregar versão "fresh"
+      const clone = document.documentElement.cloneNode(true);
+      clone.querySelectorAll('.reveal.visible').forEach(el => el.classList.remove('visible'));
+      clone.querySelectorAll('.scrolled').forEach(el => el.classList.remove('scrolled'));
+      clone.querySelectorAll('.side-nav a.active').forEach(el => el.classList.remove('active'));
+      const fab = clone.querySelector('.export-fab');
+      if (fab) fab.classList.remove('open');
+      const trig = clone.querySelector('#exportTrigger');
+      if (trig) trig.setAttribute('aria-expanded', 'false');
+      const toast = clone.querySelector('#exportToast');
+      if (toast) toast.classList.remove('show');
+
+      const html = '<!DOCTYPE html>\n' + clone.outerHTML;
+      const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Proposta_ZenTower_SOMMA_MFO.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      showToast('Arquivo HTML baixado.');
+    } catch (err) {
+      console.error(err);
+      showToast('Não foi possível baixar. Tente novamente.', 3200);
+    }
+  });
 </script>
 
 </body>
